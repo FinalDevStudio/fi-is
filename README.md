@@ -1,9 +1,7 @@
-is.js
+fi-is
 =====
 
-[![JS.ORG](https://img.shields.io/badge/js.org-is-ffb400.svg?style=flat-square)](http://js.org)
-
-####This is a general-purpose check library.
+####This is a general-purpose check library. Forked from [is_js](http://is.js.org/).
 - No dependencies
 - AMD, Node & browser ready
 
@@ -11,12 +9,12 @@ is.js
 
 Node.js:
 ```
-npm install is_js
+npm install fi-is
 ```
 
 Bower:
 ```
-bower install is_js
+bower install fi-is
 ```
 
 Build:
@@ -33,7 +31,7 @@ grunt test
 Thanks for considering to contribute. Check [here](CONTRIBUTING.md)
 
 ####Contributors:
-Many thanks to our contributors: https://github.com/arasatasaygin/is.js/graphs/contributors
+Many thanks to the original project [contributors](https://github.com/arasatasaygin/is.js/graphs/contributors).
 
 Type checks
 ===========
