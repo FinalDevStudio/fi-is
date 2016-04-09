@@ -1,7 +1,7 @@
 {
   "name": "fi-is",
   "version": "0.8.0",
-  "main": "is.js",
+  "main": "index.js",
   "license": "MIT",
   "description": "Micro check library for Node.js and the browser.",
   "repository": {

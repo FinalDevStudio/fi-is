@@ -1,16 +1,36 @@
 'use strict';
 
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var gulp = require('gulp');
-var del = require('del');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const gulp = require('gulp');
+const del = require('del');
 
-gulp.task('cleanup', function () {
-  del.sync('fi-is.min.js');
+var source = 'lib/fi-is.js';
+
+gulp.task('cleanup', () => {
+  return del.sync('dist/*.js');
 });
 
-gulp.task('default', ['cleanup'], function () {
-  return gulp.src('fi-is.js').
+gulp.task('compile', () => {
+  return gulp.src(source).
+
+  pipe(uglify({
+    compress: false,
+    mangle: false,
+    output: {
+      beautify: true
+    }
+  })).
+
+  pipe(rename({
+    extname: '.js'
+  })).
+
+  pipe(gulp.dest('dist'));
+});
+
+gulp.task('minify', () => {
+  return gulp.src(source).
 
   pipe(uglify()).
 
@@ -18,5 +38,7 @@ gulp.task('default', ['cleanup'], function () {
     extname: '.min.js'
   })).
 
-  pipe(gulp.dest('.'));
+  pipe(gulp.dest('dist'));
 });
+
+gulp.task('default', ['cleanup', 'compile', 'minify']);

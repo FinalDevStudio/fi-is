@@ -1,6 +1,6 @@
 {
   "name": "fi-is",
-  "main": "is.js",
+  "main": "dist/fi-is.js",
   "version": "0.8.0",
   "homepage": "https://github.com/finaldevstudio/fi-is",
   "authors": [
