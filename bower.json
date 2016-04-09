@@ -1,10 +1,11 @@
 {
-  "name": "is_js",
+  "name": "fi-is",
   "main": "is.js",
   "version": "0.8.0",
-  "homepage": "http://arasatasaygin.github.io/is.js/",
+  "homepage": "http://finaldevstudio.github.io/fi-is/",
   "authors": [
-    "arasatasaygin <arasatasaygin@gmail.com>"
+    "arasatasaygin <arasatasaygin@gmail.com>",
+    "Santiago G. Marín <santiago@finaldevstudio.com>"
   ],
   "description": "micro check library",
   "moduleType": [
