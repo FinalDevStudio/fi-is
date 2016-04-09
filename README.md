@@ -1,7 +1,7 @@
 fi-is
 =====
 
-####This is a general-purpose check library. Forked from [is_js](http://is.js.org/).
+####This is a general-purpose check library. Forked from [arasatasaygin/is.js](https://github.com/arasatasaygin/is.js).
 - No dependencies
 - AMD, Node & browser ready
 
