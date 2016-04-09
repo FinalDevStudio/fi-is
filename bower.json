@@ -2,12 +2,12 @@
   "name": "fi-is",
   "main": "is.js",
   "version": "0.8.0",
-  "homepage": "http://finaldevstudio.github.io/fi-is/",
+  "homepage": "https://github.com/finaldevstudio/fi-is",
   "authors": [
     "arasatasaygin <arasatasaygin@gmail.com>",
     "Santiago G. Marín <santiago@finaldevstudio.com>"
   ],
-  "description": "micro check library",
+  "description": "Micro check library for Node.js and the browser.",
   "moduleType": [
     "amd",
     "globals",
@@ -32,5 +32,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "chai": "^3.5.0"
+  }
 }
