@@ -1,17 +1,17 @@
 {
-  "name": "is_js",
+  "name": "fi-is",
   "version": "0.8.0",
   "main": "is.js",
   "license": "MIT",
   "description": "micro check library",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arasatasaygin/is.js.git"
+    "url": "https://github.com/finaldevstudio/fi-is.git"
   },
   "bugs": {
-    "url": "https://github.com/arasatasaygin/is.js/issues"
+    "url": "https://github.com/finaldevstudio/fi-is/issues"
   },
-  "homepage": "https://github.com/arasatasaygin/is.js",
+  "homepage": "https://github.com/finaldevstudio/fi-is",
   "devDependencies": {
     "chai": "^3.4.0",
     "grunt": "~0.4.5",
