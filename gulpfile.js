@@ -1,20 +1,33 @@
 'use strict';
 
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const browserify = require('browserify');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const gulp = require('gulp');
 const del = require('del');
 
-var source = 'lib/index.js';
+var src = './lib/index.js';
 
 gulp.task('cleanup', () => {
   return del.sync('dist/*.js');
 });
 
-gulp.task('compile', () => {
-  return gulp.src(source).
+function build(min) {
+  var b = browserify({
+    standalone: 'is',
+    entries: src,
+    debug: true
+  });
 
-  pipe(uglify({
+  return b.bundle().
+
+  pipe(source('bundle.js')).
+
+  pipe(buffer()).
+
+  pipe(uglify(min ? null : {
     compress: false,
     mangle: false,
     output: {
@@ -24,23 +37,18 @@ gulp.task('compile', () => {
 
   pipe(rename({
     basename: 'fi-is',
-    extname: '.js'
+    extname: min ? '.min.js' : '.js'
   })).
 
   pipe(gulp.dest('dist'));
+}
+
+gulp.task('compile', () => {
+  return build(false);
 });
 
 gulp.task('minify', () => {
-  return gulp.src(source).
-
-  pipe(uglify()).
-
-  pipe(rename({
-    basename: 'fi-is',
-    extname: '.min.js'
-  })).
-
-  pipe(gulp.dest('dist'));
+  return build(true);
 });
 
 gulp.task('default', ['cleanup', 'compile', 'minify']);
