@@ -1,6 +1,8 @@
 fi-is
 =====
 
+[![Build Status](https://travis-ci.org/FinalDevStudio/fi-is.svg?branch=master)](https://travis-ci.org/FinalDevStudio/fi-is)
+
 ####This is a general-purpose check library. Forked from [arasatasaygin/is.js](https://github.com/arasatasaygin/is.js).
 - No dependencies
 - AMD, Node & browser ready
