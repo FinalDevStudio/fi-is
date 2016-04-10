@@ -1,36 +1,34 @@
-fi-is
+fi-is [![Build Status](https://travis-ci.org/FinalDevStudio/fi-is.svg?branch=master)](https://travis-ci.org/FinalDevStudio/fi-is)
 =====
 
-[![Build Status](https://travis-ci.org/FinalDevStudio/fi-is.svg?branch=master)](https://travis-ci.org/FinalDevStudio/fi-is)
-
-####This is a general-purpose check library. Forked from [arasatasaygin/is.js](https://github.com/arasatasaygin/is.js).
+####A general purpose check library.
+Forked from [arasatasaygin/is.js](https://github.com/arasatasaygin/is.js).
 - No dependencies
 - AMD, Node & browser ready
 
 ####Usage:
-
 Node.js:
 ```
-npm install fi-is
+npm install --save fi-is
 ```
 
 Bower:
 ```
-bower install fi-is
-```
-
-Build:
-```
-grunt build
-```
-
-Test:
-```
-grunt test
+bower install --save fi-is
 ```
 
 ####Contributing:
 Thanks for considering to contribute. Check [here](CONTRIBUTING.md)
+
+Build:
+```
+glulp build
+```
+
+Test:
+```
+npm test
+```
 
 ####Contributors:
 Many thanks to the original project [contributors](https://github.com/arasatasaygin/is.js/graphs/contributors).
@@ -47,6 +45,7 @@ interfaces: not, all, any
 var getArguments = function() {
     return arguments;
 };
+
 var arguments = getArguments();
 
 is.arguments(arguments);
