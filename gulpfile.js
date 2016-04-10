@@ -5,7 +5,7 @@ const uglify = require('gulp-uglify');
 const gulp = require('gulp');
 const del = require('del');
 
-var source = 'lib/fi-is.js';
+var source = 'lib/index.js';
 
 gulp.task('cleanup', () => {
   return del.sync('dist/*.js');
@@ -23,6 +23,7 @@ gulp.task('compile', () => {
   })).
 
   pipe(rename({
+    basename: 'fi-is',
     extname: '.js'
   })).
 
@@ -35,6 +36,7 @@ gulp.task('minify', () => {
   pipe(uglify()).
 
   pipe(rename({
+    basename: 'fi-is',
     extname: '.min.js'
   })).
 
