@@ -44,48 +44,48 @@
     }({
         1: [ function(require, module, exports) {
             module.exports = function(is, not) {
-                is.equal = function(value1, value2) {
-                    if (is.all.number(value1, value2)) {
-                        return value1 === value2 && 1 / value1 === 1 / value2;
+                is.equal = function(a, b) {
+                    if (is.all.number(a, b)) {
+                        return a === b && 1 / a === 1 / b;
                     }
-                    if (is.all.string(value1, value2) || is.all.regexp(value1, value2)) {
-                        return "" + value1 === "" + value2;
+                    if (is.all.string(a, b) || is.all.regexp(a, b)) {
+                        return "" + a === "" + b;
                     }
-                    if (is.all.boolean(value1, value2)) {
-                        return value1 === value2;
+                    if (is.all.boolean(a, b)) {
+                        return a === b;
                     }
                     return false;
                 };
                 is.equal.api = [ "not" ];
-                is.even = function(numb) {
-                    return is.number(numb) && numb % 2 === 0;
+                is.even = function(num) {
+                    return is.number(num) && num % 2 === 0;
                 };
-                is.odd = function(numb) {
-                    return is.number(numb) && numb % 2 === 1;
+                is.odd = function(num) {
+                    return is.number(num) && num % 2 === 1;
                 };
-                is.positive = function(numb) {
-                    return is.number(numb) && numb > 0;
+                is.positive = function(num) {
+                    return is.number(num) && num > 0;
                 };
-                is.negative = function(numb) {
-                    return is.number(numb) && numb < 0;
+                is.negative = function(num) {
+                    return is.number(num) && num < 0;
                 };
-                is.above = function(numb, min) {
-                    return is.all.number(numb, min) && numb > min;
+                is.above = function(num, min) {
+                    return is.all.number(num, min) && num > min;
                 };
                 is.above.api = [ "not" ];
-                is.under = function(numb, max) {
-                    return is.all.number(numb, max) && numb < max;
+                is.under = function(num, max) {
+                    return is.all.number(num, max) && num < max;
                 };
                 is.under.api = [ "not" ];
-                is.within = function(numb, min, max) {
-                    return is.all.number(numb, min, max) && numb > min && numb < max;
+                is.within = function(num, min, max) {
+                    return is.all.number(num, min, max) && num > min && num < max;
                 };
                 is.within.api = [ "not" ];
-                is.decimal = function(numb) {
-                    return is.number(numb) && numb % 1 !== 0;
+                is.decimal = function(num) {
+                    return is.number(num) && num % 1 !== 0;
                 };
-                is.integer = function(numb) {
-                    return is.number(numb) && numb % 1 === 0;
+                is.integer = function(num) {
+                    return is.number(num) && num % 1 === 0;
                 };
                 is.finite = isFinite || function(numb) {
                     return numb !== Infinity && numb !== -Infinity && is.not.nan(numb);
@@ -269,14 +269,14 @@
                 }
                 function all(func) {
                     return function() {
-                        var parameters = Array.prototype.slice.call(arguments);
-                        var length = parameters.length;
-                        if (length === 1 && is.array(parameters[0])) {
-                            parameters = parameters[0];
-                            length = parameters.length;
+                        var args = Array.prototype.slice.call(arguments);
+                        var len = args.length;
+                        if (len === 1 && is.array(args[0])) {
+                            args = args[0];
+                            len = args.length;
                         }
-                        for (var i = 0; i < length; i++) {
-                            if (!func.call(null, parameters[i])) {
+                        for (var i = 0; i < len; i++) {
+                            if (!func.call(null, args[i])) {
                                 return false;
                             }
                         }
@@ -285,21 +285,21 @@
                 }
                 function any(func) {
                     return function() {
-                        var parameters = Array.prototype.slice.call(arguments);
-                        var length = parameters.length;
-                        if (length === 1 && is.array(parameters[0])) {
-                            parameters = parameters[0];
-                            length = parameters.length;
+                        var args = Array.prototype.slice.call(arguments);
+                        var len = args.length;
+                        if (len === 1 && is.array(args[0])) {
+                            args = args[0];
+                            len = args.length;
                         }
-                        for (var i = 0; i < length; i++) {
-                            if (func.call(null, parameters[i])) {
+                        for (var i = 0; i < len; i++) {
+                            if (func.call(null, args[i])) {
                                 return true;
                             }
                         }
                         return false;
                     };
                 }
-                require("./type")(is, not);
+                require("./type")(is);
                 require("./presence")(is, not);
                 require("./arithmetic")(is, not);
                 require("./regexp")(is, regexps);
@@ -308,30 +308,26 @@
                 require("./environment")(is, not);
                 require("./object")(is);
                 require("./array")(is);
-                function setInterfaces() {
-                    var options = is;
-                    for (var option in options) {
-                        if (Object.prototype.hasOwnProperty.call(options, option) && is.function(options[option])) {
-                            var interfaces = options[option].api || [ "not", "all", "any" ];
-                            for (var i = 0; i < interfaces.length; i++) {
-                                if (interfaces[i] === "not") {
-                                    is.not[option] = not(is[option]);
-                                }
-                                if (interfaces[i] === "all") {
-                                    is.all[option] = all(is[option]);
-                                }
-                                if (interfaces[i] === "any") {
-                                    is.any[option] = any(is[option]);
-                                }
+                for (var method in is) {
+                    if (is.hasOwnProperty(method) && is.function(is[method])) {
+                        var ifaces = is[method].api || [ "not", "all", "any" ];
+                        for (var i = 0, l = ifaces.length; i < l; i++) {
+                            if (ifaces[i] === "not") {
+                                is.not[method] = not(is[method]);
+                            }
+                            if (ifaces[i] === "all") {
+                                is.all[method] = all(is[method]);
+                            }
+                            if (ifaces[i] === "any") {
+                                is.any[method] = any(is[method]);
                             }
                         }
                     }
                 }
-                setInterfaces();
-                is.setRegexp = function(regexp, regexpName) {
-                    for (var r in regexps) {
-                        if (Object.prototype.hasOwnProperty.call(regexps, r) && regexpName === r) {
-                            regexps[r] = regexp;
+                is.setRegexp = function(reg, key) {
+                    for (var name in regexps) {
+                        if (regexps.hasOwnProperty(name) && key === name) {
+                            regexps[name] = reg;
                         }
                     }
                 };
@@ -415,15 +411,15 @@
         }, {} ],
         7: [ function(require, module, exports) {
             module.exports = function(is, regexps) {
-                for (var regexp in regexps) {
-                    if (regexps.hasOwnProperty(regexp)) {
-                        regexpCheck(regexp, regexps);
-                    }
-                }
                 function regexpCheck(regexp, regexps) {
                     is[regexp] = function(value) {
                         return regexps[regexp].test(value);
                     };
+                }
+                for (var regexp in regexps) {
+                    if (regexps.hasOwnProperty(regexp)) {
+                        regexpCheck(regexp, regexps);
+                    }
                 }
             };
         }, {} ],
