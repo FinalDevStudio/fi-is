@@ -12,7 +12,7 @@
     "url": "https://github.com/finaldevstudio/fi-is/issues"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start"
+    "test": "node test/node & ./node_modules/karma/bin/karma start"
   },
   "homepage": "https://github.com/finaldevstudio/fi-is",
   "devDependencies": {
