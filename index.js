@@ -1,1 +1,1 @@
-require('./lib/fi-is.js');
+module.exports = require('./lib');
