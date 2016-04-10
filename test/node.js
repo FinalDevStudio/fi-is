@@ -13,7 +13,7 @@ global.is = require('../lib');
 
 fs.readdir(testDir, (err, files) => {
   files.forEach((file) => {
-    if (path.extname(file) === '.js' && path.basename(file, '.js') !== 'browser') {
+    if (path.extname(file) === '.js' && file !== 'browser.js') {
       mocha.addFile(path.join(testDir, file));
     }
   });

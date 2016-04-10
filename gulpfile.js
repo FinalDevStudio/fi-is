@@ -27,7 +27,19 @@ function build(min) {
 
   pipe(buffer()).
 
-  pipe(uglify(min ? null : {
+  pipe(uglify(min ? {
+    mangle: true,
+    compress: {
+      sequences: true,
+      dead_code: true,
+      conditionals: true,
+      booleans: true,
+      unused: true,
+      if_return: true,
+      join_vars: true,
+      drop_console: true
+    }
+  } : {
     compress: false,
     mangle: false,
     output: {
