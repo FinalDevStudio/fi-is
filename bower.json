@@ -1,6 +1,6 @@
 {
   "name": "fi-is",
-  "main": "dist/fi-is.js",
+  "main": "dist/fi-is.min.js",
   "version": "0.8.0",
   "homepage": "http://finaldevstudio.github.io/fi-is/",
   "authors": [
@@ -31,6 +31,7 @@
     "node_modules",
     "bower_components",
     "test",
+    "lib",
     "tests"
   ],
   "devDependencies": {
