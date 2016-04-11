@@ -1,4 +1,5 @@
 describe("regexp checks", function () {
+
   describe("is.url", function () {
     it("should return true if given value is url", function () {
       expect(is.url('http://www.example.com')).to.be.true;
@@ -794,4 +795,13 @@ describe("regexp checks", function () {
       expect(is.any.ipv6(['1.2.3.', '78FF:::::::L'])).to.be.false;
     });
   });
+
+  describe("is.setRegexp", function () {
+    it("should allow to change a specific regexp definition", function () {
+      expect(is.email('test@example.com')).to.be.true;
+      is.setRegexp(/notemail/, 'email');
+      expect(is.email('test@example.com')).to.be.false;
+    });
+  });
+
 });
