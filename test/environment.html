@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Fi-is environment tests</title>
+  <style>
+    body {
+      font-family: monospace;
+    }
+
+    table {
+      text-align: left;
+    }
+
+    thead {
+      background-color: gray;
+      color: white;
+    }
+
+    table td,
+    table th {
+      padding: 0.25em 3em 0.25em 1em;
+    }
+
+    td.false {
+      color: red;
+    }
+
+    td.true {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <p>
+    This page is meant to be opened on each different browser and devices and check if the log results are accurate.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Check</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+  </table>
+
+  <script src="../dist/fi-is.min.js"></script>
+
+  <script>
+    var tableBody = document.getElementsByTagName('tbody')[0];
+
+    /* Method names to check for */
+    var tests = [
+      /* Browsers */
+      'chrome', 'firefox', 'edge', 'ie', 'opera', 'safari',
+      /* Devices */
+      'iphone', 'ipad', 'ipod', 'androidPhone', 'androidTablet', 'desktop',
+      'windowsPhone', 'windowsTablet', 'mobile', 'tablet', 'touchDevice',
+      /* Platforms */
+      'linux', 'android', 'mac', 'ios', 'windows', 'blackberry',
+      /* Statuses */
+      'online', 'offline'
+    ];
+
+    /* Run tests and add results */
+    var frag = document.createDocumentFragment();
+
+    for (var i = 0, l = tests.length; i < l; i++) {
+      var tr = document.createElement('tr');
+      var th = document.createElement('th');
+      var td = document.createElement('td');
+
+      th.innerHTML = tests[i];
+      td.innerHTML = is[tests[i]]();
+      td.className = td.innerHTML;
+
+      tr.appendChild(th);
+      tr.appendChild(td);
+
+      frag.appendChild(tr);
+    }
+
+    tableBody.appendChild(frag);
+  </script>
+</body>
+
+</html>
