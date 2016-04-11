@@ -23,6 +23,70 @@ describe("arithmetic checks", function () {
     it("should return false if given two boolean are not same", function () {
       expect(is.equal(false, true)).to.be.false;
     });
+
+    it("should return true if given two arrays are same", function () {
+      expect(is.equal([1, 2], [1, 2])).to.be.true;
+    });
+
+    it("should return false if given two arrays are not same", function () {
+      expect(is.equal([1, 2], [1, 3])).to.be.false;
+    });
+
+    it("should return true if given two nested arrays are same", function () {
+      expect(is.equal([
+        [1],
+        ['test']
+      ], [
+        [1],
+        ['test']
+      ])).to.be.true;
+    });
+
+    it("should return false if given two nested arrays are not same", function () {
+      expect(is.equal([
+        [1],
+        ['test']
+      ], [
+        [1],
+        ['not test']
+      ])).to.be.false;
+    });
+
+    it("should return false if given two deep nested arrays are the same", function () {
+      expect(is.equal([
+        [
+          [1, 2, [3, [4, 5]]]
+        ],
+        [
+          ['foo', ['bar']]
+        ]
+      ], [
+        [
+          [1, 2, [3, [4, 5]]]
+        ],
+        [
+          ['foo', ['bar']]
+        ]
+      ])).to.be.true;
+    });
+
+    it("should return false if given two deep nested arrays are not same", function () {
+      expect(is.equal([
+        [
+          [1, 2, [3, [4, 5]]]
+        ],
+        [
+          ['foo', ['bar']]
+        ]
+      ], [
+        [
+          [1, 2, [3, [4, 5]]]
+        ],
+        [
+          ['foo', ['bas']]
+        ]
+      ])).to.be.false;
+    });
   });
 
   describe("is.not.equal", function () {
