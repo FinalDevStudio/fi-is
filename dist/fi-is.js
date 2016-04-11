@@ -43,7 +43,7 @@
         return s;
     }({
         1: [ function(require, module, exports) {
-            module.exports = function(is, not) {
+            module.exports = function(is) {
                 is.equal = function(a, b) {
                     if (is.all.number(a, b)) {
                         return a === b && 1 / a === 1 / b;
@@ -113,10 +113,15 @@
                 is.integer = function(num) {
                     return is.number(num) && num % 1 === 0;
                 };
-                is.finite = isFinite || function(numb) {
-                    return numb !== Infinity && numb !== -Infinity && is.not.nan(numb);
+                is.finite = function(num) {
+                    if (typeof isFinite === "function") {
+                        return isFinite(num);
+                    }
+                    return num !== Infinity && num !== -Infinity && is.not.nan(num);
                 };
-                is.infinite = not(is.finite);
+                is.infinite = function(num) {
+                    return is.not.finite(num);
+                };
             };
         }, {} ],
         2: [ function(require, module, exports) {
@@ -148,7 +153,7 @@
         }, {} ],
         3: [ function(require, module, exports) {
             (function(process) {
-                module.exports = function(is, not) {
+                module.exports = function(is) {
                     var browser = typeof window !== "undefined";
                     var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
                     var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
@@ -256,7 +261,9 @@
                         return browser && navigator && navigator.onLine;
                     };
                     is.online.api = [ "not" ];
-                    is.offline = not(is.online);
+                    is.offline = function() {
+                        return is.not.online();
+                    };
                     is.offline.api = [ "not" ];
                     is.touchDevice = function() {
                         return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
@@ -337,12 +344,12 @@
                     };
                 }
                 require("./type")(is);
-                require("./presence")(is, not);
-                require("./arithmetic")(is, not);
+                require("./presence")(is);
+                require("./arithmetic")(is);
                 require("./regexp")(is, regexps);
                 require("./string")(is);
-                require("./time")(is, not);
-                require("./environment")(is, not);
+                require("./time")(is);
+                require("./environment")(is);
                 require("./object")(is);
                 require("./array")(is);
                 for (var method in is) {
@@ -417,7 +424,7 @@
             };
         }, {} ],
         6: [ function(require, module, exports) {
-            module.exports = function(is, not) {
+            module.exports = function(is) {
                 is.empty = function(val) {
                     if (is.string(val)) {
                         return val === "";
@@ -434,7 +441,9 @@
                 is.truthy = function(val) {
                     return is.existy(val) && val !== false && is.not.nan(val) && val !== "" && val !== 0;
                 };
-                is.falsy = not(is.truthy);
+                is.falsy = function(val) {
+                    return is.not.truthy(val);
+                };
                 is.space = function(val) {
                     if (is.char(val)) {
                         var code = val.charCodeAt(0);
@@ -495,7 +504,7 @@
             };
         }, {} ],
         9: [ function(require, module, exports) {
-            module.exports = function(is, not) {
+            module.exports = function(is) {
                 var days = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
                 var months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ];
                 is.today = function(date) {
@@ -512,7 +521,9 @@
                 is.past = function(obj) {
                     return is.date(obj) && obj.getTime() < new Date().getTime();
                 };
-                is.future = not(is.past);
+                is.future = function(date) {
+                    return is.not.past(date);
+                };
                 is.day = function(date, day) {
                     return is.date(date) && day.toLowerCase() === days[date.getDay()];
                 };
@@ -531,7 +542,9 @@
                 is.weekend = function(date) {
                     return is.date(date) && (date.getDay() === 6 || date.getDay() === 0);
                 };
-                is.weekday = not(is.weekend);
+                is.weekday = function(date) {
+                    return is.not.weekend(date);
+                };
                 is.inDateRange = function(date, start, end) {
                     if (is.not.date(date) || is.not.date(start) || is.not.date(end)) {
                         return false;
@@ -574,7 +587,10 @@
                 is.arguments = function(val) {
                     return is.not.null(val) && (Object.prototype.toString.call(val) === "[object Arguments]" || typeof val === "object" && "callee" in val);
                 };
-                is.array = Array.isArray || function(val) {
+                is.array = function(val) {
+                    if (typeof Array.isArray === "function") {
+                        return Array.isArray(val);
+                    }
                     return Object.prototype.toString.call(val) === "[object Array]";
                 };
                 is.boolean = function(val) {
