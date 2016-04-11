@@ -121,123 +121,129 @@
             };
         }, {} ],
         3: [ function(require, module, exports) {
-            module.exports = function(is, not) {
-                var browser = typeof window !== "undefined";
-                var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
-                var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
-                is.node = function() {
-                    return !browser;
+            (function(process) {
+                module.exports = function(is, not) {
+                    var browser = typeof window !== "undefined";
+                    var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
+                    var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
+                    is.chrome = function() {
+                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge();
+                    };
+                    is.chrome.api = [ "not" ];
+                    is.firefox = function() {
+                        return browser && /Firefox\//.test(userAgent);
+                    };
+                    is.firefox.api = [ "not" ];
+                    is.edge = function() {
+                        return browser && /Edge\//.test(userAgent);
+                    };
+                    is.edge.api = [ "not" ];
+                    is.ie = function(ver) {
+                        if (!ver) {
+                            return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
+                        }
+                        if (ver >= 11) {
+                            return browser && "ActiveXObject" in window;
+                        }
+                        return browser && new RegExp("MSIE " + ver).test(userAgent);
+                    };
+                    is.ie.api = [ "not" ];
+                    is.opera = function() {
+                        return browser && /(Opera|OPR)\//.test(userAgent);
+                    };
+                    is.opera.api = [ "not" ];
+                    is.safari = function() {
+                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge();
+                    };
+                    is.safari.api = [ "not" ];
+                    is.vivaldi = function() {
+                        return browser && /Vivaldi/.test(userAgent);
+                    };
+                    is.vivaldi.api = [ "not" ];
+                    is.ios = function() {
+                        return browser && (is.iphone() || is.ipad() || is.ipod());
+                    };
+                    is.ios.api = [ "not" ];
+                    is.iphone = function() {
+                        return browser && /iphone/i.test(userAgent);
+                    };
+                    is.iphone.api = [ "not" ];
+                    is.ipad = function() {
+                        return browser && /ipad/i.test(userAgent);
+                    };
+                    is.ipad.api = [ "not" ];
+                    is.ipod = function() {
+                        return browser && /ipod/i.test(userAgent);
+                    };
+                    is.ipod.api = [ "not" ];
+                    is.android = function() {
+                        return browser && /android/i.test(userAgent);
+                    };
+                    is.android.api = [ "not" ];
+                    is.androidPhone = function() {
+                        return browser && /android/i.test(userAgent) && /mobile/i.test(userAgent);
+                    };
+                    is.androidPhone.api = [ "not" ];
+                    is.androidTablet = function() {
+                        return browser && /android/i.test(userAgent) && !/mobile/i.test(userAgent);
+                    };
+                    is.androidTablet.api = [ "not" ];
+                    is.blackberry = function() {
+                        return browser && (/blackberry/i.test(userAgent) || /BB10/i.test(userAgent));
+                    };
+                    is.blackberry.api = [ "not" ];
+                    is.desktop = function() {
+                        return browser && is.not.mobile() && is.not.tablet();
+                    };
+                    is.desktop.api = [ "not" ];
+                    is.linux = function() {
+                        return browser && /linux/i.test(appVersion) && is.not.android();
+                    };
+                    is.linux.api = [ "not" ];
+                    is.osx = function() {
+                        return browser && /mac/i.test(appVersion);
+                    };
+                    is.osx.api = [ "not" ];
+                    is.mac = is.osx;
+                    is.mac.api = [ "not" ];
+                    is.windows = function() {
+                        return browser && /win/i.test(appVersion);
+                    };
+                    is.windows.api = [ "not" ];
+                    is.windowsPhone = function() {
+                        return browser && is.windows() && /phone/i.test(userAgent);
+                    };
+                    is.windowsPhone.api = [ "not" ];
+                    is.windowsTablet = function() {
+                        return browser && is.windows() && is.not.windowsPhone() && /touch/i.test(userAgent);
+                    };
+                    is.windowsTablet.api = [ "not" ];
+                    is.mobile = function() {
+                        return browser && (is.iphone() || is.ipod() || is.androidPhone() || is.blackberry() || is.windowsPhone());
+                    };
+                    is.mobile.api = [ "not" ];
+                    is.tablet = function() {
+                        return browser && (is.ipad() || is.androidTablet() || is.windowsTablet());
+                    };
+                    is.tablet.api = [ "not" ];
+                    is.online = function() {
+                        return browser && navigator && navigator.onLine;
+                    };
+                    is.online.api = [ "not" ];
+                    is.offline = not(is.online);
+                    is.offline.api = [ "not" ];
+                    is.touchDevice = function() {
+                        return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
+                    };
+                    is.touchDevice.api = [ "not" ];
+                    is.node = function() {
+                        return !browser && typeof process === "object";
+                    };
                 };
-                is.chrome = function() {
-                    return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge();
-                };
-                is.chrome.api = [ "not" ];
-                is.firefox = function() {
-                    return browser && /Firefox\//.test(userAgent);
-                };
-                is.firefox.api = [ "not" ];
-                is.edge = function() {
-                    return browser && /Edge\//.test(userAgent);
-                };
-                is.edge.api = [ "not" ];
-                is.ie = function(version) {
-                    if (!version) {
-                        return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
-                    }
-                    if (version >= 11) {
-                        return browser && "ActiveXObject" in window;
-                    }
-                    return browser && new RegExp("MSIE " + version).test(userAgent);
-                };
-                is.ie.api = [ "not" ];
-                is.opera = function() {
-                    return browser && /(Opera|OPR)\//.test(userAgent);
-                };
-                is.opera.api = [ "not" ];
-                is.safari = function() {
-                    return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge();
-                };
-                is.safari.api = [ "not" ];
-                is.vivaldi = function() {
-                    return browser && /Vivaldi/.test(userAgent);
-                };
-                is.vivaldi.api = [ "not" ];
-                is.ios = function() {
-                    return browser && (is.iphone() || is.ipad() || is.ipod());
-                };
-                is.ios.api = [ "not" ];
-                is.iphone = function() {
-                    return browser && /iphone/i.test(userAgent);
-                };
-                is.iphone.api = [ "not" ];
-                is.ipad = function() {
-                    return browser && /ipad/i.test(userAgent);
-                };
-                is.ipad.api = [ "not" ];
-                is.ipod = function() {
-                    return browser && /ipod/i.test(userAgent);
-                };
-                is.ipod.api = [ "not" ];
-                is.android = function() {
-                    return browser && /android/i.test(userAgent);
-                };
-                is.android.api = [ "not" ];
-                is.androidPhone = function() {
-                    return browser && /android/i.test(userAgent) && /mobile/i.test(userAgent);
-                };
-                is.androidPhone.api = [ "not" ];
-                is.androidTablet = function() {
-                    return browser && /android/i.test(userAgent) && !/mobile/i.test(userAgent);
-                };
-                is.androidTablet.api = [ "not" ];
-                is.blackberry = function() {
-                    return browser && (/blackberry/i.test(userAgent) || /BB10/i.test(userAgent));
-                };
-                is.blackberry.api = [ "not" ];
-                is.desktop = function() {
-                    return browser && is.not.mobile() && is.not.tablet();
-                };
-                is.desktop.api = [ "not" ];
-                is.linux = function() {
-                    return browser && /linux/i.test(appVersion) && is.not.android();
-                };
-                is.linux.api = [ "not" ];
-                is.mac = function() {
-                    return browser && /mac/i.test(appVersion);
-                };
-                is.mac.api = [ "not" ];
-                is.windows = function() {
-                    return browser && /win/i.test(appVersion);
-                };
-                is.windows.api = [ "not" ];
-                is.windowsPhone = function() {
-                    return browser && is.windows() && /phone/i.test(userAgent);
-                };
-                is.windowsPhone.api = [ "not" ];
-                is.windowsTablet = function() {
-                    return browser && is.windows() && is.not.windowsPhone() && /touch/i.test(userAgent);
-                };
-                is.windowsTablet.api = [ "not" ];
-                is.mobile = function() {
-                    return browser && (is.iphone() || is.ipod() || is.androidPhone() || is.blackberry() || is.windowsPhone());
-                };
-                is.mobile.api = [ "not" ];
-                is.tablet = function() {
-                    return browser && (is.ipad() || is.androidTablet() || is.windowsTablet());
-                };
-                is.tablet.api = [ "not" ];
-                is.online = function() {
-                    return browser && navigator && navigator.onLine;
-                };
-                is.online.api = [ "not" ];
-                is.offline = not(is.online);
-                is.offline.api = [ "not" ];
-                is.touchDevice = function() {
-                    return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
-                };
-                is.touchDevice.api = [ "not" ];
-            };
-        }, {} ],
+            }).call(this, require("_process"));
+        }, {
+            _process: 11
+        } ],
         4: [ function(require, module, exports) {
             (function(global) {
                 var root = this || global;
@@ -386,52 +392,50 @@
         }, {} ],
         6: [ function(require, module, exports) {
             module.exports = function(is, not) {
-                is.empty = function(value) {
-                    if (is.object(value)) {
-                        var num = Object.getOwnPropertyNames(value).length;
-                        if (num === 0 || num === 1 && is.array(value) || num === 2 && is.arguments(value)) {
-                            return true;
-                        }
-                        return false;
-                    } else {
-                        return value === "";
+                is.empty = function(val) {
+                    if (is.string(val)) {
+                        return val === "";
                     }
+                    if (is.object(val)) {
+                        var len = Object.getOwnPropertyNames(val).length;
+                        return len === 0 || len === 1 && is.array(val) || len === 2 && is.arguments(val);
+                    }
+                    return !!val;
                 };
-                is.existy = function(value) {
-                    return value !== null && value !== undefined;
+                is.existy = function(val) {
+                    return val !== null && val !== undefined;
                 };
-                is.truthy = function(value) {
-                    return is.existy(value) && value !== false && is.not.nan(value) && value !== "" && value !== 0;
+                is.truthy = function(val) {
+                    return is.existy(val) && val !== false && is.not.nan(val) && val !== "" && val !== 0;
                 };
                 is.falsy = not(is.truthy);
-                is.space = function(value) {
-                    if (is.char(value)) {
-                        var characterCode = value.charCodeAt(0);
-                        return characterCode > 8 && characterCode < 14 || characterCode === 32;
-                    } else {
-                        return false;
+                is.space = function(val) {
+                    if (is.char(val)) {
+                        var code = val.charCodeAt(0);
+                        return code > 8 && code < 14 || code === 32;
                     }
+                    return false;
                 };
             };
         }, {} ],
         7: [ function(require, module, exports) {
             module.exports = function(is, regexps) {
-                function regexpCheck(regexp, regexps) {
-                    is[regexp] = function(value) {
-                        return regexps[regexp].test(value);
+                function create(name) {
+                    is[name] = function(value) {
+                        return regexps[name].test(value);
                     };
                 }
-                for (var regexp in regexps) {
-                    if (regexps.hasOwnProperty(regexp)) {
-                        regexpCheck(regexp, regexps);
+                for (var reg in regexps) {
+                    if (regexps.hasOwnProperty(reg)) {
+                        create(reg);
                     }
                 }
             };
         }, {} ],
         8: [ function(require, module, exports) {
             module.exports = function(is) {
-                is.include = function(str, substr) {
-                    return str.indexOf(substr) > -1;
+                is.include = function(str, val) {
+                    return str.indexOf(val) > -1;
                 };
                 is.include.api = [ "not" ];
                 is.upperCase = function(str) {
@@ -440,12 +444,12 @@
                 is.lowerCase = function(str) {
                     return is.string(str) && str === str.toLowerCase();
                 };
-                is.startWith = function(str, startWith) {
-                    return is.string(str) && str.indexOf(startWith) === 0;
+                is.startWith = function(str, val) {
+                    return is.string(str) && str.indexOf(val) === 0;
                 };
                 is.startWith.api = [ "not" ];
-                is.endWith = function(str, endWith) {
-                    return is.string(str) && str.indexOf(endWith) > -1 && str.indexOf(endWith) === str.length - endWith.length;
+                is.endWith = function(str, val) {
+                    return is.string(str) && str.indexOf(val) > -1 && str.indexOf(val) === str.length - val.length;
                 };
                 is.endWith.api = [ "not" ];
                 is.capitalized = function(str) {
@@ -468,57 +472,49 @@
             module.exports = function(is, not) {
                 var days = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
                 var months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ];
-                is.today = function(obj) {
-                    var now = new Date();
-                    var todayString = now.toDateString();
-                    return is.date(obj) && obj.toDateString() === todayString;
+                is.today = function(date) {
+                    return is.date(date) && date.toDateString() === new Date().toDateString();
                 };
                 is.yesterday = function(obj) {
                     var now = new Date();
-                    var yesterdayString = new Date(now.setDate(now.getDate() - 1)).toDateString();
-                    return is.date(obj) && obj.toDateString() === yesterdayString;
+                    return is.date(obj) && obj.toDateString() === new Date(now.setDate(now.getDate() - 1)).toDateString();
                 };
                 is.tomorrow = function(obj) {
                     var now = new Date();
-                    var tomorrowString = new Date(now.setDate(now.getDate() + 1)).toDateString();
-                    return is.date(obj) && obj.toDateString() === tomorrowString;
+                    return is.date(obj) && obj.toDateString() === new Date(now.setDate(now.getDate() + 1)).toDateString();
                 };
                 is.past = function(obj) {
-                    var now = new Date();
-                    return is.date(obj) && obj.getTime() < now.getTime();
+                    return is.date(obj) && obj.getTime() < new Date().getTime();
                 };
                 is.future = not(is.past);
-                is.day = function(obj, dayString) {
-                    return is.date(obj) && dayString.toLowerCase() === days[obj.getDay()];
+                is.day = function(date, day) {
+                    return is.date(date) && day.toLowerCase() === days[date.getDay()];
                 };
                 is.day.api = [ "not" ];
-                is.month = function(obj, monthString) {
-                    return is.date(obj) && monthString.toLowerCase() === months[obj.getMonth()];
+                is.month = function(date, month) {
+                    return is.date(date) && month.toLowerCase() === months[date.getMonth()];
                 };
                 is.month.api = [ "not" ];
-                is.year = function(obj, year) {
-                    return is.date(obj) && is.number(year) && year === obj.getFullYear();
+                is.year = function(date, year) {
+                    return is.date(date) && is.number(year) && year === date.getFullYear();
                 };
                 is.year.api = [ "not" ];
                 is.leapYear = function(year) {
                     return is.number(year) && (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0);
                 };
-                is.weekend = function(obj) {
-                    return is.date(obj) && (obj.getDay() === 6 || obj.getDay() === 0);
+                is.weekend = function(date) {
+                    return is.date(date) && (date.getDay() === 6 || date.getDay() === 0);
                 };
                 is.weekday = not(is.weekend);
-                is.inDateRange = function(obj, startObj, endObj) {
-                    if (is.not.date(obj) || is.not.date(startObj) || is.not.date(endObj)) {
+                is.inDateRange = function(date, start, end) {
+                    if (is.not.date(date) || is.not.date(start) || is.not.date(end)) {
                         return false;
                     }
-                    var givenDate = obj.getTime();
-                    var start = startObj.getTime();
-                    var end = endObj.getTime();
-                    return givenDate > start && givenDate < end;
+                    return date.getTime() > start.getTime() && date.getTime() < end.getTime();
                 };
                 is.inDateRange.api = [ "not" ];
-                is.inLastWeek = function(obj) {
-                    return is.inDateRange(obj, new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
+                is.inLastWeek = function(date) {
+                    return is.inDateRange(date, new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
                 };
                 is.inLastMonth = function(obj) {
                     return is.inDateRange(obj, new Date(new Date().setMonth(new Date().getMonth() - 1)), new Date());
@@ -535,73 +531,158 @@
                 is.inNextYear = function(obj) {
                     return is.inDateRange(obj, new Date(), new Date(new Date().setFullYear(new Date().getFullYear() + 1)));
                 };
-                is.quarterOfYear = function(obj, quarterNumber) {
-                    return is.date(obj) && is.number(quarterNumber) && quarterNumber === Math.floor((obj.getMonth() + 3) / 3);
+                is.quarterOfYear = function(date, quarter) {
+                    return is.date(date) && is.number(quarter) && quarter === Math.floor((date.getMonth() + 3) / 3);
                 };
                 is.quarterOfYear.api = [ "not" ];
-                is.dayLightSavingTime = function(obj) {
-                    var january = new Date(obj.getFullYear(), 0, 1);
-                    var july = new Date(obj.getFullYear(), 6, 1);
+                is.dayLightSavingTime = function(date) {
+                    var january = new Date(date.getFullYear(), 0, 1);
+                    var july = new Date(date.getFullYear(), 6, 1);
                     var stdTimezoneOffset = Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
-                    return obj.getTimezoneOffset() < stdTimezoneOffset;
+                    return date.getTimezoneOffset() < stdTimezoneOffset;
                 };
             };
         }, {} ],
         10: [ function(require, module, exports) {
             module.exports = function(is) {
-                is.arguments = function(value) {
-                    return is.not.null(value) && (Object.prototype.toString.call(value) === "[object Arguments]" || typeof value === "object" && "callee" in value);
+                is.arguments = function(val) {
+                    return is.not.null(val) && (Object.prototype.toString.call(val) === "[object Arguments]" || typeof val === "object" && "callee" in val);
                 };
-                is.array = Array.isArray || function(value) {
-                    return Object.prototype.toString.call(value) === "[object Array]";
+                is.array = Array.isArray || function(val) {
+                    return Object.prototype.toString.call(val) === "[object Array]";
                 };
-                is.boolean = function(value) {
-                    return value === true || value === false || Object.prototype.toString.call(value) === "[object Boolean]";
+                is.boolean = function(val) {
+                    return val === true || val === false || Object.prototype.toString.call(val) === "[object Boolean]";
                 };
-                is.date = function(value) {
-                    return Object.prototype.toString.call(value) === "[object Date]";
+                is.date = function(val) {
+                    return Object.prototype.toString.call(val) === "[object Date]";
                 };
-                is.error = function(value) {
-                    return Object.prototype.toString.call(value) === "[object Error]";
+                is.error = function(val) {
+                    return Object.prototype.toString.call(val) === "[object Error]";
                 };
-                is.function = function(value) {
-                    return Object.prototype.toString.call(value) === "[object Function]" || typeof value === "function";
+                is.function = function(val) {
+                    return Object.prototype.toString.call(val) === "[object Function]" || typeof value === "function";
                 };
-                is.nan = function(value) {
-                    return value !== value;
+                is.nan = function(val) {
+                    return val !== val;
                 };
-                is.null = function(value) {
-                    return value === null;
+                is.null = function(val) {
+                    return val === null;
                 };
-                is.number = function(value) {
-                    return is.not.nan(value) && Object.prototype.toString.call(value) === "[object Number]";
+                is.number = function(val) {
+                    return is.not.nan(val) && Object.prototype.toString.call(val) === "[object Number]";
                 };
-                is.object = function(value) {
-                    var type = typeof value;
-                    return type === "function" || type === "object" && !!value;
+                is.object = function(val) {
+                    var type = typeof val;
+                    return type === "function" || type === "object" && !!val;
                 };
-                is.json = function(value) {
-                    return Object.prototype.toString.call(value) === "[object Object]";
+                is.json = function(val) {
+                    return Object.prototype.toString.call(val) === "[object Object]";
                 };
-                is.regexp = function(value) {
-                    return Object.prototype.toString.call(value) === "[object RegExp]";
+                is.regexp = function(val) {
+                    return Object.prototype.toString.call(val) === "[object RegExp]";
                 };
-                is.sameType = function(value1, value2) {
-                    if (is.nan(value1) || is.nan(value2)) {
-                        return is.nan(value1) === is.nan(value2);
+                is.sameType = function(val1, val2) {
+                    if (is.nan(val1) || is.nan(val2)) {
+                        return is.nan(val1) === is.nan(val2);
                     }
-                    return Object.prototype.toString.call(value1) === Object.prototype.toString.call(value2);
+                    return Object.prototype.toString.call(val1) === Object.prototype.toString.call(val2);
                 };
                 is.sameType.api = [ "not" ];
                 is.string = function(value) {
                     return Object.prototype.toString.call(value) === "[object String]";
                 };
-                is.char = function(value) {
-                    return is.string(value) && value.length === 1;
+                is.char = function(val) {
+                    return is.string(val) && val.length === 1;
                 };
-                is.undefined = function(value) {
-                    return value === void 0;
+                is.undefined = function(val) {
+                    return val === void 0;
                 };
+            };
+        }, {} ],
+        11: [ function(require, module, exports) {
+            var process = module.exports = {};
+            var queue = [];
+            var draining = false;
+            var currentQueue;
+            var queueIndex = -1;
+            function cleanUpNextTick() {
+                draining = false;
+                if (currentQueue.length) {
+                    queue = currentQueue.concat(queue);
+                } else {
+                    queueIndex = -1;
+                }
+                if (queue.length) {
+                    drainQueue();
+                }
+            }
+            function drainQueue() {
+                if (draining) {
+                    return;
+                }
+                var timeout = setTimeout(cleanUpNextTick);
+                draining = true;
+                var len = queue.length;
+                while (len) {
+                    currentQueue = queue;
+                    queue = [];
+                    while (++queueIndex < len) {
+                        if (currentQueue) {
+                            currentQueue[queueIndex].run();
+                        }
+                    }
+                    queueIndex = -1;
+                    len = queue.length;
+                }
+                currentQueue = null;
+                draining = false;
+                clearTimeout(timeout);
+            }
+            process.nextTick = function(fun) {
+                var args = new Array(arguments.length - 1);
+                if (arguments.length > 1) {
+                    for (var i = 1; i < arguments.length; i++) {
+                        args[i - 1] = arguments[i];
+                    }
+                }
+                queue.push(new Item(fun, args));
+                if (queue.length === 1 && !draining) {
+                    setTimeout(drainQueue, 0);
+                }
+            };
+            function Item(fun, array) {
+                this.fun = fun;
+                this.array = array;
+            }
+            Item.prototype.run = function() {
+                this.fun.apply(null, this.array);
+            };
+            process.title = "browser";
+            process.browser = true;
+            process.env = {};
+            process.argv = [];
+            process.version = "";
+            process.versions = {};
+            function noop() {}
+            process.on = noop;
+            process.addListener = noop;
+            process.once = noop;
+            process.off = noop;
+            process.removeListener = noop;
+            process.removeAllListeners = noop;
+            process.emit = noop;
+            process.binding = function(name) {
+                throw new Error("process.binding is not supported");
+            };
+            process.cwd = function() {
+                return "/";
+            };
+            process.chdir = function(dir) {
+                throw new Error("process.chdir is not supported");
+            };
+            process.umask = function() {
+                return 0;
             };
         }, {} ]
     }, {}, [ 4 ])(4);
