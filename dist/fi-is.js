@@ -54,6 +54,17 @@
                     if (is.all.boolean(a, b)) {
                         return a === b;
                     }
+                    if (is.all.array(a, b)) {
+                        if (a.length !== b.length) {
+                            return false;
+                        }
+                        for (var i = 0, l = a.length; i < l; i++) {
+                            if (is.not.equal(a[i], b[i])) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
                     return false;
                 };
                 is.equal.api = [ "not" ];
