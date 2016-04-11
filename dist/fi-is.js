@@ -122,115 +122,120 @@
         }, {} ],
         3: [ function(require, module, exports) {
             module.exports = function(is, not) {
-                if (typeof window !== "undefined") {
-                    var userAgent = "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
-                    var vendor = "navigator" in window && "vendor" in navigator && navigator.vendor || "";
-                    var appVersion = "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
-                    is.chrome = function() {
-                        return /(Chrome|Chromium)\//.test(userAgent) && /google inc/i.test(vendor);
-                    };
-                    is.chrome.api = [ "not" ];
-                    is.firefox = function() {
-                        return /Firefox\//.test(userAgent);
-                    };
-                    is.firefox.api = [ "not" ];
-                    is.edge = function() {
-                        return /Edge\//.test(userAgent);
-                    };
-                    is.edge.api = [ "not" ];
-                    is.ie = function(version) {
-                        if (!version) {
-                            return /MSIE/.test(userAgent) || "ActiveXObject" in window;
-                        }
-                        if (version >= 11) {
-                            return "ActiveXObject" in window;
-                        }
-                        return new RegExp("MSIE " + version).test(userAgent);
-                    };
-                    is.ie.api = [ "not" ];
-                    is.opera = function() {
-                        return /^Opera\//.test(userAgent) || /OPR\//.test(userAgent);
-                    };
-                    is.opera.api = [ "not" ];
-                    is.safari = function() {
-                        return /Safari/.test(userAgent) && /apple computer/i.test(vendor);
-                    };
-                    is.safari.api = [ "not" ];
-                    is.ios = function() {
-                        return is.iphone() || is.ipad() || is.ipod();
-                    };
-                    is.ios.api = [ "not" ];
-                    is.iphone = function() {
-                        return /iphone/i.test(userAgent);
-                    };
-                    is.iphone.api = [ "not" ];
-                    is.ipad = function() {
-                        return /ipad/i.test(userAgent);
-                    };
-                    is.ipad.api = [ "not" ];
-                    is.ipod = function() {
-                        return /ipod/i.test(userAgent);
-                    };
-                    is.ipod.api = [ "not" ];
-                    is.android = function() {
-                        return /android/i.test(userAgent);
-                    };
-                    is.android.api = [ "not" ];
-                    is.androidPhone = function() {
-                        return /android/i.test(userAgent) && /mobile/i.test(userAgent);
-                    };
-                    is.androidPhone.api = [ "not" ];
-                    is.androidTablet = function() {
-                        return /android/i.test(userAgent) && !/mobile/i.test(userAgent);
-                    };
-                    is.androidTablet.api = [ "not" ];
-                    is.blackberry = function() {
-                        return /blackberry/i.test(userAgent) || /BB10/i.test(userAgent);
-                    };
-                    is.blackberry.api = [ "not" ];
-                    is.desktop = function() {
-                        return is.not.mobile() && is.not.tablet();
-                    };
-                    is.desktop.api = [ "not" ];
-                    is.linux = function() {
-                        return /linux/i.test(appVersion);
-                    };
-                    is.linux.api = [ "not" ];
-                    is.mac = function() {
-                        return /mac/i.test(appVersion);
-                    };
-                    is.mac.api = [ "not" ];
-                    is.windows = function() {
-                        return /win/i.test(appVersion);
-                    };
-                    is.windows.api = [ "not" ];
-                    is.windowsPhone = function() {
-                        return is.windows() && /phone/i.test(userAgent);
-                    };
-                    is.windowsPhone.api = [ "not" ];
-                    is.windowsTablet = function() {
-                        return is.windows() && is.not.windowsPhone() && /touch/i.test(userAgent);
-                    };
-                    is.windowsTablet.api = [ "not" ];
-                    is.mobile = function() {
-                        return is.iphone() || is.ipod() || is.androidPhone() || is.blackberry() || is.windowsPhone();
-                    };
-                    is.mobile.api = [ "not" ];
-                    is.tablet = function() {
-                        return is.ipad() || is.androidTablet() || is.windowsTablet();
-                    };
-                    is.tablet.api = [ "not" ];
-                    is.online = function() {
-                        return navigator.onLine;
-                    };
-                    is.online.api = [ "not" ];
-                    is.offline = not(is.online);
-                    is.offline.api = [ "not" ];
-                    is.touchDevice = function() {
-                        return "ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch;
-                    };
-                    is.touchDevice.api = [ "not" ];
-                }
+                var browser = typeof window !== "undefined";
+                var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
+                var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
+                is.node = function() {
+                    return !browser;
+                };
+                is.chrome = function() {
+                    return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge();
+                };
+                is.chrome.api = [ "not" ];
+                is.firefox = function() {
+                    return browser && /Firefox\//.test(userAgent);
+                };
+                is.firefox.api = [ "not" ];
+                is.edge = function() {
+                    return browser && /Edge\//.test(userAgent);
+                };
+                is.edge.api = [ "not" ];
+                is.ie = function(version) {
+                    if (!version) {
+                        return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
+                    }
+                    if (version >= 11) {
+                        return browser && "ActiveXObject" in window;
+                    }
+                    return browser && new RegExp("MSIE " + version).test(userAgent);
+                };
+                is.ie.api = [ "not" ];
+                is.opera = function() {
+                    return browser && /(Opera|OPR)\//.test(userAgent);
+                };
+                is.opera.api = [ "not" ];
+                is.safari = function() {
+                    return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge();
+                };
+                is.safari.api = [ "not" ];
+                is.vivaldi = function() {
+                    return browser && /Vivaldi/.test(userAgent);
+                };
+                is.vivaldi.api = [ "not" ];
+                is.ios = function() {
+                    return browser && (is.iphone() || is.ipad() || is.ipod());
+                };
+                is.ios.api = [ "not" ];
+                is.iphone = function() {
+                    return browser && /iphone/i.test(userAgent);
+                };
+                is.iphone.api = [ "not" ];
+                is.ipad = function() {
+                    return browser && /ipad/i.test(userAgent);
+                };
+                is.ipad.api = [ "not" ];
+                is.ipod = function() {
+                    return browser && /ipod/i.test(userAgent);
+                };
+                is.ipod.api = [ "not" ];
+                is.android = function() {
+                    return browser && /android/i.test(userAgent);
+                };
+                is.android.api = [ "not" ];
+                is.androidPhone = function() {
+                    return browser && /android/i.test(userAgent) && /mobile/i.test(userAgent);
+                };
+                is.androidPhone.api = [ "not" ];
+                is.androidTablet = function() {
+                    return browser && /android/i.test(userAgent) && !/mobile/i.test(userAgent);
+                };
+                is.androidTablet.api = [ "not" ];
+                is.blackberry = function() {
+                    return browser && (/blackberry/i.test(userAgent) || /BB10/i.test(userAgent));
+                };
+                is.blackberry.api = [ "not" ];
+                is.desktop = function() {
+                    return browser && is.not.mobile() && is.not.tablet();
+                };
+                is.desktop.api = [ "not" ];
+                is.linux = function() {
+                    return browser && /linux/i.test(appVersion) && is.not.android();
+                };
+                is.linux.api = [ "not" ];
+                is.mac = function() {
+                    return browser && /mac/i.test(appVersion);
+                };
+                is.mac.api = [ "not" ];
+                is.windows = function() {
+                    return browser && /win/i.test(appVersion);
+                };
+                is.windows.api = [ "not" ];
+                is.windowsPhone = function() {
+                    return browser && is.windows() && /phone/i.test(userAgent);
+                };
+                is.windowsPhone.api = [ "not" ];
+                is.windowsTablet = function() {
+                    return browser && is.windows() && is.not.windowsPhone() && /touch/i.test(userAgent);
+                };
+                is.windowsTablet.api = [ "not" ];
+                is.mobile = function() {
+                    return browser && (is.iphone() || is.ipod() || is.androidPhone() || is.blackberry() || is.windowsPhone());
+                };
+                is.mobile.api = [ "not" ];
+                is.tablet = function() {
+                    return browser && (is.ipad() || is.androidTablet() || is.windowsTablet());
+                };
+                is.tablet.api = [ "not" ];
+                is.online = function() {
+                    return browser && navigator && navigator.onLine;
+                };
+                is.online.api = [ "not" ];
+                is.offline = not(is.online);
+                is.offline.api = [ "not" ];
+                is.touchDevice = function() {
+                    return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
+                };
+                is.touchDevice.api = [ "not" ];
             };
         }, {} ],
         4: [ function(require, module, exports) {
