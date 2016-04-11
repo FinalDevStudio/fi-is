@@ -235,7 +235,9 @@
                         return browser && /mac/i.test(appVersion);
                     };
                     is.osx.api = [ "not" ];
-                    is.mac = is.osx;
+                    is.mac = function() {
+                        return is.osx();
+                    };
                     is.mac.api = [ "not" ];
                     is.windows = function() {
                         return browser && /win/i.test(appVersion);
@@ -269,7 +271,7 @@
                         return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
                     };
                     is.touchDevice.api = [ "not" ];
-                    is.node = function() {
+                    is.nodejs = function() {
                         return !browser && typeof process === "object";
                     };
                 };
