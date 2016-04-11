@@ -65,6 +65,21 @@
                         }
                         return true;
                     }
+                    if (is.all.object(a, b)) {
+                        if (Object.keys(a).length !== Object.keys(b).length) {
+                            return false;
+                        }
+                        for (var p in a) {
+                            if (a.hasOwnProperty(p) && b.hasOwnProperty(p)) {
+                                if (is.not.equal(a[p], b[p])) {
+                                    return false;
+                                }
+                            } else {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
                     return false;
                 };
                 is.equal.api = [ "not" ];
