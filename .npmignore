@@ -1,5 +1,9 @@
 dist
 test
+.gitattributes
+.editorconfig
+.jsbeautifyrc
+.jshintrc
 .travis.yml
 bower.json
 gulpfile.js
