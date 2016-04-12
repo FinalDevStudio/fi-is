@@ -1,4 +1,5 @@
 dist
+docs
 test
 .gitattributes
 .editorconfig
