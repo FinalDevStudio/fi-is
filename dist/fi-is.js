@@ -296,7 +296,7 @@
                     nanpPhone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
                     eppPhone: /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/,
                     socialSecurityNumber: /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/,
-                    affirmative: /^(?:1|t(?:rue)?|y(?:es)?|ok(?:ay)?)$/,
+                    affirmative: /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i,
                     hexadecimal: /^[0-9a-fA-F]+$/,
                     hexColor: /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
                     ipv4: /^(?:(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$/,
@@ -413,29 +413,40 @@
                     return properties.length === count;
                 };
                 is.propertyCount.api = [ "not" ];
-                is.propertyDefined = function(obj, property) {
-                    return is.object(obj) && is.string(property) && property in obj;
+                is.propertyDefined = function(obj, prop) {
+                    return is.object(obj) && is.string(prop) && prop in obj;
                 };
                 is.propertyDefined.api = [ "not" ];
                 is.windowObject = function(obj) {
                     return typeof obj === "object" && "setInterval" in obj;
                 };
                 is.domNode = function(obj) {
-                    return is.object(obj) && obj.nodeType > 0;
+                    return typeof obj === "object" && typeof obj.nodeType === "number" && obj.nodeType === 1;
                 };
             };
         }, {} ],
         6: [ function(require, module, exports) {
             module.exports = function(is) {
                 is.empty = function(val) {
-                    if (is.string(val)) {
-                        return val === "";
+                    if (is.string(val) || is.array(val)) {
+                        return val.length === 0;
+                    }
+                    if (is.number(val) || is.boolean(val)) {
+                        return false;
+                    }
+                    if (is.nan(val)) {
+                        return true;
+                    }
+                    if (is.date(val)) {
+                        return is.nan(val.getTime());
+                    }
+                    if (is.not.existy(val)) {
+                        return true;
                     }
                     if (is.object(val)) {
-                        var len = Object.getOwnPropertyNames(val).length;
-                        return len === 0 || len === 1 && is.array(val) || len === 2 && is.arguments(val);
+                        return Object.keys(val).length === 0;
                     }
-                    return !!val;
+                    return !val;
                 };
                 is.existy = function(val) {
                     return val !== null && val !== undefined;
@@ -458,8 +469,8 @@
         7: [ function(require, module, exports) {
             module.exports = function(is, regexps) {
                 function create(name) {
-                    is[name] = function(value) {
-                        return regexps[name].test(value);
+                    is[name] = function(val) {
+                        return regexps[name].test(val);
                     };
                 }
                 for (var reg in regexps) {
@@ -472,7 +483,7 @@
         8: [ function(require, module, exports) {
             module.exports = function(is) {
                 is.include = function(str, val) {
-                    return str.indexOf(val) > -1;
+                    return is.string(str) && str.indexOf(val) > -1;
                 };
                 is.include.api = [ "not" ];
                 is.upperCase = function(str) {
@@ -493,7 +504,7 @@
                     if (is.not.string(str)) {
                         return false;
                     }
-                    var words = str.split(" ");
+                    var words = str.split(/\s+/);
                     var capitalized = [];
                     for (var i = 0; i < words.length; i++) {
                         capitalized.push(words[i][0] === words[i][0].toUpperCase());
@@ -557,11 +568,11 @@
                 is.inLastWeek = function(date) {
                     return is.inDateRange(date, new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
                 };
-                is.inLastMonth = function(obj) {
-                    return is.inDateRange(obj, new Date(new Date().setMonth(new Date().getMonth() - 1)), new Date());
+                is.inLastMonth = function(date) {
+                    return is.inDateRange(date, new Date(new Date().setMonth(new Date().getMonth() - 1)), new Date());
                 };
-                is.inLastYear = function(obj) {
-                    return is.inDateRange(obj, new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
+                is.inLastYear = function(date) {
+                    return is.inDateRange(date, new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
                 };
                 is.inNextWeek = function(obj) {
                     return is.inDateRange(obj, new Date(), new Date(new Date().setDate(new Date().getDate() + 7)));
@@ -617,18 +628,23 @@
                     return is.not.nan(val) && Object.prototype.toString.call(val) === "[object Number]";
                 };
                 is.object = function(val) {
-                    var type = typeof val;
-                    return type === "function" || type === "object" && !!val;
+                    return Object.prototype.toString.call(val) === "[object Object]";
                 };
                 is.json = function(val) {
-                    return Object.prototype.toString.call(val) === "[object Object]";
+                    if (is.string(val)) {
+                        try {
+                            JSON.parse(val);
+                            return true;
+                        } catch (e) {}
+                    }
+                    return false;
                 };
                 is.regexp = function(val) {
                     return Object.prototype.toString.call(val) === "[object RegExp]";
                 };
                 is.sameType = function(val1, val2) {
                     if (is.nan(val1) || is.nan(val2)) {
-                        return is.nan(val1) === is.nan(val2);
+                        return is.nan(val1) && is.nan(val2);
                     }
                     return Object.prototype.toString.call(val1) === Object.prototype.toString.call(val2);
                 };
