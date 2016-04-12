@@ -4,12 +4,18 @@ describe("presence checks", function () {
       expect(is.empty([])).to.be.true;
     });
 
-    it("should return false if given object is not empty", function () {
-      var obj = {
-        not: 'empty'
-      };
+    it("should return false if given array is empty", function () {
+      expect(is.empty(['not', 'empty'])).to.be.false;
+    });
 
-      expect(is.empty(obj)).to.be.false;
+    it("should return true if given object is empty", function () {
+      expect(is.empty({})).to.be.true;
+    });
+
+    it("should return false if given object is not empty", function () {
+      expect(is.empty({
+        not: 'empty'
+      })).to.be.false;
     });
   });
 

@@ -6,6 +6,7 @@ describe("regexp checks", function () {
     });
 
     it("should return false if given value is not url", function () {
+      expect(is.url('http://not url dot com')).to.be.false;
       expect(is.url(1)).to.be.false;
     });
   });
@@ -16,6 +17,7 @@ describe("regexp checks", function () {
     });
 
     it("should return true if given value is not url", function () {
+      expect(is.not.url('http://not url dot com')).to.be.true;
       expect(is.not.url(1)).to.be.true;
     });
   });
@@ -535,10 +537,13 @@ describe("regexp checks", function () {
   describe("is.affirmative", function () {
     it("should return true if given value is affirmative", function () {
       expect(is.affirmative('yes')).to.be.true;
+      expect(is.affirmative('yes')).to.be.true;
     });
 
     it("should return false if given value is not affirmative", function () {
       expect(is.affirmative('no')).to.be.false;
+      expect(is.affirmative({})).to.be.false;
+      expect(is.affirmative(null)).to.be.false;
     });
   });
 
@@ -554,8 +559,8 @@ describe("regexp checks", function () {
 
   describe("is.all.affirmative", function () {
     it("should return true if all given values are affirmative", function () {
-      expect(is.all.affirmative('yes', 'true')).to.be.true;
-      expect(is.all.affirmative(['yes', 'true'])).to.be.true;
+      expect(is.all.affirmative('yes', 'true', 1, 'okay', 'Y', true, 'ok', 'O.K.')).to.be.true;
+      expect(is.all.affirmative(['yes', 'true', 1, 'okay', 'Y', true, 'ok', 'O.K.'])).to.be.true;
     });
 
     it("should return false if any given value is not affirmative", function () {
@@ -667,9 +672,13 @@ describe("regexp checks", function () {
   describe("is.ip", function () {
     it("should return true if given value is a valid IP address", function () {
       expect(is.ip('2001:DB8:0:0:1::1')).to.be.true;
+      expect(is.ip('2001:db8::ff00:42:8329')).to.be.true;
+      expect(is.ip('127.0.0.1')).to.be.true;
     });
 
     it("should return false if given value is not a valid IP address", function () {
+      expect(is.ip('2001:DB8:0:0:WERWER1::1')).to.be.false;
+      expect(is.ip('2001::::42:8329')).to.be.false;
       expect(is.ip('985.12.3.4')).to.be.false;
     });
   });

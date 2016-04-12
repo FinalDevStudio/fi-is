@@ -450,7 +450,7 @@ describe("type checks", () => {
 
   describe("is.json", function () {
     it("should return true if passed parameter type is a json object", function () {
-      expect(is.json({})).to.be.true;
+      expect(is.json('{ "some": "value" }')).to.be.true;
     });
 
     it("should return false if passed parameter type is not a json object", function () {
@@ -460,7 +460,7 @@ describe("type checks", () => {
 
   describe("is.not.json", function () {
     it("should return false if passed parameter type is json object", function () {
-      expect(is.not.json({})).to.be.false;
+      expect(is.not.json('{ "foo": "bar" }')).to.be.false;
     });
 
     it("should return true if passed parameter type is not json object", function () {
@@ -470,20 +470,20 @@ describe("type checks", () => {
 
   describe("is.all.json", function () {
     it("should return true if all passed parameter types are object", function () {
-      expect(is.all.json({}, {})).to.be.true;
-      expect(is.all.json([{}, {}])).to.be.true;
+      expect(is.all.json('{ "foo": "bar" }', '{ "baz": "qux" }')).to.be.true;
+      expect(is.all.json(['{ "foo": "bar" }', '{ "baz": "qux" }'])).to.be.true;
     });
 
     it("should return false if any passed parameter type is not object", function () {
-      expect(is.all.json({}, 1, [])).to.be.false;
-      expect(is.all.json([{}, 1, []])).to.be.false;
+      expect(is.all.json('{ "foo": "bar" }', 1, [])).to.be.false;
+      expect(is.all.json(['{ "foo": "bar" }', 1, []])).to.be.false;
     });
   });
 
   describe("is.any.json", function () {
     it("should return true if any passed parameter type is json object", function () {
-      expect(is.any.json({}, {}, '')).to.be.true;
-      expect(is.any.json([{}, {}, ''])).to.be.true;
+      expect(is.any.json('{ "foo": "bar" }', '{}', '')).to.be.true;
+      expect(is.any.json(['{ "foo": "bar" }', '{}', ''])).to.be.true;
     });
 
     it("should return false if all passed parameter types are not json object", function () {
