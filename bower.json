@@ -1,41 +1,40 @@
 {
   "name": "fi-is",
-  "main": "dist/fi-is.min.js",
+  "title": "Fi is",
+  "main": "dist/fi-is.js",
   "version": "0.8.0",
   "homepage": "http://finaldevstudio.github.io/fi-is/",
+  "description": "Small check library for Node.js and the browser",
+  "license": "MIT",
   "authors": [
-    "arasatasaygin <arasatasaygin@gmail.com>",
-    "Santiago G. Marín <santiago@finaldevstudio.com>"
+    "Santiago G. Marín <santiago@finaldevstudio.com>",
+    "arasatasaygin <arasatasaygin@gmail.com>"
   ],
-  "description": "Micro check library for Node.js and the browser.",
   "moduleType": [
-    "amd",
     "globals",
-    "node"
+    "node",
+    "amd"
   ],
   "keywords": [
-    "type",
+    "configuration",
+    "environment",
+    "arithmetic",
     "presence",
+    "library",
+    "object",
     "regexp",
     "string",
-    "arithmetic",
-    "object",
     "array",
-    "environment",
+    "check",
     "time",
-    "configuration"
+    "type"
   ],
-  "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
     "bower_components",
+    "node_modules",
+    "**/.*",
+    "docs",
     "test",
-    "lib",
-    "tests"
-  ],
-  "devDependencies": {
-    "mocha": "^2.4.5",
-    "chai": "^3.5.0"
-  }
+    "lib"
+  ]
 }
