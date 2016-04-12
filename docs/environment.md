@@ -103,6 +103,34 @@ is.vivaldi();
 ```
 
 
+### is.twitter() 
+
+Checks if the current browser is Twitter's internal web view. This method
+doesn't support the `all` or `any` interfaces.
+
+**Returns**: `Boolean`, Whether the current browser is Twitter's internal
+webview.
+
+**Example**:
+```js
+is.twitter();
+```
+
+
+### is.facebook() 
+
+Checks if the current browser is Facebook's internal web view. This method
+doesn't support the `all` or `any` interfaces.
+
+**Returns**: `Boolean`, Whether the current browser is Facebook's internal
+webview.
+
+**Example**:
+```js
+is.facebook();
+```
+
+
 ### is.ios() 
 
 Checks if the current device is runnig iOS. This method doesn't support the
