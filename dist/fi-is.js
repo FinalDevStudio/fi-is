@@ -158,7 +158,7 @@
                     var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
                     var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
                     is.chrome = function() {
-                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge();
+                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge() && is.not.twitter();
                     };
                     is.chrome.api = [ "not" ];
                     is.firefox = function() {
@@ -184,13 +184,21 @@
                     };
                     is.opera.api = [ "not" ];
                     is.safari = function() {
-                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge();
+                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge() && is.not.twitter();
                     };
                     is.safari.api = [ "not" ];
                     is.vivaldi = function() {
                         return browser && /Vivaldi/.test(userAgent);
                     };
                     is.vivaldi.api = [ "not" ];
+                    is.twitter = function() {
+                        return browser && /Twitter/.test(userAgent);
+                    };
+                    is.twitter.api = [ "not" ];
+                    is.facebook = function() {
+                        return browser && /FB_IAB/.test(userAgent);
+                    };
+                    is.facebook.api = [ "not" ];
                     is.ios = function() {
                         return browser && (is.iphone() || is.ipad() || is.ipod());
                     };
