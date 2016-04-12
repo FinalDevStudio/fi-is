@@ -1,9 +1,11 @@
 {
   "name": "fi-is",
+  "title": "Fi is",
   "version": "0.8.0",
   "main": "index.js",
   "license": "MIT",
-  "description": "Micro check library for Node.js and the browser.",
+  "description": "Small check library for Node.js and the browser",
+  "homepage": "http://finaldevstudio.github.io/fi-is/",
   "repository": {
     "type": "git",
     "url": "https://github.com/finaldevstudio/fi-is.git"
@@ -14,7 +16,6 @@
   "scripts": {
     "test": "node test/node && ./node_modules/karma/bin/karma start"
   },
-  "homepage": "http://finaldevstudio.github.io/fi-is/",
   "devDependencies": {
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
