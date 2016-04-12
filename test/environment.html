@@ -39,6 +39,16 @@
     This page is meant to be opened on each different browser and devices and check if the log results are accurate.
   </p>
 
+  <strong>Detected user agent</string>
+  <pre>
+    <code id="ua"></code>
+  </pre>
+
+  <strong>Detected user agent</string>
+  <pre>
+    <code id="av"></code>
+  </pre>
+
   <table>
     <thead>
       <tr>
@@ -54,6 +64,12 @@
   <script src="../dist/fi-is.min.js"></script>
 
   <script>
+    document.getElementById('ua').innerHTML = 'navigator' in window &&
+      'userAgent' in navigator && navigator.userAgent || 'not available';
+
+    document.getElementById('av').innerHTML = 'navigator' in window &&
+      'appVersion' in navigator && navigator.appVersion || 'not available'
+
     var tableBody = document.getElementsByTagName('tbody')[0];
 
     /* Method names to check for */
