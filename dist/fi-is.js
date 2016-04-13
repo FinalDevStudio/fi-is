@@ -158,7 +158,7 @@
                     var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
                     var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
                     is.chrome = function() {
-                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge() && is.not.twitter();
+                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge() && is.not.facebook() && is.not.twitter();
                     };
                     is.chrome.api = [ "not" ];
                     is.firefox = function() {
@@ -184,7 +184,7 @@
                     };
                     is.opera.api = [ "not" ];
                     is.safari = function() {
-                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge() && is.not.twitter();
+                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge() && is.not.facebook() && is.not.twitter();
                     };
                     is.safari.api = [ "not" ];
                     is.vivaldi = function() {
