@@ -671,15 +671,24 @@ describe("regexp checks", function () {
 
   describe("is.ip", function () {
     it("should return true if given value is a valid IP address", function () {
-      expect(is.ip('2001:DB8:0:0:1::1')).to.be.true;
       expect(is.ip('2001:db8::ff00:42:8329')).to.be.true;
+      expect(is.ip('::ffff:192.168.1.1')).to.be.true;
+      expect(is.ip('2001:DB8:0:0:1::1')).to.be.true;
       expect(is.ip('127.0.0.1')).to.be.true;
+      expect(is.ip('ff02::1')).to.be.true;
+      expect(is.ip('2::10')).to.be.true;
+      expect(is.ip('::8')).to.be.true;
     });
 
     it("should return false if given value is not a valid IP address", function () {
       expect(is.ip('2001:DB8:0:0:WERWER1::1')).to.be.false;
+      expect(is.ip('http://www.example.com')).to.be.false;
+      expect(is.ip('http://example.com')).to.be.false;
       expect(is.ip('2001::::42:8329')).to.be.false;
+      expect(is.ip('www.example.com')).to.be.false;
+      expect(is.ip('example.com')).to.be.false;
       expect(is.ip('985.12.3.4')).to.be.false;
+      expect(is.ip('localhost')).to.be.false;
     });
   });
 
