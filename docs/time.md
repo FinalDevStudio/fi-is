@@ -359,8 +359,8 @@ is.quarterOfYear(dateObjectForSecondQuarter, 1); // true
 
 Checks if the given date is in daylight saving time.
 
-TODO: Figure out a way to make it work in every timezone as now it works
-only for some in the US.
+Deprecated: This method will be removed in the next version! Use a library
+like moment.js for this instead.
 
 **Parameters**
 
