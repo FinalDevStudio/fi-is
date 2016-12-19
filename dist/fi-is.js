@@ -292,7 +292,7 @@
                 var root = this || global;
                 var previousIs = root.is;
                 var regexps = {
-                    url: /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/i,
+                    url: /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i,
                     email: /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i,
                     creditCard: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
                     alphaNumeric: /^[A-Za-z0-9]+$/,
@@ -596,6 +596,7 @@
                 };
                 is.quarterOfYear.api = [ "not" ];
                 is.dayLightSavingTime = function(date) {
+                    console.warn("`dayLightSavingTime` method will be removed in the next version! Use a library like moment.js for this instead.");
                     var january = new Date(date.getFullYear(), 0, 1);
                     var july = new Date(date.getFullYear(), 6, 1);
                     var stdTimezoneOffset = Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
@@ -670,11 +671,78 @@
         }, {} ],
         11: [ function(require, module, exports) {
             var process = module.exports = {};
+            var cachedSetTimeout;
+            var cachedClearTimeout;
+            function defaultSetTimout() {
+                throw new Error("setTimeout has not been defined");
+            }
+            function defaultClearTimeout() {
+                throw new Error("clearTimeout has not been defined");
+            }
+            (function() {
+                try {
+                    if (typeof setTimeout === "function") {
+                        cachedSetTimeout = setTimeout;
+                    } else {
+                        cachedSetTimeout = defaultSetTimout;
+                    }
+                } catch (e) {
+                    cachedSetTimeout = defaultSetTimout;
+                }
+                try {
+                    if (typeof clearTimeout === "function") {
+                        cachedClearTimeout = clearTimeout;
+                    } else {
+                        cachedClearTimeout = defaultClearTimeout;
+                    }
+                } catch (e) {
+                    cachedClearTimeout = defaultClearTimeout;
+                }
+            })();
+            function runTimeout(fun) {
+                if (cachedSetTimeout === setTimeout) {
+                    return setTimeout(fun, 0);
+                }
+                if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+                    cachedSetTimeout = setTimeout;
+                    return setTimeout(fun, 0);
+                }
+                try {
+                    return cachedSetTimeout(fun, 0);
+                } catch (e) {
+                    try {
+                        return cachedSetTimeout.call(null, fun, 0);
+                    } catch (e) {
+                        return cachedSetTimeout.call(this, fun, 0);
+                    }
+                }
+            }
+            function runClearTimeout(marker) {
+                if (cachedClearTimeout === clearTimeout) {
+                    return clearTimeout(marker);
+                }
+                if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+                    cachedClearTimeout = clearTimeout;
+                    return clearTimeout(marker);
+                }
+                try {
+                    return cachedClearTimeout(marker);
+                } catch (e) {
+                    try {
+                        return cachedClearTimeout.call(null, marker);
+                    } catch (e) {
+                        return cachedClearTimeout.call(this, marker);
+                    }
+                }
+            }
             var queue = [];
             var draining = false;
             var currentQueue;
             var queueIndex = -1;
             function cleanUpNextTick() {
+                if (!draining || !currentQueue) {
+                    return;
+                }
                 draining = false;
                 if (currentQueue.length) {
                     queue = currentQueue.concat(queue);
@@ -689,7 +757,7 @@
                 if (draining) {
                     return;
                 }
-                var timeout = setTimeout(cleanUpNextTick);
+                var timeout = runTimeout(cleanUpNextTick);
                 draining = true;
                 var len = queue.length;
                 while (len) {
@@ -705,7 +773,7 @@
                 }
                 currentQueue = null;
                 draining = false;
-                clearTimeout(timeout);
+                runClearTimeout(timeout);
             }
             process.nextTick = function(fun) {
                 var args = new Array(arguments.length - 1);
@@ -716,7 +784,7 @@
                 }
                 queue.push(new Item(fun, args));
                 if (queue.length === 1 && !draining) {
-                    setTimeout(drainQueue, 0);
+                    runTimeout(drainQueue);
                 }
             };
             function Item(fun, array) {
