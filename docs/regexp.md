@@ -6,6 +6,27 @@ Regexp checks.
 
 * * *
 
+### is.domain(val) 
+
+Checks for a valid domain name.
+
+**Parameters**
+
+**val**: `Mixed`, The value to check.
+
+**Returns**: `Boolean`, Whether the value is a valid domain name.
+
+**Example**:
+```js
+is.domain('example.com'); // true
+is.domain('subdomain.example.com'); // true
+is.domain('sub.domain.example.website'); // true
+is.domain('not_a_domain'); // false
+is.domain(1234); // false
+is.domain(true); // false
+```
+
+
 ### is.url(val) 
 
 Checks for a valid URL.
@@ -330,25 +351,6 @@ is.ipv4('127.0.0.1'); // true
 is.ipv4('2001:db8::ff00:42:8329'); // false
 is.ipv4('5555.555.5.5'); // false
 is.ipv4(true); // false
-```
-
-
-### is.ipv6(val) 
-
-Checks for a valid IPv6 address.
-
-**Parameters**
-
-**val**: `Mixed`, The value to check.
-
-**Returns**: `Boolean`, Whether the value is an IPv6 address.
-
-**Example**:
-```js
-is.ipv6('2001:db8::ff00:42:8329'); // true
-is.ipv6('127.0.0.1'); // false
-is.ipv6('2001::::42:8329'); // false
-is.ipv6(true); // false
 ```
 
 
