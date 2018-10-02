@@ -98,5 +98,5 @@ gulp docs
 One-liner:
 `gulp dist && npm test && gulp docs`
 
-####Contributors:
+#### Contributors:
 Many thanks to the [contributors](https://github.com/finaldevstudio/fi-is/graphs/contributors).
