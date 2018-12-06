@@ -45,29 +45,28 @@ const opts = {
  * @returns {Object} The gulp stream object.
  */
 function build(min) {
-  var b = browserify({
+  const options = {
     standalone: 'is',
     entries: src,
     debug: true
-  });
+  };
 
-  return b.bundle().
+  const stream = browserify(options).bundle();
 
-  pipe(source('bundle.tmp.js')).
-
-  pipe(buffer()).
-
-  pipe(uglify(min ? opts.uglify.min : opts.uglify.dev).on('error', gutil.log)).
-
-  pipe(rename({
-    basename: 'fi-is',
-    extname: min ? '.min.js' : '.js'
-  })).
-
-  pipe(gulp.dest('dist'));
+  return stream
+    .pipe(source('bundle.tmp.js'))
+    .pipe(buffer())
+    .pipe(uglify(min ? opts.uglify.min : opts.uglify.dev).on('error', gutil.log))
+    .pipe(
+      rename({
+        basename: 'fi-is',
+        extname: min ? '.min.js' : '.js'
+      })
+    )
+    .pipe(gulp.dest('dist'));
 }
 
-/** Distributables */
+/** Dists */
 gulp.task('cleanup:dist', () => {
   return del.sync('dist/*.js');
 });
@@ -80,7 +79,7 @@ gulp.task('cleanup:docs', () => {
   return del.sync('docs/**.*');
 });
 
-gulp.task('compile:docs', (done) => {
+gulp.task('compile:docs', done => {
   jsdox.generateForDir('./lib', './docs', null, done);
 });
 
