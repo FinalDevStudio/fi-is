@@ -447,6 +447,43 @@ describe("arithmetic checks", function () {
     });
   });
 
+  describe("is.between", function () {
+    it("should return true if given number is between minimum and maximum values", function () {
+      expect(is.between(10, 5, 15)).to.be.true;
+      expect(is.between(15, 5, 15)).to.be.true;
+      expect(is.between(5, 5, 15)).to.be.true;
+      expect(is.between(8, 5, 15)).to.be.true;
+      expect(is.between(14.9, 5, 15)).to.be.true;
+      expect(is.between(5.1, 5, 15)).to.be.true;
+    });
+
+    it("should return false if given number is not between minimum and maximum values", function () {
+      expect(is.between(20, 5, 15)).to.be.false;
+      expect(is.between(4, 5, 15)).to.be.false;
+      expect(is.between(1, 5, 15)).to.be.false;
+      expect(is.between(16, 5, 15)).to.be.false;
+      expect(is.between(15.1, 5, 15)).to.be.false;
+      expect(is.between(4.9, 5, 15)).to.be.false;
+    });
+  });
+
+  describe("is.not.between", function () {
+    it("should return false if given number is between minimum and maximum values", function () {
+      expect(is.not.between(10, 5, 15)).to.be.false;
+      expect(is.not.between(11, 5, 15)).to.be.false;
+      expect(is.not.between(12, 5, 15)).to.be.false;
+      expect(is.not.between(14.9, 5, 15)).to.be.false;
+      expect(is.not.between(5.1, 5, 15)).to.be.false;
+    });
+
+    it("should return true if given number is not between minimum and maximum values", function () {
+      expect(is.not.between(20, 5, 15)).to.be.true;
+      expect(is.not.between(1, 5, 15)).to.be.true;
+      expect(is.not.between(15.1, 5, 15)).to.be.true;
+      expect(is.not.between(4.9, 5, 15)).to.be.true;
+    });
+  });
+
   describe("is.decimal", function () {
     it("should return true if given number is decimal", function () {
       expect(is.decimal(4.2)).to.be.true;
