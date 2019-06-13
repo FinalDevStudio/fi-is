@@ -8,8 +8,6 @@ const jsdox = require('jsdox');
 const gulp = require('gulp');
 const del = require('del');
 
-const src = './lib/index.js';
-
 const opts = {
   uglify: {
     min: {
@@ -40,12 +38,13 @@ const opts = {
  * Builds the dist versions for the browser.
  *
  * @param {Boolean} min Whether the output should be minified.
+ *
  * @returns {Object} The gulp stream object.
  */
 function build(min) {
   const options = {
+    entries: './lib/index.js',
     standalone: 'is',
-    entries: src,
     debug: true
   };
 
