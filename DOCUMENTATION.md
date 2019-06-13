@@ -270,6 +270,43 @@ is.within(1, 1, 2); // false
 
 
 
+#### between(num, min, max) 
+
+Checks if the given number is between the given minimum and maximum (inclusive). This
+method doesn't support the `all` or `any` interfaces.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| num | `Number`  | The number to check. | &nbsp; |
+| min | `Number`  | The minimum value exclusive. | &nbsp; |
+| max | `Number`  | The maximum value exclusive. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.between(0, -2, 2); // true
+is.between(1, -2, 2); // true
+is.between(1, 1, 2); // true
+is.between(0, 1, 3); // false
+is.between(10, 30, 50); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the number is between the minimum and maximum (inclusive).
+
+
+
 #### decimal(num) 
 
 Checks if the given number is a decimal.
