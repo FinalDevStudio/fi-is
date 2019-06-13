@@ -58,9 +58,7 @@ function getOptions(min = false) {
  */
 function build(min) {
   const options = getOptions(min);
-  const stream = browserify(options.browserify)
-    .transform('babelify', options.babelify)
-    .bundle();
+  const stream = browserify(options.browserify).bundle();
 
   return stream
     .pipe(source('bundle.tmp.js'))
