@@ -1,287 +1,206 @@
-(function(f) {
-    if (typeof exports === "object" && typeof module !== "undefined") {
-        module.exports = f();
-    } else if (typeof define === "function" && define.amd) {
-        define([], f);
-    } else {
+!function(f) {
+    if ("object" == typeof exports && "undefined" != typeof module) module.exports = f(); else if ("function" == typeof define && define.amd) define([], f); else {
         var g;
-        if (typeof window !== "undefined") {
-            g = window;
-        } else if (typeof global !== "undefined") {
-            g = global;
-        } else if (typeof self !== "undefined") {
-            g = self;
-        } else {
-            g = this;
-        }
+        if ("undefined" != typeof window) g = window; else if ("undefined" != typeof global) g = global; else if ("undefined" != typeof self) g = self; else g = this;
         g.is = f();
     }
-})(function() {
+}(function() {
     var define, module, exports;
-    return function e(t, n, r) {
-        function s(o, u) {
-            if (!n[o]) {
-                if (!t[o]) {
-                    var a = typeof require == "function" && require;
-                    if (!u && a) return a(o, !0);
-                    if (i) return i(o, !0);
-                    var f = new Error("Cannot find module '" + o + "'");
-                    throw f.code = "MODULE_NOT_FOUND", f;
-                }
-                var l = n[o] = {
-                    exports: {}
-                };
-                t[o][0].call(l.exports, function(e) {
-                    var n = t[o][1][e];
-                    return s(n ? n : e);
-                }, l, l.exports, e, t, n, r);
-            }
-            return n[o].exports;
-        }
-        var i = typeof require == "function" && require;
-        for (var o = 0; o < r.length; o++) s(r[o]);
-        return s;
-    }({
+    return r({
         1: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.equal = function(a, b) {
-                    if (is.all.number(a, b)) {
-                        return a === b && 1 / a === 1 / b;
-                    }
-                    if (is.all.string(a, b) || is.all.regexp(a, b)) {
-                        return "" + a === "" + b;
-                    }
-                    if (is.all.boolean(a, b)) {
-                        return a === b;
-                    }
-                    if (is.all.array(a, b)) {
-                        if (a.length !== b.length) {
-                            return false;
-                        }
-                        for (var i = 0, l = a.length; i < l; i++) {
-                            if (is.not.equal(a[i], b[i])) {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                    if (is.all.object(a, b)) {
-                        if (Object.keys(a).length !== Object.keys(b).length) {
-                            return false;
-                        }
-                        for (var p in a) {
-                            if (a.hasOwnProperty(p) && b.hasOwnProperty(p)) {
-                                if (is.not.equal(a[p], b[p])) {
-                                    return false;
-                                }
-                            } else {
-                                return false;
-                            }
-                        }
-                        return true;
-                    }
-                    return false;
-                };
-                is.equal.api = [ "not" ];
-                is.even = function(num) {
-                    return is.number(num) && num % 2 === 0;
-                };
-                is.odd = function(num) {
-                    return is.number(num) && num % 2 === 1;
-                };
-                is.positive = function(num) {
-                    return is.number(num) && num > 0;
-                };
-                is.negative = function(num) {
-                    return is.number(num) && num < 0;
-                };
-                is.above = function(num, min) {
-                    return is.all.number(num, min) && num > min;
-                };
-                is.above.api = [ "not" ];
-                is.under = function(num, max) {
-                    return is.all.number(num, max) && num < max;
-                };
-                is.under.api = [ "not" ];
-                is.within = function(num, min, max) {
-                    return is.all.number(num, min, max) && num > min && num < max;
-                };
-                is.within.api = [ "not" ];
-                is.decimal = function(num) {
-                    return is.number(num) && num % 1 !== 0;
-                };
-                is.integer = function(num) {
-                    return is.number(num) && num % 1 === 0;
-                };
-                is.finite = function(num) {
-                    if (typeof isFinite === "function") {
-                        return isFinite(num);
-                    }
-                    return num !== Infinity && num !== -Infinity && is.not.nan(num);
-                };
-                is.infinite = function(num) {
-                    return is.not.finite(num);
-                };
+            module.exports.equal = function _equal(a, b) {
+                if (this.all.number(a, b)) return a === b && 1 / a == 1 / b;
+                if (this.all.string(a, b) || this.all.regexp(a, b)) return "" + a == "" + b;
+                if (this.all.boolean(a, b)) return a === b;
+                if (this.all.array(a, b)) {
+                    if (a.length !== b.length) return false;
+                    for (var i = 0, l = a.length; i < l; i++) if (this.not.equal(a[i], b[i])) return false;
+                    return true;
+                }
+                if (this.all.object(a, b)) {
+                    if (Object.keys(a).length !== Object.keys(b).length) return false;
+                    for (var p in a) if (a.hasOwnProperty(p) && b.hasOwnProperty(p)) {
+                        if (this.not.equal(a[p], b[p])) return false;
+                    } else return false;
+                    return true;
+                }
+                return false;
+            };
+            module.exports.equal.api = [ "not" ];
+            module.exports.even = function _even(num) {
+                return this.number(num) && num % 2 == 0;
+            };
+            module.exports.odd = function _odd(num) {
+                return this.number(num) && num % 2 == 1;
+            };
+            module.exports.positive = function _positive(num) {
+                return this.number(num) && 0 < num;
+            };
+            module.exports.negative = function _negative(num) {
+                return this.number(num) && num < 0;
+            };
+            module.exports.above = function _above(num, min) {
+                return this.all.number(num, min) && min < num;
+            };
+            module.exports.above.api = [ "not" ];
+            module.exports.under = function _under(num, max) {
+                return this.all.number(num, max) && num < max;
+            };
+            module.exports.under.api = [ "not" ];
+            module.exports.within = function _within(num, min, max) {
+                return this.all.number(num, min, max) && min < num && num < max;
+            };
+            module.exports.within.api = [ "not" ];
+            module.exports.decimal = function _decimal(num) {
+                return this.number(num) && num % 1 != 0;
+            };
+            module.exports.integer = function _integer(num) {
+                return this.number(num) && num % 1 == 0;
+            };
+            module.exports.finite = function _finite(num) {
+                if ("function" == typeof isFinite) return isFinite(num);
+                return num !== 1 / 0 && num !== -1 / 0 && this.not.nan(num);
+            };
+            module.exports.infinite = function _infinite(num) {
+                return this.not.finite(num);
             };
         }, {} ],
         2: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.inArray = function(val, arr) {
-                    if (is.not.array(arr)) {
-                        return false;
-                    }
-                    for (var i = 0; i < arr.length; i++) {
-                        if (arr[i] === val) {
-                            return true;
-                        }
-                    }
-                    return false;
-                };
-                is.inArray.api = [ "not" ];
-                is.sorted = function(arr) {
-                    if (is.not.array(arr)) {
-                        return false;
-                    }
-                    for (var i = 0; i < arr.length; i++) {
-                        if (arr[i] > arr[i + 1]) {
-                            return false;
-                        }
-                    }
-                    return true;
-                };
+            module.exports.inArray = function _inArray(val, arr) {
+                if (this.not.array(arr)) return false;
+                for (var i = 0; i < arr.length; i++) if (arr[i] === val) return true;
+                return false;
+            };
+            module.exports.inArray.api = [ "not" ];
+            module.exports.sorted = function _sorted(arr) {
+                if (this.not.array(arr)) return false;
+                for (var i = 0; i < arr.length; i++) if (arr[i] > arr[i + 1]) return false;
+                return true;
             };
         }, {} ],
         3: [ function(require, module, exports) {
             (function(process) {
-                module.exports = function(is) {
-                    var browser = typeof window !== "undefined";
-                    var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
-                    var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
-                    is.chrome = function() {
-                        return browser && /(Chrome|Chromium)\//.test(userAgent) && is.not.opera() && is.not.vivaldi() && is.not.edge() && is.not.facebook() && is.not.twitter();
-                    };
-                    is.chrome.api = [ "not" ];
-                    is.firefox = function() {
-                        return browser && /Firefox\//.test(userAgent);
-                    };
-                    is.firefox.api = [ "not" ];
-                    is.edge = function() {
-                        return browser && /Edge\//.test(userAgent);
-                    };
-                    is.edge.api = [ "not" ];
-                    is.ie = function(ver) {
-                        if (!ver) {
-                            return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
-                        }
-                        if (ver >= 11) {
-                            return browser && "ActiveXObject" in window;
-                        }
-                        return browser && new RegExp("MSIE " + ver).test(userAgent);
-                    };
-                    is.ie.api = [ "not" ];
-                    is.opera = function() {
-                        return browser && /(Opera|OPR)\//.test(userAgent);
-                    };
-                    is.opera.api = [ "not" ];
-                    is.safari = function() {
-                        return browser && /Safari/.test(userAgent) && is.not.chrome() && is.not.vivaldi() && is.not.opera() && is.not.edge() && is.not.facebook() && is.not.twitter();
-                    };
-                    is.safari.api = [ "not" ];
-                    is.vivaldi = function() {
-                        return browser && /Vivaldi/.test(userAgent);
-                    };
-                    is.vivaldi.api = [ "not" ];
-                    is.twitter = function() {
-                        return browser && /Twitter/.test(userAgent);
-                    };
-                    is.twitter.api = [ "not" ];
-                    is.facebook = function() {
-                        return browser && /FB_IAB/.test(userAgent);
-                    };
-                    is.facebook.api = [ "not" ];
-                    is.ios = function() {
-                        return browser && (is.iphone() || is.ipad() || is.ipod());
-                    };
-                    is.ios.api = [ "not" ];
-                    is.iphone = function() {
-                        return browser && /iphone/i.test(userAgent);
-                    };
-                    is.iphone.api = [ "not" ];
-                    is.ipad = function() {
-                        return browser && /ipad/i.test(userAgent);
-                    };
-                    is.ipad.api = [ "not" ];
-                    is.ipod = function() {
-                        return browser && /ipod/i.test(userAgent);
-                    };
-                    is.ipod.api = [ "not" ];
-                    is.android = function() {
-                        return browser && /android/i.test(userAgent);
-                    };
-                    is.android.api = [ "not" ];
-                    is.androidPhone = function() {
-                        return browser && /android/i.test(userAgent) && /mobile/i.test(userAgent);
-                    };
-                    is.androidPhone.api = [ "not" ];
-                    is.androidTablet = function() {
-                        return browser && /android/i.test(userAgent) && !/mobile/i.test(userAgent);
-                    };
-                    is.androidTablet.api = [ "not" ];
-                    is.blackberry = function() {
-                        return browser && (/blackberry/i.test(userAgent) || /BB10/i.test(userAgent));
-                    };
-                    is.blackberry.api = [ "not" ];
-                    is.desktop = function() {
-                        return browser && is.not.mobile() && is.not.tablet();
-                    };
-                    is.desktop.api = [ "not" ];
-                    is.linux = function() {
-                        return browser && /linux/i.test(appVersion) && is.not.android();
-                    };
-                    is.linux.api = [ "not" ];
-                    is.osx = function() {
-                        return browser && /mac/i.test(appVersion);
-                    };
-                    is.osx.api = [ "not" ];
-                    is.mac = function() {
-                        return is.osx();
-                    };
-                    is.mac.api = [ "not" ];
-                    is.windows = function() {
-                        return browser && /win/i.test(appVersion);
-                    };
-                    is.windows.api = [ "not" ];
-                    is.windowsPhone = function() {
-                        return browser && is.windows() && /phone/i.test(userAgent);
-                    };
-                    is.windowsPhone.api = [ "not" ];
-                    is.windowsTablet = function() {
-                        return browser && is.windows() && is.not.windowsPhone() && /touch/i.test(userAgent);
-                    };
-                    is.windowsTablet.api = [ "not" ];
-                    is.mobile = function() {
-                        return browser && (is.iphone() || is.ipod() || is.androidPhone() || is.blackberry() || is.windowsPhone());
-                    };
-                    is.mobile.api = [ "not" ];
-                    is.tablet = function() {
-                        return browser && (is.ipad() || is.androidTablet() || is.windowsTablet());
-                    };
-                    is.tablet.api = [ "not" ];
-                    is.online = function() {
-                        return browser && navigator && navigator.onLine;
-                    };
-                    is.online.api = [ "not" ];
-                    is.offline = function() {
-                        return is.not.online();
-                    };
-                    is.offline.api = [ "not" ];
-                    is.touchDevice = function() {
-                        return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
-                    };
-                    is.touchDevice.api = [ "not" ];
-                    is.nodejs = function() {
-                        return !browser && typeof process === "object";
-                    };
+                var browser = "undefined" != typeof window;
+                var userAgent = browser && "navigator" in window && "userAgent" in navigator && navigator.userAgent || "";
+                var appVersion = browser && "navigator" in window && "appVersion" in navigator && navigator.appVersion || "";
+                module.exports.chrome = function _chrome() {
+                    return browser && /(Chrome|Chromium)\//.test(userAgent) && this.not.opera() && this.not.vivaldi() && this.not.edge() && this.not.facebook() && this.not.twitter();
+                };
+                module.exports.chrome.api = [ "not" ];
+                module.exports.firefox = function _firefox() {
+                    return browser && /Firefox\//.test(userAgent);
+                };
+                module.exports.firefox.api = [ "not" ];
+                module.exports.edge = function _edge() {
+                    return browser && /Edge\//.test(userAgent);
+                };
+                module.exports.edge.api = [ "not" ];
+                module.exports.ie = function _ie(ver) {
+                    if (!ver) return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
+                    if (11 <= ver) return browser && "ActiveXObject" in window;
+                    return browser && new RegExp("MSIE " + ver).test(userAgent);
+                };
+                module.exports.ie.api = [ "not" ];
+                module.exports.opera = function _opera() {
+                    return browser && /(Opera|OPR)\//.test(userAgent);
+                };
+                module.exports.opera.api = [ "not" ];
+                module.exports.safari = function _safari() {
+                    return browser && /Safari/.test(userAgent) && this.not.chrome() && this.not.vivaldi() && this.not.opera() && this.not.edge() && this.not.facebook() && this.not.twitter();
+                };
+                module.exports.safari.api = [ "not" ];
+                module.exports.vivaldi = function _vivaldi() {
+                    return browser && /Vivaldi/.test(userAgent);
+                };
+                module.exports.vivaldi.api = [ "not" ];
+                module.exports.twitter = function _twitter() {
+                    return browser && /Twitter/.test(userAgent);
+                };
+                module.exports.twitter.api = [ "not" ];
+                module.exports.facebook = function _facebook() {
+                    return browser && /FB_IAB/.test(userAgent);
+                };
+                module.exports.facebook.api = [ "not" ];
+                module.exports.ios = function _ios() {
+                    return browser && (this.iphone() || this.ipad() || this.ipod());
+                };
+                module.exports.ios.api = [ "not" ];
+                module.exports.iphone = function _iphone() {
+                    return browser && /iphone/i.test(userAgent);
+                };
+                module.exports.iphone.api = [ "not" ];
+                module.exports.ipad = function _ipad() {
+                    return browser && /ipad/i.test(userAgent);
+                };
+                module.exports.ipad.api = [ "not" ];
+                module.exports.ipod = function _ipod() {
+                    return browser && /ipod/i.test(userAgent);
+                };
+                module.exports.ipod.api = [ "not" ];
+                module.exports.android = function _android() {
+                    return browser && /android/i.test(userAgent);
+                };
+                module.exports.android.api = [ "not" ];
+                module.exports.androidPhone = function _androidPhone() {
+                    return browser && /android/i.test(userAgent) && /mobile/i.test(userAgent);
+                };
+                module.exports.androidPhone.api = [ "not" ];
+                module.exports.androidTablet = function _androidTablet() {
+                    return browser && /android/i.test(userAgent) && !/mobile/i.test(userAgent);
+                };
+                module.exports.androidTablet.api = [ "not" ];
+                module.exports.blackberry = function _blackberry() {
+                    return browser && (/blackberry/i.test(userAgent) || /BB10/i.test(userAgent));
+                };
+                module.exports.blackberry.api = [ "not" ];
+                module.exports.desktop = function _desktop() {
+                    return browser && this.not.mobile() && this.not.tablet();
+                };
+                module.exports.desktop.api = [ "not" ];
+                module.exports.linux = function _linux() {
+                    return browser && /linux/i.test(appVersion) && this.not.android();
+                };
+                module.exports.linux.api = [ "not" ];
+                module.exports.osx = function _osx() {
+                    return browser && /mac/i.test(appVersion);
+                };
+                module.exports.osx.api = [ "not" ];
+                module.exports.mac = module.exports.osx;
+                module.exports.mac.api = [ "not" ];
+                module.exports.windows = function _windows() {
+                    return browser && /win/i.test(appVersion);
+                };
+                module.exports.windows.api = [ "not" ];
+                module.exports.windowsPhone = function _windowsPhone() {
+                    return browser && this.windows() && /phone/i.test(userAgent);
+                };
+                module.exports.windowsPhone.api = [ "not" ];
+                module.exports.windowsTablet = function _windowsTablet() {
+                    return browser && this.windows() && this.not.windowsPhone() && /touch/i.test(userAgent);
+                };
+                module.exports.windowsTablet.api = [ "not" ];
+                module.exports.mobile = function _mobile() {
+                    return browser && (this.iphone() || this.ipod() || this.androidPhone() || this.blackberry() || this.windowsPhone());
+                };
+                module.exports.mobile.api = [ "not" ];
+                module.exports.tablet = function _tablet() {
+                    return browser && (this.ipad() || this.androidTablet() || this.windowsTablet());
+                };
+                module.exports.tablet.api = [ "not" ];
+                module.exports.online = function _online() {
+                    return browser && navigator && navigator.onLine;
+                };
+                module.exports.online.api = [ "not" ];
+                module.exports.offline = function _offline() {
+                    return this.not.online();
+                };
+                module.exports.offline.api = [ "not" ];
+                module.exports.touchDevice = function _touchDevice() {
+                    return browser && ("ontouchstart" in window || "DocumentTouch" in window && document instanceof DocumentTouch);
+                };
+                module.exports.touchDevice.api = [ "not" ];
+                module.exports.nodejs = function _nodejs() {
+                    return !browser && "object" == typeof process;
                 };
             }).call(this, require("_process"));
         }, {
@@ -291,107 +210,59 @@
             (function(global) {
                 var root = this || global;
                 var previousIs = root.is;
-                var regexps = {
-                    domain: /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/,
-                    url: /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[\/?#]\S*)?$/i,
-                    email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i,
-                    creditCard: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
-                    alphaNumeric: /^[A-Za-z0-9]+$/,
-                    timeString: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
-                    dateString: /^(1[0-2]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(?:[0-9]{2})?[0-9]{2}$/,
-                    usZipCode: /^[0-9]{5}(?:-[0-9]{4})?$/,
-                    caPostalCode: /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s?[0-9][A-Z][0-9]$/,
-                    ukPostCode: /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/,
-                    nanpPhone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-                    eppPhone: /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/,
-                    socialSecurityNumber: /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/,
-                    affirmative: /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i,
-                    hexadecimal: /^[0-9a-fA-F]+$/,
-                    hexColor: /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
-                    ipv4: /^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$/,
-                    ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
-                    ip: /(^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$)/
-                };
-                var is = {};
-                is.VERSION = "0.8.0";
-                is.not = {};
-                is.all = {};
-                is.any = {};
-                function not(func) {
-                    return function() {
-                        return !func.apply(null, Array.prototype.slice.call(arguments));
-                    };
-                }
-                function all(func) {
-                    return function() {
+                var is = {
+                    all: {},
+                    any: {},
+                    not: {},
+                    getArgsArray: function getArgsArray() {
                         var args = Array.prototype.slice.call(arguments);
                         var len = args.length;
-                        if (len === 1 && is.array(args[0])) {
-                            args = args[0];
-                            len = args.length;
-                        }
-                        for (var i = 0; i < len; i++) {
-                            if (!func.call(null, args[i])) {
-                                return false;
-                            }
-                        }
-                        return true;
-                    };
-                }
-                function any(func) {
-                    return function() {
-                        var args = Array.prototype.slice.call(arguments);
-                        var len = args.length;
-                        if (len === 1 && is.array(args[0])) {
-                            args = args[0];
-                            len = args.length;
-                        }
-                        for (var i = 0; i < len; i++) {
-                            if (func.call(null, args[i])) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    };
-                }
-                require("./type")(is);
-                require("./presence")(is);
-                require("./arithmetic")(is);
-                require("./regexp")(is, regexps);
-                require("./string")(is);
-                require("./time")(is);
-                require("./environment")(is);
-                require("./object")(is);
-                require("./array")(is);
-                for (var method in is) {
-                    if (is.hasOwnProperty(method) && is.function(is[method])) {
-                        var ifaces = is[method].api || [ "not", "all", "any" ];
-                        for (var i = 0, l = ifaces.length; i < l; i++) {
-                            if (ifaces[i] === "not") {
-                                is.not[method] = not(is[method]);
-                            }
-                            if (ifaces[i] === "all") {
-                                is.all[method] = all(is[method]);
-                            }
-                            if (ifaces[i] === "any") {
-                                is.any[method] = any(is[method]);
-                            }
-                        }
-                    }
-                }
-                is.setRegexp = function(reg, key) {
-                    for (var name in regexps) {
-                        if (regexps.hasOwnProperty(name) && key === name) {
-                            regexps[name] = reg;
-                        }
+                        if (1 === len && Array.isArray(args[0])) len = (args = args[0]).length;
+                        return args;
+                    },
+                    setNamespace: function setNamespace() {
+                        root.is = previousIs;
+                        return this;
                     }
                 };
-                is.setNamespace = function() {
-                    root.is = previousIs;
-                    return this;
-                };
+                var checks = [ require("./environment"), require("./arithmetic"), require("./presence"), require("./object"), require("./regexp"), require("./string"), require("./array"), require("./time"), require("./type") ];
+                Object.keys(checks).forEach(function(check) {
+                    var obj = checks[check];
+                    Object.keys(obj).forEach(function(method) {
+                        Object.defineProperty(is, method, {
+                            value: obj[method].bind(is),
+                            enumerable: true
+                        });
+                        if ("function" == typeof obj[method]) {
+                            var interfaces = obj[method].api || [ "not", "all", "any" ];
+                            if (interfaces.includes("not")) Object.defineProperty(is.not, method, {
+                                enumerable: true,
+                                value: function() {
+                                    return !is[method].apply(is, arguments);
+                                }
+                            });
+                            if (interfaces.includes("all")) Object.defineProperty(is.all, method, {
+                                enumerable: true,
+                                value: function() {
+                                    var args = is.getArgsArray.apply(is, arguments);
+                                    for (var i = 0, l = args.length; i < l; i++) if (!is[method].call(is, args[i])) return false;
+                                    return true;
+                                }
+                            });
+                            if (interfaces.includes("any")) Object.defineProperty(is.any, method, {
+                                enumerable: true,
+                                value: function() {
+                                    var args = is.getArgsArray.apply(is, arguments);
+                                    for (var i = 0, l = args.length; i < l; i++) if (is[method].call(is, args[i])) return true;
+                                    return false;
+                                }
+                            });
+                        }
+                    });
+                });
+                if ("function" == typeof Object.freeze) Object.freeze(is);
                 module.exports = is;
-            }).call(this, typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
+            }).call(this, "undefined" != typeof global ? global : "undefined" != typeof self ? self : "undefined" != typeof window ? window : {});
         }, {
             "./arithmetic": 1,
             "./array": 2,
@@ -404,270 +275,299 @@
             "./type": 10
         } ],
         5: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.propertyCount = function(obj, count) {
-                    if (!is.object(obj) || !is.number(count)) {
-                        return false;
-                    }
-                    if (Object.keys) {
-                        return Object.keys(obj).length === count;
-                    }
-                    var properties = [];
-                    var property;
-                    for (property in obj) {
-                        if (Object.prototype.hasOwnProperty.call(obj, property)) {
-                            properties.push(property);
-                        }
-                    }
-                    return properties.length === count;
-                };
-                is.propertyCount.api = [ "not" ];
-                is.propertyDefined = function(obj, prop) {
-                    return is.object(obj) && is.string(prop) && prop in obj;
-                };
-                is.propertyDefined.api = [ "not" ];
-                is.windowObject = function(obj) {
-                    return typeof obj === "object" && "setInterval" in obj;
-                };
-                is.domNode = function(obj) {
-                    return typeof obj === "object" && typeof obj.nodeType === "number" && obj.nodeType === 1;
-                };
+            module.exports.propertyCount = function _propertyCount(obj, count) {
+                if (!this.object(obj) || !this.number(count)) return false;
+                if (Object.keys) return Object.keys(obj).length === count;
+                var properties = [];
+                var property;
+                for (property in obj) if (Object.prototype.hasOwnProperty.call(obj, property)) properties.push(property);
+                return properties.length === count;
+            };
+            module.exports.propertyCount.api = [ "not" ];
+            module.exports.propertyDefined = function _propertyDefined(obj, prop) {
+                return this.object(obj) && this.string(prop) && prop in obj;
+            };
+            module.exports.propertyDefined.api = [ "not" ];
+            module.exports.windowObject = function _windowObject(obj) {
+                return "object" == typeof obj && "setInterval" in obj;
+            };
+            module.exports.domNode = function _domNode(obj) {
+                return "object" == typeof obj && "number" == typeof obj.nodeType && 1 === obj.nodeType;
             };
         }, {} ],
         6: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.empty = function(val) {
-                    if (is.string(val) || is.array(val)) {
-                        return val.length === 0;
-                    }
-                    if (is.number(val) || is.boolean(val)) {
-                        return false;
-                    }
-                    if (is.nan(val)) {
-                        return true;
-                    }
-                    if (is.date(val)) {
-                        return is.nan(val.getTime());
-                    }
-                    if (is.not.existy(val)) {
-                        return true;
-                    }
-                    if (is.object(val)) {
-                        return Object.keys(val).length === 0;
-                    }
-                    return !val;
-                };
-                is.existy = function(val) {
-                    return val !== null && val !== undefined;
-                };
-                is.truthy = function(val) {
-                    return is.existy(val) && val !== false && is.not.nan(val) && val !== "" && val !== 0;
-                };
-                is.falsy = function(val) {
-                    return is.not.truthy(val);
-                };
-                is.space = function(val) {
-                    if (is.char(val)) {
-                        var code = val.charCodeAt(0);
-                        return code > 8 && code < 14 || code === 32;
-                    }
-                    return false;
-                };
+            module.exports.empty = function _empty(val) {
+                if (this.string(val) || this.array(val)) return 0 === val.length;
+                if (this.number(val) || this.boolean(val)) return false;
+                if (this.nan(val)) return true;
+                if (this.date(val)) return this.nan(val.getTime());
+                if (this.not.existy(val)) return true;
+                if (this.object(val)) return 0 === Object.keys(val).length;
+                return !val;
+            };
+            module.exports.existy = function _existy(val) {
+                return null != val;
+            };
+            module.exports.truthy = function _truthy(val) {
+                return this.existy(val) && false !== val && this.not.nan(val) && "" !== val && 0 !== val;
+            };
+            module.exports.falsy = function _falsy(val) {
+                return this.not.truthy(val);
+            };
+            module.exports.space = function _space(val) {
+                if (this.char(val)) {
+                    var code = val.charCodeAt(0);
+                    return 8 < code && code < 14 || 32 === code;
+                }
+                return false;
             };
         }, {} ],
         7: [ function(require, module, exports) {
-            module.exports = function(is, regexps) {
-                function create(name) {
-                    is[name] = function(val) {
-                        return regexps[name].test(val);
-                    };
-                }
-                for (var reg in regexps) {
-                    if (regexps.hasOwnProperty(reg)) {
-                        create(reg);
-                    }
-                }
+            var regexps = {
+                domain: /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/,
+                url: /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?$/i,
+                email: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
+                creditCard: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
+                alphaNumeric: /^[A-Za-z0-9]+$/,
+                timeString: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
+                dateString: /^(1[0-2]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(?:[0-9]{2})?[0-9]{2}$/,
+                usZipCode: /^[0-9]{5}(?:-[0-9]{4})?$/,
+                caPostalCode: /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s?[0-9][A-Z][0-9]$/,
+                ukPostCode: /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/,
+                nanpPhone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+                eppPhone: /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/,
+                socialSecurityNumber: /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/,
+                affirmative: /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i,
+                hexadecimal: /^[0-9a-fA-F]+$/,
+                hexColor: /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
+                ipv4: /^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$/,
+                ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
+                ip: /(^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$)/
+            };
+            module.exports.setRegexp = function _setRegexp(reg, key) {
+                for (var name in regexps) if (regexps.hasOwnProperty(name) && key === name) regexps[name] = reg;
+            };
+            module.exports.domain = function _domain(val) {
+                return regexps.domain.test(val);
+            };
+            module.exports.url = function _url(val) {
+                return regexps.url.test(val);
+            };
+            module.exports.email = function _email(val) {
+                return regexps.email.test(val);
+            };
+            module.exports.creditCard = function _creditCard(val) {
+                return regexps.creditCard.test(val);
+            };
+            module.exports.alphanumeric = module.exports.alphaNumeric = function _alphaNumeric(val) {
+                return regexps.alphaNumeric.test(val);
+            };
+            module.exports.timeString = function _timeString(val) {
+                return regexps.timeString.test(val);
+            };
+            module.exports.dateString = function _dateString(val) {
+                return regexps.dateString.test(val);
+            };
+            module.exports.usZipCode = function _usZipCode(val) {
+                return regexps.usZipCode.test(val);
+            };
+            module.exports.caPostalCode = function _caPostalCode(val) {
+                return regexps.caPostalCode.test(val);
+            };
+            module.exports.ukPostCode = function _ukPostCode(val) {
+                return regexps.ukPostCode.test(val);
+            };
+            module.exports.nanpPhone = function _nanpPhone(val) {
+                return regexps.nanpPhone.test(val);
+            };
+            module.exports.eppPhone = function _eppPhone(val) {
+                return regexps.eppPhone.test(val);
+            };
+            module.exports.socialSecurityNumber = function _socialSecurityNumber(val) {
+                return regexps.socialSecurityNumber.test(val);
+            };
+            module.exports.affirmative = function _affirmative(val) {
+                return regexps.affirmative.test(val);
+            };
+            module.exports.hexadecimal = function _hexadecimal(val) {
+                return regexps.hexadecimal.test(val);
+            };
+            module.exports.hexColor = function _hexColor(val) {
+                return regexps.hexColor.test(val);
+            };
+            module.exports.ip = function _ip(val) {
+                return regexps.ip.test(val);
+            };
+            module.exports.ipv4 = function _ipv4(val) {
+                return regexps.ipv4.test(val);
+            };
+            module.exports.ipv6 = function _ipv6(val) {
+                return regexps.ipv6.test(val);
             };
         }, {} ],
         8: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.include = function(str, val) {
-                    return is.string(str) && str.indexOf(val) > -1;
-                };
-                is.include.api = [ "not" ];
-                is.upperCase = function(str) {
-                    return is.string(str) && str === str.toUpperCase();
-                };
-                is.lowerCase = function(str) {
-                    return is.string(str) && str === str.toLowerCase();
-                };
-                is.startWith = function(str, val) {
-                    return is.string(str) && str.indexOf(val) === 0;
-                };
-                is.startWith.api = [ "not" ];
-                is.endWith = function(str, val) {
-                    return is.string(str) && str.indexOf(val) > -1 && str.indexOf(val) === str.length - val.length;
-                };
-                is.endWith.api = [ "not" ];
-                is.capitalized = function(str) {
-                    if (is.not.string(str)) {
-                        return false;
-                    }
-                    var words = str.split(/\s+/);
-                    var capitalized = [];
-                    for (var i = 0; i < words.length; i++) {
-                        capitalized.push(words[i][0] === words[i][0].toUpperCase());
-                    }
-                    return is.all.truthy.apply(null, capitalized);
-                };
-                is.palindrome = function(str) {
-                    return is.string(str) && str === str.split("").reverse().join("");
-                };
+            module.exports.include = function _include(str, val) {
+                return this.string(str) && -1 < str.indexOf(val);
+            };
+            module.exports.include.api = [ "not" ];
+            module.exports.upperCase = function _upperCase(str) {
+                return this.string(str) && str === str.toUpperCase();
+            };
+            module.exports.lowerCase = function _lowerCase(str) {
+                return this.string(str) && str === str.toLowerCase();
+            };
+            module.exports.startWith = function _startWith(str, val) {
+                return this.string(str) && 0 === str.indexOf(val);
+            };
+            module.exports.startWith.api = [ "not" ];
+            module.exports.endWith = function _endWith(str, val) {
+                return this.string(str) && -1 < str.indexOf(val) && str.indexOf(val) === str.length - val.length;
+            };
+            module.exports.endWith.api = [ "not" ];
+            module.exports.capitalized = function _capitalized(str) {
+                if (this.not.string(str)) return false;
+                var words = str.split(/\s+/);
+                var capitalized = [];
+                for (var i = 0; i < words.length; i++) capitalized.push(words[i][0] === words[i][0].toUpperCase());
+                return this.all.truthy.apply(null, capitalized);
+            };
+            module.exports.palindrome = function _palindrome(str) {
+                return this.string(str) && str === str.split("").reverse().join("");
             };
         }, {} ],
         9: [ function(require, module, exports) {
-            module.exports = function(is) {
-                var days = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
-                var months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ];
-                is.today = function(date) {
-                    return is.date(date) && date.toDateString() === new Date().toDateString();
-                };
-                is.yesterday = function(obj) {
-                    var now = new Date();
-                    return is.date(obj) && obj.toDateString() === new Date(now.setDate(now.getDate() - 1)).toDateString();
-                };
-                is.tomorrow = function(obj) {
-                    var now = new Date();
-                    return is.date(obj) && obj.toDateString() === new Date(now.setDate(now.getDate() + 1)).toDateString();
-                };
-                is.past = function(obj) {
-                    return is.date(obj) && obj.getTime() < new Date().getTime();
-                };
-                is.future = function(date) {
-                    return is.not.past(date);
-                };
-                is.day = function(date, day) {
-                    return is.date(date) && day.toLowerCase() === days[date.getDay()];
-                };
-                is.day.api = [ "not" ];
-                is.month = function(date, month) {
-                    return is.date(date) && month.toLowerCase() === months[date.getMonth()];
-                };
-                is.month.api = [ "not" ];
-                is.year = function(date, year) {
-                    return is.date(date) && is.number(year) && year === date.getFullYear();
-                };
-                is.year.api = [ "not" ];
-                is.leapYear = function(year) {
-                    return is.number(year) && (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0);
-                };
-                is.weekend = function(date) {
-                    return is.date(date) && (date.getDay() === 6 || date.getDay() === 0);
-                };
-                is.weekday = function(date) {
-                    return is.not.weekend(date);
-                };
-                is.inDateRange = function(date, start, end) {
-                    if (is.not.date(date) || is.not.date(start) || is.not.date(end)) {
-                        return false;
-                    }
-                    return date.getTime() > start.getTime() && date.getTime() < end.getTime();
-                };
-                is.inDateRange.api = [ "not" ];
-                is.inLastWeek = function(date) {
-                    return is.inDateRange(date, new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
-                };
-                is.inLastMonth = function(date) {
-                    return is.inDateRange(date, new Date(new Date().setMonth(new Date().getMonth() - 1)), new Date());
-                };
-                is.inLastYear = function(date) {
-                    return is.inDateRange(date, new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
-                };
-                is.inNextWeek = function(obj) {
-                    return is.inDateRange(obj, new Date(), new Date(new Date().setDate(new Date().getDate() + 7)));
-                };
-                is.inNextMonth = function(obj) {
-                    return is.inDateRange(obj, new Date(), new Date(new Date().setMonth(new Date().getMonth() + 1)));
-                };
-                is.inNextYear = function(obj) {
-                    return is.inDateRange(obj, new Date(), new Date(new Date().setFullYear(new Date().getFullYear() + 1)));
-                };
-                is.quarterOfYear = function(date, quarter) {
-                    return is.date(date) && is.number(quarter) && quarter === Math.floor((date.getMonth() + 3) / 3);
-                };
-                is.quarterOfYear.api = [ "not" ];
-                is.dayLightSavingTime = function(date) {
-                    console.warn("`dayLightSavingTime` method will be removed in the next version! Use a library like moment.js for this instead.");
-                    var january = new Date(date.getFullYear(), 0, 1);
-                    var july = new Date(date.getFullYear(), 6, 1);
-                    var stdTimezoneOffset = Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
-                    return date.getTimezoneOffset() < stdTimezoneOffset;
-                };
+            var days = [ "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" ];
+            var months = [ "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" ];
+            module.exports.today = function _today(date) {
+                return this.date(date) && date.toDateString() === new Date().toDateString();
+            };
+            module.exports.yesterday = function _yesterday(date) {
+                var now = new Date();
+                return this.date(date) && date.toDateString() === new Date(now.setDate(now.getDate() - 1)).toDateString();
+            };
+            module.exports.tomorrow = function _tomorrow(date) {
+                var now = new Date();
+                return this.date(date) && date.toDateString() === new Date(now.setDate(now.getDate() + 1)).toDateString();
+            };
+            module.exports.past = function _past(date) {
+                return this.date(date) && date.getTime() < new Date().getTime();
+            };
+            module.exports.future = function _future(date) {
+                return this.not.past(date);
+            };
+            module.exports.day = function _day(date, day) {
+                return this.date(date) && day.toLowerCase() === days[date.getDay()];
+            };
+            module.exports.day.api = [ "not" ];
+            module.exports.month = function _month(date, month) {
+                return this.date(date) && month.toLowerCase() === months[date.getMonth()];
+            };
+            module.exports.month.api = [ "not" ];
+            module.exports.year = function _year(date, year) {
+                return this.date(date) && this.number(year) && year === date.getFullYear();
+            };
+            module.exports.year.api = [ "not" ];
+            module.exports.leapYear = function _leapYear(year) {
+                return this.number(year) && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0);
+            };
+            module.exports.weekend = function _weekend(date) {
+                return this.date(date) && (6 === date.getDay() || 0 === date.getDay());
+            };
+            module.exports.weekday = function _weekday(date) {
+                return this.not.weekend(date);
+            };
+            module.exports.inDateRange = function _inDateRange(date, start, end) {
+                if (this.not.date(date) || this.not.date(start) || this.not.date(end)) return false;
+                return date.getTime() > start.getTime() && date.getTime() < end.getTime();
+            };
+            module.exports.inDateRange.api = [ "not" ];
+            module.exports.inLastWeek = function _inLastWeek(date) {
+                return this.inDateRange(date, new Date(new Date().setDate(new Date().getDate() - 7)), new Date());
+            };
+            module.exports.inLastMonth = function _inLastMonth(date) {
+                return this.inDateRange(date, new Date(new Date().setMonth(new Date().getMonth() - 1)), new Date());
+            };
+            module.exports.inLastYear = function _inLastYear(date) {
+                return this.inDateRange(date, new Date(new Date().setFullYear(new Date().getFullYear() - 1)), new Date());
+            };
+            module.exports.inNextWeek = function _inNextWeek(date) {
+                return this.inDateRange(date, new Date(), new Date(new Date().setDate(new Date().getDate() + 7)));
+            };
+            module.exports.inNextMonth = function _inNextMonth(date) {
+                return this.inDateRange(date, new Date(), new Date(new Date().setMonth(new Date().getMonth() + 1)));
+            };
+            module.exports.inNextYear = function _inNextYear(date) {
+                return this.inDateRange(date, new Date(), new Date(new Date().setFullYear(new Date().getFullYear() + 1)));
+            };
+            module.exports.quarterOfYear = function _quarterOfYear(date, quarter) {
+                return this.date(date) && this.number(quarter) && quarter === Math.floor((date.getMonth() + 3) / 3);
+            };
+            module.exports.quarterOfYear.api = [ "not" ];
+            module.exports.dayLightSavingTime = function _dayLightSavingTime(date) {
+                console.warn("`dayLightSavingTime` method will be removed in the next version! Use a library like moment.js for this instead.");
+                var january = new Date(date.getFullYear(), 0, 1);
+                var july = new Date(date.getFullYear(), 6, 1);
+                var stdTimezoneOffset = Math.max(january.getTimezoneOffset(), july.getTimezoneOffset());
+                return date.getTimezoneOffset() < stdTimezoneOffset;
             };
         }, {} ],
         10: [ function(require, module, exports) {
-            module.exports = function(is) {
-                is.arguments = function(val) {
-                    return is.not.null(val) && (Object.prototype.toString.call(val) === "[object Arguments]" || typeof val === "object" && "callee" in val);
-                };
-                is.array = function(val) {
-                    if (typeof Array.isArray === "function") {
-                        return Array.isArray(val);
-                    }
-                    return Object.prototype.toString.call(val) === "[object Array]";
-                };
-                is.boolean = function(val) {
-                    return val === true || val === false || Object.prototype.toString.call(val) === "[object Boolean]";
-                };
-                is.date = function(val) {
-                    return Object.prototype.toString.call(val) === "[object Date]";
-                };
-                is.error = function(val) {
-                    return Object.prototype.toString.call(val) === "[object Error]";
-                };
-                is.function = function(val) {
-                    return Object.prototype.toString.call(val) === "[object Function]" || typeof value === "function";
-                };
-                is.nan = function(val) {
-                    return val !== val;
-                };
-                is.null = function(val) {
-                    return val === null;
-                };
-                is.number = function(val) {
-                    return is.not.nan(val) && Object.prototype.toString.call(val) === "[object Number]";
-                };
-                is.object = function(val) {
-                    return Object.prototype.toString.call(val) === "[object Object]";
-                };
-                is.json = function(val) {
-                    if (is.string(val)) {
-                        try {
-                            JSON.parse(val);
-                            return true;
-                        } catch (e) {}
-                    }
+            module.exports.arguments = function _arguments(val) {
+                return this.not.null(val) && ("[object Arguments]" === Object.prototype.toString.call(val) || "object" == typeof val && "callee" in val);
+            };
+            module.exports.array = function _array(val) {
+                if ("function" == typeof Array.isArray) return Array.isArray(val);
+                return "[object Array]" === Object.prototype.toString.call(val);
+            };
+            module.exports.boolean = function _boolean(val) {
+                return true === val || false === val || "[object Boolean]" === Object.prototype.toString.call(val);
+            };
+            module.exports.date = function _date(val) {
+                return "[object Date]" === Object.prototype.toString.call(val);
+            };
+            module.exports.error = function _error(val) {
+                return "[object Error]" === Object.prototype.toString.call(val);
+            };
+            module.exports.function = function _function(val) {
+                return "[object Function]" === Object.prototype.toString.call(val) || "[object AsyncFunction]" === Object.prototype.toString.call(val) || "function" == typeof val;
+            };
+            module.exports.nan = function _nan(val) {
+                return val != val;
+            };
+            module.exports.null = function _null(val) {
+                return null === val;
+            };
+            module.exports.number = function _number(val) {
+                return this.not.nan(val) && "[object Number]" === Object.prototype.toString.call(val);
+            };
+            module.exports.object = function _object(val) {
+                return "[object Object]" === Object.prototype.toString.call(val);
+            };
+            module.exports.json = function _json(val) {
+                if (this.string(val)) try {
+                    JSON.parse(val);
+                    return true;
+                } catch (e) {
                     return false;
-                };
-                is.regexp = function(val) {
-                    return Object.prototype.toString.call(val) === "[object RegExp]";
-                };
-                is.sameType = function(val1, val2) {
-                    if (is.nan(val1) || is.nan(val2)) {
-                        return is.nan(val1) && is.nan(val2);
-                    }
-                    return Object.prototype.toString.call(val1) === Object.prototype.toString.call(val2);
-                };
-                is.sameType.api = [ "not" ];
-                is.string = function(value) {
-                    return Object.prototype.toString.call(value) === "[object String]";
-                };
-                is.char = function(val) {
-                    return is.string(val) && val.length === 1;
-                };
-                is.undefined = function(val) {
-                    return val === void 0;
-                };
+                }
+                return false;
+            };
+            module.exports.regexp = function _regexp(val) {
+                return "[object RegExp]" === Object.prototype.toString.call(val);
+            };
+            module.exports.sameType = function _sameType(a, b) {
+                if (this.nan(a) || this.nan(b)) return this.nan(a) && this.nan(b);
+                return Object.prototype.toString.call(a) === Object.prototype.toString.call(b);
+            };
+            module.exports.sameType.api = [ "not" ];
+            module.exports.string = function _string(value) {
+                return "[object String]" === Object.prototype.toString.call(value);
+            };
+            module.exports.char = function _char(val) {
+                return this.string(val) && 1 === val.length;
+            };
+            module.exports.undefined = function _undefined(val) {
+                return void 0 === val;
             };
         }, {} ],
         11: [ function(require, module, exports) {
@@ -680,30 +580,20 @@
             function defaultClearTimeout() {
                 throw new Error("clearTimeout has not been defined");
             }
-            (function() {
+            !function() {
                 try {
-                    if (typeof setTimeout === "function") {
-                        cachedSetTimeout = setTimeout;
-                    } else {
-                        cachedSetTimeout = defaultSetTimout;
-                    }
+                    if ("function" == typeof setTimeout) cachedSetTimeout = setTimeout; else cachedSetTimeout = defaultSetTimout;
                 } catch (e) {
                     cachedSetTimeout = defaultSetTimout;
                 }
                 try {
-                    if (typeof clearTimeout === "function") {
-                        cachedClearTimeout = clearTimeout;
-                    } else {
-                        cachedClearTimeout = defaultClearTimeout;
-                    }
+                    if ("function" == typeof clearTimeout) cachedClearTimeout = clearTimeout; else cachedClearTimeout = defaultClearTimeout;
                 } catch (e) {
                     cachedClearTimeout = defaultClearTimeout;
                 }
-            })();
+            }();
             function runTimeout(fun) {
-                if (cachedSetTimeout === setTimeout) {
-                    return setTimeout(fun, 0);
-                }
+                if (cachedSetTimeout === setTimeout) return setTimeout(fun, 0);
                 if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
                     cachedSetTimeout = setTimeout;
                     return setTimeout(fun, 0);
@@ -719,9 +609,7 @@
                 }
             }
             function runClearTimeout(marker) {
-                if (cachedClearTimeout === clearTimeout) {
-                    return clearTimeout(marker);
-                }
+                if (cachedClearTimeout === clearTimeout) return clearTimeout(marker);
                 if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
                     cachedClearTimeout = clearTimeout;
                     return clearTimeout(marker);
@@ -741,34 +629,20 @@
             var currentQueue;
             var queueIndex = -1;
             function cleanUpNextTick() {
-                if (!draining || !currentQueue) {
-                    return;
-                }
+                if (!draining || !currentQueue) return;
                 draining = false;
-                if (currentQueue.length) {
-                    queue = currentQueue.concat(queue);
-                } else {
-                    queueIndex = -1;
-                }
-                if (queue.length) {
-                    drainQueue();
-                }
+                if (currentQueue.length) queue = currentQueue.concat(queue); else queueIndex = -1;
+                if (queue.length) drainQueue();
             }
             function drainQueue() {
-                if (draining) {
-                    return;
-                }
+                if (draining) return;
                 var timeout = runTimeout(cleanUpNextTick);
                 draining = true;
                 var len = queue.length;
-                while (len) {
+                for (;len; ) {
                     currentQueue = queue;
                     queue = [];
-                    while (++queueIndex < len) {
-                        if (currentQueue) {
-                            currentQueue[queueIndex].run();
-                        }
-                    }
+                    for (;++queueIndex < len; ) if (currentQueue) currentQueue[queueIndex].run();
                     queueIndex = -1;
                     len = queue.length;
                 }
@@ -778,15 +652,9 @@
             }
             process.nextTick = function(fun) {
                 var args = new Array(arguments.length - 1);
-                if (arguments.length > 1) {
-                    for (var i = 1; i < arguments.length; i++) {
-                        args[i - 1] = arguments[i];
-                    }
-                }
+                if (1 < arguments.length) for (var i = 1; i < arguments.length; i++) args[i - 1] = arguments[i];
                 queue.push(new Item(fun, args));
-                if (queue.length === 1 && !draining) {
-                    runTimeout(drainQueue);
-                }
+                if (1 === queue.length && !draining) runTimeout(drainQueue);
             };
             function Item(fun, array) {
                 this.fun = fun;
@@ -809,6 +677,11 @@
             process.removeListener = noop;
             process.removeAllListeners = noop;
             process.emit = noop;
+            process.prependListener = noop;
+            process.prependOnceListener = noop;
+            process.listeners = function(name) {
+                return [];
+            };
             process.binding = function(name) {
                 throw new Error("process.binding is not supported");
             };
@@ -823,4 +696,27 @@
             };
         }, {} ]
     }, {}, [ 4 ])(4);
+    function r(e, n, t) {
+        function o(i, f) {
+            if (!n[i]) {
+                if (!e[i]) {
+                    var c = "function" == typeof require && require;
+                    if (!f && c) return c(i, !0);
+                    if (u) return u(i, !0);
+                    var a = new Error("Cannot find module '" + i + "'");
+                    throw a.code = "MODULE_NOT_FOUND", a;
+                }
+                var p = n[i] = {
+                    exports: {}
+                };
+                e[i][0].call(p.exports, function(r) {
+                    var n;
+                    return o(e[i][1][r] || r);
+                }, p, p.exports, r, e, n, t);
+            }
+            return n[i].exports;
+        }
+        for (var u = "function" == typeof require && require, i = 0; i < t.length; i++) o(t[i]);
+        return o;
+    }
 });
