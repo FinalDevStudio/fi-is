@@ -4,35 +4,50 @@ const buffer = require('vinyl-buffer');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 const util = require('gulp-util');
-const jsdox = require('jsdox');
+const doxdox = require('doxdox');
 const gulp = require('gulp');
 const del = require('del');
+const fs = require('fs');
 
-const opts = {
-  uglify: {
-    min: {
-      mangle: true,
-      compress: {
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        drop_console: true
-      }
+/**
+ * Generates a build options object.
+ *
+ * @param {Boolean} min Whether to minify output.
+ *
+ * @returns {Object} The options object.
+ */
+function getOptions(min = false) {
+  return {
+    browserify: {
+      entries: './lib/index.js',
+      standalone: 'is',
+      debug: true
     },
-
-    dev: {
-      compress: false,
-      mangle: false,
+    rename: {
+      extname: min ? '.min.js' : '.js',
+      basename: 'fi-is'
+    },
+    babelify: {
+      presets: ['@babel/preset-env']
+    },
+    uglify: {
+      mangle: min,
+      compress: {
+        conditionals: min,
+        drop_console: min,
+        if_return: min,
+        join_vars: min,
+        sequences: min,
+        dead_code: min,
+        booleans: min,
+        unused: min
+      },
       output: {
-        beautify: true
+        beautify: !min
       }
     }
-  }
-};
+  };
+}
 
 /**
  * Builds the dist versions for the browser.
@@ -42,24 +57,16 @@ const opts = {
  * @returns {Object} The gulp stream object.
  */
 function build(min) {
-  const options = {
-    entries: './lib/index.js',
-    standalone: 'is',
-    debug: true
-  };
-
-  const stream = browserify(options).bundle();
+  const options = getOptions(min);
+  const stream = browserify(options.browserify)
+    .transform('babelify', options.babelify)
+    .bundle();
 
   return stream
     .pipe(source('bundle.tmp.js'))
     .pipe(buffer())
-    .pipe(uglify(min ? opts.uglify.min : opts.uglify.dev).on('error', util.log))
-    .pipe(
-      rename({
-        extname: min ? '.min.js' : '.js',
-        basename: 'fi-is'
-      })
-    )
+    .pipe(uglify(options.uglify).on('error', util.log))
+    .pipe(rename(options.rename))
     .pipe(gulp.dest('dist'));
 }
 
@@ -73,8 +80,13 @@ const minifyDist = () => build(true);
 
 const cleanupDocs = () => del('docs/**.*');
 
-const compileDocs = done => {
-  jsdox.generateForDir('./lib', './docs', null, done);
+const compileDocs = async () => {
+  const content = await doxdox.parseInputs(['lib/**/*.js'], {
+    layout: 'markdown',
+    parser: 'dox'
+  });
+
+  fs.writeFileSync('DOCUMENTATION.md', content);
 };
 
 const dist = gulp.series(cleanupDist, compileDist, minifyDist);
