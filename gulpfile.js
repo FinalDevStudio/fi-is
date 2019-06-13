@@ -1,11 +1,9 @@
-'use strict';
-
 const source = require('vinyl-source-stream');
 const browserify = require('browserify');
 const buffer = require('vinyl-buffer');
 const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
-const gutil = require('gulp-util');
+const util = require('gulp-util');
 const jsdox = require('jsdox');
 const gulp = require('gulp');
 const del = require('del');
@@ -56,33 +54,33 @@ function build(min) {
   return stream
     .pipe(source('bundle.tmp.js'))
     .pipe(buffer())
-    .pipe(uglify(min ? opts.uglify.min : opts.uglify.dev).on('error', gutil.log))
+    .pipe(uglify(min ? opts.uglify.min : opts.uglify.dev).on('error', util.log))
     .pipe(
       rename({
-        basename: 'fi-is',
-        extname: min ? '.min.js' : '.js'
+        extname: min ? '.min.js' : '.js',
+        basename: 'fi-is'
       })
     )
     .pipe(gulp.dest('dist'));
 }
 
 /** Dists */
-gulp.task('cleanup:dist', () => {
-  return del.sync('dist/*.js');
-});
 
-gulp.task('compile:dist', build.bind(null, false));
-gulp.task('minify:dist', build.bind(null, true));
+const cleanupDist = () => del('dist/*.js');
+const compileDist = () => build(false);
+const minifyDist = () => build(true);
 
 /** Documentation */
-gulp.task('cleanup:docs', () => {
-  return del.sync('docs/**.*');
-});
 
-gulp.task('compile:docs', done => {
+const cleanupDocs = () => del('docs/**.*');
+
+const compileDocs = done => {
   jsdox.generateForDir('./lib', './docs', null, done);
-});
+};
 
-gulp.task('dist', ['cleanup:dist', 'compile:dist', 'minify:dist']);
-gulp.task('docs', ['cleanup:docs', 'compile:docs']);
-gulp.task('default', ['dist', 'docs']);
+const dist = gulp.series(cleanupDist, compileDist, minifyDist);
+const docs = gulp.series(cleanupDocs, compileDocs);
+
+module.exports.default = gulp.series(dist, docs);
+module.exports.dist = dist;
+module.exports.docs = docs;
