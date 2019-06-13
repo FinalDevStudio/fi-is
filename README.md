@@ -44,15 +44,15 @@ Or, better yet, bundle it with the rest of the scripts.
 
 ### Documentation
 - [API](DOCUMENTATION.md)
-- [Arithmetic checks](DOCUMENTATION.md#lib/arithmetic.md)
-- [Array checks](DOCUMENTATION.md#lib/array.md)
-- [Environment checks](DOCUMENTATION.md#lib/environment.md)
-- [Object checks](DOCUMENTATION.md#lib/object.md)
-- [Presence checks](DOCUMENTATION.md#lib/presence.md)
-- [RegExp checks](DOCUMENTATION.md#lib/regexp.md)
-- [String checks](DOCUMENTATION.md#lib/string.md)
-- [Time checks](DOCUMENTATION.md#lib/time.md)
-- [Type checks](DOCUMENTATION.md#lib/type.md)
+- [Arithmetic checks](DOCUMENTATION.md#libarithmeticjs)
+- [Array checks](DOCUMENTATION.md#libarrayjs)
+- [Environment checks](DOCUMENTATION.md#libenvironmentjs)
+- [Object checks](DOCUMENTATION.md#libobjectjs)
+- [Presence checks](DOCUMENTATION.md#libpresencejs)
+- [RegExp checks](DOCUMENTATION.md#libregexpjs)
+- [String checks](DOCUMENTATION.md#libstringjs)
+- [Time checks](DOCUMENTATION.md#libtimejs)
+- [Type checks](DOCUMENTATION.md#libtypejs)
 
 ### Contributing
 Please keep you code tidy and readable and document appropriately using the following schema:
