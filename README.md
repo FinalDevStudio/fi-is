@@ -43,16 +43,16 @@ Or include the minified script for production:
 Or, better yet, bundle it with the rest of the scripts.
 
 ### Documentation
-- [API](docs/index.md)
-- [Arithmetic checks](docs/arithmetic.md)
-- [Array checks](docs/array.md)
-- [Environment checks](docs/environment.md)
-- [Object checks](docs/object.md)
-- [Presence checks](docs/presence.md)
-- [RegExp checks](docs/regexp.md)
-- [String checks](docs/string.md)
-- [Time checks](docs/time.md)
-- [Type checks](docs/type.md)
+- [API](DOCUMENTATION.md)
+- [Arithmetic checks](DOCUMENTATION.md#lib/arithmetic.md)
+- [Array checks](DOCUMENTATION.md#lib/array.md)
+- [Environment checks](DOCUMENTATION.md#lib/environment.md)
+- [Object checks](DOCUMENTATION.md#lib/object.md)
+- [Presence checks](DOCUMENTATION.md#lib/presence.md)
+- [RegExp checks](DOCUMENTATION.md#lib/regexp.md)
+- [String checks](DOCUMENTATION.md#lib/string.md)
+- [Time checks](DOCUMENTATION.md#lib/time.md)
+- [Type checks](DOCUMENTATION.md#lib/type.md)
 
 ### Contributing
 Please keep you code tidy and readable and document appropriately using the following schema:
@@ -100,5 +100,3 @@ gulp docs
 One-liner:
 `gulp && npm test`
 
-#### Contributors:
-Many thanks to the [contributors](https://github.com/finaldevstudio/fi-is/graphs/contributors).
