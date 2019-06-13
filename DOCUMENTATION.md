@@ -1,11 +1,11 @@
-#  
+#
 
 
 
 ### lib/arithmetic.js
 
 
-#### equal(a, b) 
+#### equal(a, b)
 
 Checks if the given values are equal. This method doesn't support the `all`
 or `any` interfaces.
@@ -42,7 +42,7 @@ is.equal(1, 2); // false
 
 
 
-#### even(num) 
+#### even(num)
 
 Checks if the given number is even.
 
@@ -73,7 +73,7 @@ is.even(3); // false
 
 
 
-#### odd(num) 
+#### odd(num)
 
 Checks if the given number is odd.
 
@@ -104,7 +104,7 @@ is.odd(2); // false
 
 
 
-#### positive(num) 
+#### positive(num)
 
 Checks if the given number is positive.
 
@@ -135,7 +135,7 @@ is.positive(-3); // false
 
 
 
-#### negative(num) 
+#### negative(num)
 
 Checks if the given number is negative.
 
@@ -166,7 +166,7 @@ is.negative(2); // false
 
 
 
-#### above(num, min) 
+#### above(num, min)
 
 Checks if the given number is greater than the given minimum. This method
 doesn't support the `all` or `any` interfaces.
@@ -200,7 +200,7 @@ is.above(3, 3); // false
 
 
 
-#### under(num, max) 
+#### under(num, max)
 
 Checks if the given number is less than the given maximum. This method
 doesn't support the `all` or `any` interfaces.
@@ -234,7 +234,7 @@ is.under(3, 3); // false
 
 
 
-#### within(num, min, max) 
+#### within(num, min, max)
 
 Checks if the given number is within the given minimum and maximum. This
 method doesn't support the `all` or `any` interfaces.
@@ -270,7 +270,7 @@ is.within(1, 1, 2); // false
 
 
 
-#### between(num, min, max) 
+#### between(num, min, max)
 
 Checks if the given number is between the given minimum and maximum (inclusive). This
 method doesn't support the `all` or `any` interfaces.
@@ -307,7 +307,7 @@ is.between(10, 30, 50); // false
 
 
 
-#### decimal(num) 
+#### decimal(num)
 
 Checks if the given number is a decimal.
 
@@ -338,7 +338,7 @@ is.decimal(13); // false
 
 
 
-#### integer(num) 
+#### integer(num)
 
 Checks if the given number is an integer.
 
@@ -369,7 +369,7 @@ is.integer(13.5); // false
 
 
 
-#### finite(num) 
+#### finite(num)
 
 Checks if the given number is finite using native 'isFinite' first.
 
@@ -400,7 +400,7 @@ is.finite(Infinity); // false
 
 
 
-#### infinite(num) 
+#### infinite(num)
 
 Checks if the given number is infinite.
 
@@ -435,7 +435,7 @@ is.infinite(13); // false
 ### lib/array.js
 
 
-#### inArray(val, arr) 
+#### inArray(val, arr)
 
 Checks if the given value is in the given array. This method does not
 support `all` and `any` interfaces.
@@ -468,7 +468,7 @@ is.inArray('wer', [1, 2, 3]); // false
 
 
 
-#### sorted(arr) 
+#### sorted(arr)
 
 Checks if the given array is sorted.
 
@@ -503,7 +503,7 @@ is.sorted([2, 1, 5, 3]); // false
 ### lib/environment.js
 
 
-#### browser() 
+#### browser()
 
 Environment checks.
 
@@ -519,7 +519,7 @@ Environment checks.
 
 
 
-#### chrome() 
+#### chrome()
 
 Checks if the current browser is Chrome or Chromium. This method doesn't
 support the `all` or `any` interfaces.
@@ -543,7 +543,7 @@ is.chrome();
 
 
 
-#### firefox() 
+#### firefox()
 
 Checks if the current browser is Firefox. This method doesn't support the
 `all` or `any` interfaces.
@@ -567,7 +567,7 @@ is.firefox();
 
 
 
-#### edge() 
+#### edge()
 
 Checks if the current browser is Edge. This method doesn't support the
 `all` or `any` interfaces.
@@ -591,7 +591,7 @@ is.firefox();
 
 
 
-#### ie(ver) 
+#### ie(ver)
 
 Checks if the current browser is Internet Explorer. This method doesn't
 support the `all` or `any` interfaces.
@@ -624,7 +624,7 @@ is.ie(10);
 
 
 
-#### opera() 
+#### opera()
 
 Checks if the current browser is Opera. This method doesn't support the
 `all` or `any` interfaces.
@@ -648,7 +648,7 @@ is.opera();
 
 
 
-#### safari() 
+#### safari()
 
 Checks if the current browser is Safari. This method doesn't support the
 `all` or `any` interfaces.
@@ -672,7 +672,7 @@ is.safari();
 
 
 
-#### vivaldi() 
+#### vivaldi()
 
 Checks if the current browser is Vivaldi. This method doesn't support the
 `all` or `any` interfaces.
@@ -696,7 +696,7 @@ is.vivaldi();
 
 
 
-#### twitter() 
+#### twitter()
 
 Checks if the current browser is Twitter's internal web view. This method
 doesn't support the `all` or `any` interfaces.
@@ -720,7 +720,7 @@ is.twitter();
 
 
 
-#### facebook() 
+#### facebook()
 
 Checks if the current browser is Facebook's internal web view. This method
 doesn't support the `all` or `any` interfaces.
@@ -744,7 +744,7 @@ is.facebook();
 
 
 
-#### ios() 
+#### ios()
 
 Checks if the current device is runnig iOS. This method doesn't support the
 `all` or `any` interfaces.
@@ -768,7 +768,7 @@ is.ios();
 
 
 
-#### iphone() 
+#### iphone()
 
 Checks if the current device is an iPhone. This method doesn't support the
 `all` or `any` interfaces.
@@ -792,7 +792,7 @@ is.iphone();
 
 
 
-#### ipad() 
+#### ipad()
 
 Checks if the current device is an iPad. This method doesn't support the
 `all` or `any` interfaces.
@@ -816,7 +816,7 @@ is.ipad();
 
 
 
-#### ipod() 
+#### ipod()
 
 Checks if the current device is an iPod. This method doesn't support the
 `all` or `any` interfaces.
@@ -840,7 +840,7 @@ is.ipod();
 
 
 
-#### android() 
+#### android()
 
 Checks if the current device is an Android device. This method doesn't
 support the `all` or `any` interfaces.
@@ -864,7 +864,7 @@ is.android();
 
 
 
-#### androidPhone() 
+#### androidPhone()
 
 Checks if the current device is an Android phone.This method doesn't
 support the `all` or `any` interfaces.
@@ -888,7 +888,7 @@ is.androidPhone();
 
 
 
-#### androidTablet() 
+#### androidTablet()
 
 Checks if the current device is an Android tablet.This method doesn't
 support the `all` or `any` interfaces.
@@ -912,7 +912,7 @@ is.androidTablet();
 
 
 
-#### blackberry() 
+#### blackberry()
 
 Checks if the current device is a Blackberry device. This method doesn't
 support the `all` or `any` interfaces.
@@ -936,7 +936,7 @@ is.blackberry();
 
 
 
-#### desktop() 
+#### desktop()
 
 Checks if the current device is a desktop device.This method doesn't
 support the `all` or `any` interfaces.
@@ -960,7 +960,7 @@ is.desktop();
 
 
 
-#### linux() 
+#### linux()
 
 Checks if the current device running Linux (excluding Android). This method
 doesn't support the `all` or `any` interfaces.
@@ -984,7 +984,7 @@ is.linux();
 
 
 
-#### osx() 
+#### osx()
 
 Checks if the current device running OSX.This method doesn't support the
 `all` or `any` interfaces.
@@ -1008,7 +1008,7 @@ is.osx();
 
 
 
-#### mac() 
+#### mac()
 
 Checks if the current device running OSX (Mac).This method doesn't support
 the `all` or `any` interfaces.
@@ -1032,7 +1032,7 @@ is.mac();
 
 
 
-#### windows() 
+#### windows()
 
 Checks if the current device running Windows.This method doesn't support
 the `all` or `any` interfaces.
@@ -1056,7 +1056,7 @@ is.windows();
 
 
 
-#### windowsPhone() 
+#### windowsPhone()
 
 Checks if the current device is a Windows phone.This method doesn't support
 the `all` or `any` interfaces.
@@ -1080,7 +1080,7 @@ is.windowsPhone();
 
 
 
-#### windowsTablet() 
+#### windowsTablet()
 
 Checks if the current device is a Windows tablet.This method doesn't
 support the `all` or `any` interfaces.
@@ -1104,7 +1104,7 @@ is.windowsTablet();
 
 
 
-#### mobile() 
+#### mobile()
 
 Checks if the current device is a mobile device.This method doesn't support
 the `all` or `any` interfaces.
@@ -1128,7 +1128,7 @@ is.mobile();
 
 
 
-#### tablet() 
+#### tablet()
 
 Checks if the current device is a tablet.This method doesn't support the
 `all` or `any` interfaces.
@@ -1152,7 +1152,7 @@ is.tablet();
 
 
 
-#### online() 
+#### online()
 
 Checks if the current device is on-line.This method doesn't support the
 `all` or `any` interfaces.
@@ -1176,7 +1176,7 @@ is.online();
 
 
 
-#### offline() 
+#### offline()
 
 Checks if the current device is off-line.This method doesn't support the
 `all` or `any` interfaces.
@@ -1200,7 +1200,7 @@ is.offline();
 
 
 
-#### touchDevice() 
+#### touchDevice()
 
 Checks if the current device is touch capable.This method doesn't support
 the `all` or `any` interfaces.
@@ -1224,7 +1224,7 @@ is.touchDevice();
 
 
 
-#### nodejs() 
+#### nodejs()
 
 Checks if the current environment is Node.js.This method doesn't support
 the `all` or `any` interfaces.
@@ -1252,7 +1252,7 @@ is.nodejs();
 ### lib/index.js
 
 
-#### root() 
+#### root()
 
 Fi Is.
 
@@ -1284,7 +1284,7 @@ Define namespace.
 
 
 
-#### all() 
+#### all()
 
 Interface to check if any of the given values passes the the predicate
 function's check.
@@ -1310,7 +1310,7 @@ is.any.truthy([null, false]); // false
 
 
 
-#### any() 
+#### any()
 
 Interface to check if all the given values passes the predicate function's
 check.
@@ -1336,7 +1336,7 @@ is.all.number([1, 2, 3, 4, 'not number']); // false
 
 
 
-#### not() 
+#### not()
 
 Interface to invert the predicate function's result.
 
@@ -1361,7 +1361,7 @@ is.not.string('not number'); // false
 
 
 
-#### getArgsArray() 
+#### getArgsArray()
 
 Gets all args as an array or first argument if it's an array.
 
@@ -1377,7 +1377,7 @@ Gets all args as an array or first argument if it's an array.
 
 
 
-#### setNamespace() 
+#### setNamespace()
 
 Changes the namespace of the library to prevent name collissions.
 
@@ -1397,7 +1397,7 @@ Changes the namespace of the library to prevent name collissions.
 ### lib/object.js
 
 
-#### propertyCount(obj, count) 
+#### propertyCount(obj, count)
 
 Checks if the given object has the given number of properties. This method
 doesn't support the `all` or `any` interfaces.
@@ -1430,7 +1430,7 @@ is.propertyCount({}, 5); // false
 
 
 
-#### propertyDefined(obj, prop) 
+#### propertyDefined(obj, prop)
 
 Checks if the given object has the given property. This method doesn't
 support the `all` or `any` interfaces.
@@ -1463,7 +1463,7 @@ is.propertyDefined({}, 'wer'); // false
 
 
 
-#### windowObject(obj) 
+#### windowObject(obj)
 
 Checks if the given object is the window object.
 
@@ -1494,7 +1494,7 @@ is.windowObject({}); // false
 
 
 
-#### domNode(obj) 
+#### domNode(obj)
 
 Checks if the given object is a DOM node.
 
@@ -1531,7 +1531,7 @@ is.domNode(0); // false
 ### lib/presence.js
 
 
-#### empty(val) 
+#### empty(val)
 
 Checks if the given object is empty. Treats null and undefined as such.
 
@@ -1575,7 +1575,7 @@ is.empty('not empty'); // false
 
 
 
-#### existy(val) 
+#### existy(val)
 
 Checks if the given object is not null or undefined.
 
@@ -1608,7 +1608,7 @@ is.existy(null); // false
 
 
 
-#### truthy(val) 
+#### truthy(val)
 
 Checks if the given value is truthy.
 
@@ -1645,7 +1645,7 @@ is.truthy(NaN); // false
 
 
 
-#### falsy(val) 
+#### falsy(val)
 
 Checks if the given value is falsy.
 
@@ -1682,7 +1682,7 @@ is.falsy(1); // false
 
 
 
-#### space(val) 
+#### space(val)
 
 Checks if the given value is a space character. Checks for
 horizantal tab (9), line feed (10), vertical tab (11), form feed (12),
@@ -1739,7 +1739,7 @@ Scott Gonzalez: Email address validation.
 
 
 
-#### setRegexp(reg, key) 
+#### setRegexp(reg, key)
 
 Sets a custom regexp value for any existant regexp name.
 
@@ -1763,7 +1763,7 @@ Sets a custom regexp value for any existant regexp name.
 
 
 
-#### domain(val) 
+#### domain(val)
 
 Checks for a valid domain name.
 
@@ -1798,7 +1798,7 @@ is.domain(true); // false
 
 
 
-#### url(val) 
+#### url(val)
 
 Checks for a valid URL.
 
@@ -1830,7 +1830,7 @@ is.url(true); // false
 
 
 
-#### email(val) 
+#### email(val)
 
 Checks for a valid email address.
 
@@ -1862,7 +1862,7 @@ is.email(true); // false
 
 
 
-#### creditCard(val) 
+#### creditCard(val)
 
 Checks for a valid credit card number.
 
@@ -1894,7 +1894,7 @@ is.creditCard(true); // false
 
 
 
-#### alphanumeric(val) 
+#### alphanumeric(val)
 
 Checks for an alphanumeric string.
 
@@ -1926,7 +1926,7 @@ is.alphaNumeric(true); // false
 
 
 
-#### timeString(val) 
+#### timeString(val)
 
 Checks for a valid time string.
 
@@ -1958,7 +1958,7 @@ is.timeString(true); // false
 
 
 
-#### dateString(val) 
+#### dateString(val)
 
 Checks for a valid date string.
 
@@ -1990,7 +1990,7 @@ is.dateString(true); // false
 
 
 
-#### usZipCode(val) 
+#### usZipCode(val)
 
 Checks for a valid US ZIP code.
 
@@ -2022,7 +2022,7 @@ is.usZipCode(true); // false
 
 
 
-#### caPostalCode(val) 
+#### caPostalCode(val)
 
 Checks for a valid Canada postal code.
 
@@ -2055,7 +2055,7 @@ is.caPostalCode(true); // false
 
 
 
-#### ukPostCode(val) 
+#### ukPostCode(val)
 
 Checks for a valid UK post code.
 
@@ -2087,7 +2087,7 @@ is.ukPostCode(true); // false
 
 
 
-#### nanpPhone(val) 
+#### nanpPhone(val)
 
 Checks for a valid north american number plan formatted value.
 
@@ -2119,7 +2119,7 @@ is.nanpPhone(true); // false
 
 
 
-#### eppPhone(val) 
+#### eppPhone(val)
 
 Checks for a valid extensible provisioning protocol formatted value.
 
@@ -2151,7 +2151,7 @@ is.eppPhone(true); // false
 
 
 
-#### socialSecurityNumber(val) 
+#### socialSecurityNumber(val)
 
 Checks for a valid social security number.
 
@@ -2183,7 +2183,7 @@ is.socialSecurityNumber(true); // false
 
 
 
-#### affirmative(val) 
+#### affirmative(val)
 
 Checks for an affirmative value (case-insensitive).
 
@@ -2226,7 +2226,7 @@ is.affirmative(null); // false
 
 
 
-#### hexadecimal(val) 
+#### hexadecimal(val)
 
 Checks for a valid hexadecimal value.
 
@@ -2260,7 +2260,7 @@ is.hexadecimal(true); // false
 
 
 
-#### hexColor(val) 
+#### hexColor(val)
 
 Checks for a valid hex color value.
 
@@ -2294,7 +2294,7 @@ is.hexColor(true); // false
 
 
 
-#### ip(val) 
+#### ip(val)
 
 Checks for a valid IPv4 or IPv6 address.
 
@@ -2328,7 +2328,7 @@ is.ip(true); // false
 
 
 
-#### ipv4(val) 
+#### ipv4(val)
 
 Checks for a valid IPv4 address.
 
@@ -2361,7 +2361,7 @@ is.ipv4(true); // false
 
 
 
-#### ipv6(val) 
+#### ipv6(val)
 
 Checks for a valid IPv6 address.
 
@@ -2398,7 +2398,7 @@ is.ipv6(true); // false
 ### lib/string.js
 
 
-#### include(str, val) 
+#### include(str, val)
 
 Checks if the given string includes or contains the given value. This
 method doesn't support the `all` or `any` interfaces.
@@ -2434,7 +2434,7 @@ is.include('foobar', {}); // false
 
 
 
-#### upperCase(str) 
+#### upperCase(str)
 
 Checks if the given string is all in uppercase.
 
@@ -2466,7 +2466,7 @@ is.upperCase('foobar'); // false
 
 
 
-#### lowerCase(str) 
+#### lowerCase(str)
 
 Checks if the given string is all in lowercase.
 
@@ -2498,7 +2498,7 @@ is.lowerCase('FOOBAR'); // false
 
 
 
-#### startWith(str, val) 
+#### startWith(str, val)
 
 Checks if the given string starts with the given value. This method doesn't
 support the `all` or `any` interfaces.
@@ -2532,7 +2532,7 @@ is.startWith('foobar', 'bar'); // false
 
 
 
-#### endWith(str, val) 
+#### endWith(str, val)
 
 Checks if the given string ends with the given value. This method doesn't
 support the `all` or `any` interfaces.
@@ -2566,7 +2566,7 @@ is.endWith('foobar', 'foo'); // false
 
 
 
-#### capitalized(str) 
+#### capitalized(str)
 
 Checks if the given string is word-capitalized.
 
@@ -2599,7 +2599,7 @@ is.capitalized('foo'); // false
 
 
 
-#### palindrome(str) 
+#### palindrome(str)
 
 Checks if the given string is a palindrome.
 
@@ -2636,7 +2636,7 @@ is.palindrome('bar'); // false
 ### lib/time.js
 
 
-#### days() 
+#### days()
 
 Time checks.
 
@@ -2652,7 +2652,7 @@ Time checks.
 
 
 
-#### today(date) 
+#### today(date)
 
 Checks if the given date is for today.
 
@@ -2684,7 +2684,7 @@ is.today(dateObjectNotForToday); // false
 
 
 
-#### yesterday(date) 
+#### yesterday(date)
 
 Checks if the given date is for yesterday.
 
@@ -2716,7 +2716,7 @@ is.yesterday(new Date()); // false
 
 
 
-#### tomorrow(date) 
+#### tomorrow(date)
 
 Checks if the given date is for tomorrow.
 
@@ -2748,7 +2748,7 @@ is.tomorrow(new Date()); // false
 
 
 
-#### past(date) 
+#### past(date)
 
 Checks if the given date is for the past.
 
@@ -2780,7 +2780,7 @@ is.past(new Date()); // false
 
 
 
-#### future(date) 
+#### future(date)
 
 Checks if the given date is for the future.
 
@@ -2812,7 +2812,7 @@ is.future(new Date()); // false
 
 
 
-#### day(date, day) 
+#### day(date, day)
 
 Checks if the given date is for the given day of the week. This method
 doesn't support the `all` or `any` interfaces.
@@ -2845,7 +2845,7 @@ is.day(dateObjectForAnySaturday, 'monday'); // false
 
 
 
-#### month(date, month) 
+#### month(date, month)
 
 Checks if the given date is for the given month of the year. This method
 doesn't support the `all` or `any` interfaces.
@@ -2878,7 +2878,7 @@ is.month(dateObjectForJanuary, 'november'); // false
 
 
 
-#### year(date, year) 
+#### year(date, year)
 
 Checks if the given date is for the given year. This method doesn't support
 the `all` or `any` interfaces.
@@ -2911,7 +2911,7 @@ is.year(dateObjectFor2012, 2016); // false
 
 
 
-#### leapYear(year) 
+#### leapYear(year)
 
 Checks if the given year is a leap year.
 
@@ -2942,7 +2942,7 @@ is.leapYear(2015); // false
 
 
 
-#### weekend(date) 
+#### weekend(date)
 
 Checks if the given date is for a weekend day.
 
@@ -2975,7 +2975,7 @@ is.weekend(dateObjectForFriday); // false
 
 
 
-#### weekday(date) 
+#### weekday(date)
 
 Checks if the given date is for a weekday.
 
@@ -3008,7 +3008,7 @@ is.weekday(dateObjectForSunday); // false
 
 
 
-#### inDateRange(date, start, end) 
+#### inDateRange(date, start, end)
 
 Checks if the given date is within the start and end range. This method
 doesn't support the `all` or `any` interfaces.
@@ -3042,7 +3042,7 @@ is.inDateRange(new Date(), new Date(), new Date()); // false
 
 
 
-#### inLastWeek(date) 
+#### inLastWeek(date)
 
 Checks if the given date is within last week's range.
 
@@ -3073,7 +3073,7 @@ is.inLastWeek(new Date()); // false
 
 
 
-#### inLastMonth(date) 
+#### inLastMonth(date)
 
 Checks if the given date is within last month's range.
 
@@ -3104,7 +3104,7 @@ is.inLastMonth(new Date()); // false
 
 
 
-#### inLastYear(date) 
+#### inLastYear(date)
 
 Checks if the given date is within last year's range.
 
@@ -3135,7 +3135,7 @@ is.inLastYear(new Date()); // false
 
 
 
-#### inNextWeek(date) 
+#### inNextWeek(date)
 
 Checks if the given date is within next week's range.
 
@@ -3166,7 +3166,7 @@ is.inNextWeek(new Date()); // false
 
 
 
-#### inNextMonth(date) 
+#### inNextMonth(date)
 
 Checks if the given date is within next month's range.
 
@@ -3197,7 +3197,7 @@ is.inNextMonth(new Date()); // false
 
 
 
-#### inNextYear(date) 
+#### inNextYear(date)
 
 Checks if the given date is within next year's range.
 
@@ -3228,7 +3228,7 @@ is.inNextYear(new Date()); // false
 
 
 
-#### quarterOfYear(date, quarter) 
+#### quarterOfYear(date, quarter)
 
 Checks if the given date is within the given quarter. This method doesn't
 support the `all` or `any` interfaces.
@@ -3261,7 +3261,7 @@ is.quarterOfYear(dateObjectForSecondQuarter, 1); // true
 
 
 
-#### dayLightSavingTime(date) 
+#### dayLightSavingTime(date)
 
 Checks if the given date is in daylight saving time.
 
@@ -3296,7 +3296,7 @@ is.dayLightSavingTime(dateObjectNotOnDST); // true
 ### lib/type.js
 
 
-#### arguments(val) 
+#### arguments(val)
 
 Checks if the given value is of arguments type with a fallback check for
 IE.
@@ -3328,7 +3328,7 @@ is.arguments('not arguments'); // false
 
 
 
-#### array(val) 
+#### array(val)
 
 Checks if the given value is an array using native `Array.isArray` if
 available.
@@ -3360,7 +3360,7 @@ is.array('not array'); // false
 
 
 
-#### boolean(val) 
+#### boolean(val)
 
 Checks if the given value is a boolean.
 
@@ -3392,7 +3392,7 @@ is.boolean('not boolean'); // false
 
 
 
-#### date(val) 
+#### date(val)
 
 Checks if the given value is a date object.
 
@@ -3423,7 +3423,7 @@ is.date('not date'); // false
 
 
 
-#### error(val) 
+#### error(val)
 
 Checks if the given value is an error object.
 
@@ -3454,7 +3454,7 @@ is.error('not error'); // false
 
 
 
-#### function(val) 
+#### function(val)
 
 Checks if the given value is a function with a fallback check for IE.
 
@@ -3485,7 +3485,7 @@ is.function('not function'); // false
 
 
 
-#### nan(val) 
+#### nan(val)
 
 Checks if the given value is NaN. The difference with the native `isNaN`
 function is that this will not return true for strings or other types and
@@ -3519,7 +3519,7 @@ is.function(null); // false
 
 
 
-#### null(val) 
+#### null(val)
 
 Checks if the given value is null.
 
@@ -3551,7 +3551,7 @@ is.null('not null'); // false
 
 
 
-#### number(val) 
+#### number(val)
 
 Checks if the given value is a number.
 
@@ -3583,7 +3583,7 @@ is.number('not number'); // false
 
 
 
-#### object(val) 
+#### object(val)
 
 Checks if the given value is an object.
 
@@ -3615,7 +3615,7 @@ is.object('not object'); // false
 
 
 
-#### json(val) 
+#### json(val)
 
 Checks if the given value is a JSON string.
 
@@ -3647,7 +3647,7 @@ is.json('not json'); // false
 
 
 
-#### regexp(val) 
+#### regexp(val)
 
 Checks if the given value is a RegExp.
 
@@ -3680,7 +3680,7 @@ is.regexp('not regexp'); // false
 
 
 
-#### sameType(a, b) 
+#### sameType(a, b)
 
 Checks if the given values are of same type preventing NaN and Number same
 type check. This method doesn't support the `all` or `any` interfaces.
@@ -3715,7 +3715,7 @@ is.sameType('', null); // false
 
 
 
-#### string(value) 
+#### string(value)
 
 Checks if the given value is a string.
 
@@ -3748,7 +3748,7 @@ is.string([]); // false
 
 
 
-#### char(val) 
+#### char(val)
 
 Checks if the given value is a single char.
 
@@ -3781,7 +3781,7 @@ is.char(null); // false
 
 
 
-#### undefined(val) 
+#### undefined(val)
 
 Checks if the given value is undefined.
 
