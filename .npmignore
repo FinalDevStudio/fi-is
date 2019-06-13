@@ -6,6 +6,7 @@ test
 .jsbeautifyrc
 .jshintrc
 .travis.yml
+.nicrc
 bower.json
 gulpfile.js
 karma.conf.js
