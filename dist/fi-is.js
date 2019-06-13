@@ -51,6 +51,10 @@
                 return this.all.number(num, min, max) && min < num && num < max;
             };
             module.exports.within.api = [ "not" ];
+            module.exports.between = function _between(num, min, max) {
+                return this.all.number(num, min, max) && min <= num && num <= max;
+            };
+            module.exports.between.api = [ "not" ];
             module.exports.decimal = function _decimal(num) {
                 return this.number(num) && num % 1 != 0;
             };
