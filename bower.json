@@ -1,19 +1,13 @@
 {
   "name": "fi-is",
   "title": "Fi is",
-  "main": "dist/fi-is.js",
-  "version": "1.3.1",
-  "homepage": "http://finaldevstudio.github.io/fi-is/",
+  "main": "dist/fi-is.min.js",
+  "version": "2.0.0",
+  "homepage": "http://dotstudio-io.github.io/fi-is/",
   "description": "Small check library for Node.js and the browser",
   "license": "MIT",
-  "authors": [
-    "Santiago G. Marín <santiago@finaldevstudio.com>"
-  ],
-  "moduleType": [
-    "globals",
-    "node",
-    "amd"
-  ],
+  "authors": ["Santiago G. Marín <santiago.marin@dotstudio.io>"],
+  "moduleType": ["globals", "node", "amd"],
   "keywords": [
     "configuration",
     "environment",
@@ -28,12 +22,5 @@
     "time",
     "type"
   ],
-  "ignore": [
-    "bower_components",
-    "node_modules",
-    "**/.*",
-    "docs",
-    "test",
-    "lib"
-  ]
+  "ignore": ["bower_components", "node_modules", "**/.*", "docs", "test", "lib"]
 }
