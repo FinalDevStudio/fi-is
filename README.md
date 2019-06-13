@@ -18,7 +18,7 @@ npm install --save fi-is
 
 Use in you application:
 ```js
-var is = require('fi-is');
+const is = require('fi-is');
 
 is.nodejs(); // true
 is.number(0); // true
@@ -62,7 +62,9 @@ Please keep you code tidy and readable and document appropriately using the foll
  * Checks for awesomeness.
  *
  * @param {String} str It receives a string or whatever.
- * @return {Boolean} It must return a boolean.
+ *
+ * @returns {Boolean} It must return a boolean.
+ *
  * @example
  * is.awesome('fi-is'); // true
  * is.awesome(1); // false
@@ -96,7 +98,7 @@ gulp docs
 ```
 
 One-liner:
-`gulp dist && npm test && gulp docs`
+`gulp && npm test`
 
 #### Contributors:
 Many thanks to the [contributors](https://github.com/finaldevstudio/fi-is/graphs/contributors).
