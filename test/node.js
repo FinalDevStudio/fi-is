@@ -6,15 +6,13 @@ const mocha = new Mocha({
   reporter: 'list'
 });
 
-const testDir = 'test';
-
 global.expect = require('chai').expect;
 global.is = require('../lib');
 
-fs.readdir(testDir, (err, files) => {
+fs.readdir('test', (err, files) => {
   files.forEach((file) => {
     if (path.extname(file) === '.js' && file !== 'browser.spec.js') {
-      mocha.addFile(path.join(testDir, file));
+      mocha.addFile(path.join('test', file));
     }
   });
 

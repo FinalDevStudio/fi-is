@@ -359,11 +359,7 @@
             }
             module.exports.propertyCount = function _propertyCount(obj, count) {
                 if (!this.object(obj) || !this.number(count)) return false;
-                if (Object.keys) return Object.keys(obj).length === count;
-                var properties = [];
-                var property;
-                for (property in obj) if (Object.prototype.hasOwnProperty.call(obj, property)) properties.push(property);
-                return properties.length === count;
+                return Object.keys(obj).length === count;
             };
             module.exports.propertyCount.api = [ "not" ];
             module.exports.propertyDefined = function _propertyDefined(obj, prop) {
@@ -371,7 +367,7 @@
             };
             module.exports.propertyDefined.api = [ "not" ];
             module.exports.windowObject = function _windowObject(obj) {
-                return "object" === _typeof(obj) && "setInterval" in obj;
+                return "object" === _typeof(obj) && "navigator" in obj;
             };
             module.exports.domNode = function _domNode(obj) {
                 return "object" === _typeof(obj) && "number" == typeof obj.nodeType && 1 === obj.nodeType;
@@ -383,7 +379,7 @@
                 if (this.string(val) || this.array(val)) return 0 === val.length;
                 if (this.number(val) || this.boolean(val)) return false;
                 if (this.nan(val)) return true;
-                if (this.date(val)) return this.nan(val.getTime());
+                if (this.date(val)) return this.nan(val.valueOf());
                 if (this.not.existy(val)) return true;
                 if (this.object(val)) return 0 === Object.keys(val).length;
                 return !val;
@@ -657,8 +653,7 @@
                 return this.not.null(val) && ("[object Arguments]" === Object.prototype.toString.call(val) || "object" === _typeof(val) && "callee" in val);
             };
             module.exports.array = function _array(val) {
-                if ("function" == typeof Array.isArray) return Array.isArray(val);
-                return "[object Array]" === Object.prototype.toString.call(val);
+                return Array.isArray(val);
             };
             module.exports.boolean = function _boolean(val) {
                 return true === val || false === val || "[object Boolean]" === Object.prototype.toString.call(val);

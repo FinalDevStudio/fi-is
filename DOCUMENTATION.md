@@ -1249,140 +1249,6 @@ is.nodejs();
 
 
 
-### lib/object.js
-
-
-#### propertyCount(obj, count) 
-
-Checks if the given object has the given number of properties. This method
-doesn't support the `all` or `any` interfaces.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| obj | `Object`  | The object to check. | &nbsp; |
-| count | `Number`  | The number of properties to expect. | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-is.propertyCount({wer: 'asd'}, 1); // true
-is.propertyCount({}, 5); // false
-```
-
-
-##### Returns
-
-
-- `Boolean`  Whether the object has the number of properties.
-
-
-
-#### propertyDefined(obj, prop) 
-
-Checks if the given object has the given property. This method doesn't
-support the `all` or `any` interfaces.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| obj | `Object`  | The object to check. | &nbsp; |
-| prop | `String`  | The name of the propery to search for. | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-is.propertyDefined({wer: 'asd'}, 'wer'); // true
-is.propertyDefined({}, 'wer'); // false
-```
-
-
-##### Returns
-
-
-- `Boolean`  Whether the object has the property.
-
-
-
-#### windowObject(obj) 
-
-Checks if the given object is the window object.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| obj | `Object`  | The object to check. | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-is.windowObject(window); // true
-is.windowObject({}); // false
-```
-
-
-##### Returns
-
-
-- `Boolean`  Whether the object is the window object.
-
-
-
-#### domNode(obj) 
-
-Checks if the given object is a DOM node.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| obj | `Object`  | The object to check. | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-is.domNode(document.body); // true
-is.domNode(document); // false
-is.domNode('not DOM node'); // false
-is.domNode(0); // false
-```
-
-
-##### Returns
-
-
-- `Boolean`  Whether the object is a DOM node.
-
-
-
-
 ### lib/index.js
 
 
@@ -1524,6 +1390,140 @@ Changes the namespace of the library to prevent name collissions.
 
 
 - `Object`  The 'is' object instance.
+
+
+
+
+### lib/object.js
+
+
+#### propertyCount(obj, count) 
+
+Checks if the given object has the given number of properties. This method
+doesn't support the `all` or `any` interfaces.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| obj | `Object`  | The object to check. | &nbsp; |
+| count | `Number`  | The number of properties to expect. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.propertyCount({wer: 'asd'}, 1); // true
+is.propertyCount({}, 5); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the object has the number of properties.
+
+
+
+#### propertyDefined(obj, prop) 
+
+Checks if the given object has the given property. This method doesn't
+support the `all` or `any` interfaces.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| obj | `Object`  | The object to check. | &nbsp; |
+| prop | `String`  | The name of the propery to search for. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.propertyDefined({wer: 'asd'}, 'wer'); // true
+is.propertyDefined({}, 'wer'); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the object has the property.
+
+
+
+#### windowObject(obj) 
+
+Checks if the given object is the window object.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| obj | `Object`  | The object to check. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.windowObject(window); // true
+is.windowObject({}); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the object is the window object.
+
+
+
+#### domNode(obj) 
+
+Checks if the given object is a DOM node.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| obj | `Object`  | The object to check. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.domNode(document.body); // true
+is.domNode(document); // false
+is.domNode('not DOM node'); // false
+is.domNode(0); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the object is a DOM node.
 
 
 
@@ -3299,8 +3299,7 @@ is.arguments('not arguments'); // false
 
 #### array(val) 
 
-Checks if the given value is an array using native `Array.isArray` if
-available.
+Checks if the given value is an array using native `Array.isArray`.
 
 
 
