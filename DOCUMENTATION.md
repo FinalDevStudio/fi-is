@@ -371,7 +371,7 @@ is.integer(13.5); // false
 
 #### finite(num) 
 
-Checks if the given number is finite using native 'isFinite' first.
+Checks if the given number is finite using native `isFinite`.
 
 
 
@@ -1736,6 +1736,22 @@ Scott Gonzalez: Email address validation.
 
 
 - `Void`
+
+
+
+#### getRegexps() 
+
+Returns all the registered regular expressions.
+
+
+
+
+
+
+##### Returns
+
+
+- `Object`  The regular expressions object.
 
 
 
