@@ -14,7 +14,8 @@
     "url": "https://github.com/finaldevstudio/fi-is/issues"
   },
   "scripts": {
-    "test": "nyc node test/node && ./node_modules/karma/bin/karma start"
+    "test": "nyc node test/node && ./node_modules/karma/bin/karma start",
+    "postinstall": "node postinstall.js"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
