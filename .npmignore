@@ -3,10 +3,9 @@ docs
 test
 .gitattributes
 .editorconfig
-.jsbeautifyrc
-.jshintrc
+lib/.eslintrc
+.eslintrc
 .travis.yml
-.nicrc
-bower.json
+.nycrc
 gulpfile.js
 karma.conf.js

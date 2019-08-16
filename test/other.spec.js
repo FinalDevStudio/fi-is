@@ -1,6 +1,6 @@
-describe("other tests", function () {
-  describe("is.setNamespace", function () {
-    it("should allow to change the namespace", function () {
+describe('other tests', function () {
+  describe('is.setNamespace', function () {
+    it('should allow to change the namespace', function () {
       var ns = is.setNamespace();
 
       expect(ns).to.be.an('object');

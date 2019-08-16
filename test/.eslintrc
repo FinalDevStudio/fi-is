@@ -1,6 +1,12 @@
 {
-  "extends": "../.eslintrc.json",
+  "extends": "../.eslintrc",
   "env": {
+    "shared-node-browser": true,
+    "browser": true,
     "mocha": true
+  },
+  "globals": {
+    "expect": false,
+    "is": false
   }
 }

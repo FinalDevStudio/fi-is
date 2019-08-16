@@ -16,7 +16,7 @@ const fs = require('fs');
  *
  * @returns {Object} The options object.
  */
-function getOptions(min = false) {
+function getOptions (min = false) {
   return {
     browserify: {
       entries: './lib/index.js',
@@ -56,9 +56,11 @@ function getOptions(min = false) {
  *
  * @returns {Object} The gulp stream object.
  */
-function build(min) {
+function build (min) {
   const options = getOptions(min);
-  const stream = browserify(options.browserify).bundle();
+  const stream = browserify(options.browserify)
+    .transform('babelify', options.babelify)
+    .bundle();
 
   return stream
     .pipe(source('bundle.tmp.js'))

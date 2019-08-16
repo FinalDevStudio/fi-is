@@ -2,7 +2,7 @@ const Mocha = require('mocha');
 const path = require('path');
 const fs = require('fs');
 
-const mocha = new Mocha({ /* jshint ignore: line */
+const mocha = new Mocha({
   reporter: 'list'
 });
 
@@ -13,7 +13,7 @@ global.is = require('../lib');
 
 fs.readdir(testDir, (err, files) => {
   files.forEach((file) => {
-    if (path.extname(file) === '.js' && file !== 'browser.js') {
+    if (path.extname(file) === '.js' && file !== 'browser.spec.js') {
       mocha.addFile(path.join(testDir, file));
     }
   });
