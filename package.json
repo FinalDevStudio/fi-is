@@ -15,6 +15,7 @@
   },
   "scripts": {
     "test": "npm run test:node && npm run test:browser",
+    "postversion": "git push --follow-tags",
     "postinstall": "node postinstall.js",
     "test:node": "nyc node test/node",
     "test:browser": "karma start",
