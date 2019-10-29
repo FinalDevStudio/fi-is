@@ -24,7 +24,7 @@ describe('regexp checks', function () {
     });
 
     it('should return true if given value is not a domain', function () {
-      expect(is.not.domain('not even a valid url')).to.be.true;
+      expect(is.not.domain('not even a valid domain')).to.be.true;
       expect(is.not.domain('not_a_domain')).to.be.true;
       expect(is.not.domain('seriously?')).to.be.true;
       expect(is.not.domain('#d04415')).to.be.true;
@@ -35,11 +35,21 @@ describe('regexp checks', function () {
 
   describe('is.url', function () {
     it('should return true if given value is url', function () {
+      expect(is.url('ftp://some.external.host.com:4444')).to.be.true;
+      expect(is.url('ftp://some.external.host.com')).to.be.true;
+      expect(is.url('https://www.example.com')).to.be.true;
       expect(is.url('http://www.example.com')).to.be.true;
+      expect(is.url('http://localhost:8888')).to.be.true;
+      expect(is.url('http://localhost')).to.be.true;
     });
 
     it('should return false if given value is not url', function () {
+      expect(is.url('werwerwer 234gf 35g q436thj')).to.be.false;
+      expect(is.url('https://not url dot com')).to.be.false;
       expect(is.url('http://not url dot com')).to.be.false;
+      expect(is.url('ftp://not url dot com')).to.be.false;
+      expect(is.url(() => { })).to.be.false;
+      expect(is.url(false)).to.be.false;
       expect(is.url(1)).to.be.false;
     });
   });
