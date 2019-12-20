@@ -2167,6 +2167,41 @@ is.eppPhone(true); // false
 
 
 
+#### intPhone(val) 
+
+Checks for a valid international phone number formatted value (WhatsApp, Telegram, etc.).
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| val | `Mixed`  | The value to check. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.intPhone('+140832245678901'); // true
+is.intPhone('+297983652'); // true
+is.intPhone('+126853653'); // true
+is.intPhone('+0245673'); // false
+is.intPhone('1'); // false
+is.intPhone(true); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the value is a valid international phone number.
+
+
+
 #### socialSecurityNumber(val) 
 
 Checks for a valid social security number.
