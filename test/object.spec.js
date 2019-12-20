@@ -53,6 +53,7 @@ describe('object checks', function () {
     });
   });
 
+  // Property defined
   describe('is.propertyDefined', function () {
     it('should return true if given property is in objects', function () {
       const obj = {
@@ -92,6 +93,84 @@ describe('object checks', function () {
       };
 
       expect(is.not.propertyDefined(obj, 'good')).to.be.true;
+    });
+  });
+
+  // Window object
+  describe('is.windowObject', function () {
+    it('should return true if given object is window', function () {
+      const obj = {
+        navigator: 'testing'
+      };
+
+      expect(is.windowObject(obj)).to.be.true;
+    });
+
+    it('should return false if given object is not window', function () {
+      const obj = {
+        test: 'testing',
+        is: 'is'
+      };
+
+      expect(is.windowObject(obj)).to.be.false;
+    });
+  });
+
+  describe('is.not.windowObject', function () {
+    it('should return false if given object is window', function () {
+      const obj = {
+        navigator: 'testing'
+      };
+
+      expect(is.not.windowObject(obj)).to.be.false;
+    });
+
+    it('should return true if given object is not window', function () {
+      const obj = {
+        test: 'testing',
+        is: 'is'
+      };
+
+      expect(is.not.windowObject(obj)).to.be.true;
+    });
+  });
+
+  // DOM Node
+  describe('is.domNode', function () {
+    it('should return true if given object is a DOM node', function () {
+      const obj = {
+        nodeType: 1
+      };
+
+      expect(is.domNode(obj)).to.be.true;
+    });
+
+    it('should return false if given object is not a DOM node', function () {
+      const obj = {
+        test: 'testing',
+        is: 'is'
+      };
+
+      expect(is.domNode(obj)).to.be.false;
+    });
+  });
+
+  describe('is.not.domNode', function () {
+    it('should return false if given object is a DOM node', function () {
+      const obj = {
+        nodeType: 1
+      };
+
+      expect(is.not.domNode(obj)).to.be.false;
+    });
+
+    it('should return true if given object is not a DOM node', function () {
+      const obj = {
+        test: 'testing',
+        is: 'is'
+      };
+
+      expect(is.not.domNode(obj)).to.be.true;
     });
   });
 });

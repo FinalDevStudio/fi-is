@@ -451,6 +451,7 @@ describe('regexp checks', function () {
     });
   });
 
+  // NANP phone number
   describe('is.nanpPhone', function () {
     it('should return true if given value is nanpPhone', function () {
       expect(is.nanpPhone('609-555-0175')).to.be.true;
@@ -495,6 +496,7 @@ describe('regexp checks', function () {
     });
   });
 
+  // EPP phone number
   describe('is.eppPhone', function () {
     it('should return true if given value is eppPhone', function () {
       expect(is.eppPhone('+90.2322456789')).to.be.true;
@@ -539,6 +541,52 @@ describe('regexp checks', function () {
     });
   });
 
+  // International phone number
+  describe('is.intPhone', function () {
+    it('should return true if given value is intPhone', function () {
+      expect(is.intPhone('+902322456789')).to.be.true;
+    });
+
+    it('should return false if given value is not intPhone', function () {
+      expect(is.intPhone('1')).to.be.false;
+    });
+  });
+
+  describe('is.not.intPhone', function () {
+    it('should return false if given value is intPhone', function () {
+      expect(is.not.intPhone('+902322456789')).to.be.false;
+    });
+
+    it('should return true if given value is not intPhone', function () {
+      expect(is.not.intPhone('1')).to.be.true;
+    });
+  });
+
+  describe('is.all.intPhone', function () {
+    it('should return true if all given values are intPhone', function () {
+      expect(is.all.intPhone('+902322456789', '+902322456799')).to.be.true;
+      expect(is.all.intPhone(['+902322456789', '+902322456799'])).to.be.true;
+    });
+
+    it('should return false if any given value is not intPhone', function () {
+      expect(is.all.intPhone('+902322456789', '1')).to.be.false;
+      expect(is.all.intPhone(['+902322456789', '1'])).to.be.false;
+    });
+  });
+
+  describe('is.any.intPhone', function () {
+    it('should return true if any given value is intPhone', function () {
+      expect(is.any.intPhone('+902322456789', '1')).to.be.true;
+      expect(is.any.intPhone(['+902322456789', '1'])).to.be.true;
+    });
+
+    it('should return false if all given values are not intPhone', function () {
+      expect(is.any.intPhone('1', '2')).to.be.false;
+      expect(is.any.intPhone(['1', '2'])).to.be.false;
+    });
+  });
+
+  // Social Security Number
   describe('is.socialSecurityNumber', function () {
     it('should return true if given value is socialSecurityNumber', function () {
       expect(is.socialSecurityNumber('017-90-7890')).to.be.true;
