@@ -8,10 +8,14 @@
   "homepage": "http://finaldevstudio.github.io/fi-is/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/finaldevstudio/fi-is.git"
+    "url": "git+https://github.com/finaldevstudio/fi-is.git"
   },
   "bugs": {
     "url": "https://github.com/finaldevstudio/fi-is/issues"
+  },
+  "engines": {
+    "node": ">=10 <=12",
+    "npm": ">=6"
   },
   "scripts": {
     "test": "nyc npm run test:all",
@@ -48,5 +52,24 @@
     "nyc": "^14.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^2.0.0"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {},
+  "keywords": [
+    "fi",
+    "is",
+    "type",
+    "regex",
+    "string",
+    "number",
+    "object",
+    "email",
+    "phone",
+    "check",
+    "validation"
+  ],
+  "author": "DOT"
 }
