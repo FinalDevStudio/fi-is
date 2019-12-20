@@ -3,7 +3,3 @@ node_js:
   - '12'
 services:
   - xvfb
-before_script:
-  - export TZ=America/Denver
-  - date
-  - sleep 3 # give xvfb some time to start
