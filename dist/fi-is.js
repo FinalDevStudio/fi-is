@@ -133,7 +133,7 @@
                 module.exports.ie = function _ie(ver) {
                     if (!ver) return browser && (/MSIE/.test(userAgent) || "ActiveXObject" in window);
                     if (11 <= ver) return browser && "ActiveXObject" in window;
-                    return browser && new RegExp("MSIE " + ver).test(userAgent);
+                    return browser && new RegExp("MSIE ".concat(ver)).test(userAgent);
                 };
                 module.exports.ie.api = [ "not" ];
                 module.exports.opera = function _opera() {
@@ -415,6 +415,7 @@
                 ukPostCode: /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/,
                 nanpPhone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
                 eppPhone: /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/,
+                intPhone: /^\+[1-9][0-9]{0,4}[0-9]{2,14}?$/,
                 socialSecurityNumber: /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/,
                 affirmative: /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i,
                 hexadecimal: /^[0-9a-fA-F]+$/,
@@ -469,6 +470,9 @@
             module.exports.eppPhone = function _eppPhone(val) {
                 return REGEXPS.eppPhone.test(val);
             };
+            module.exports.intPhone = function _intPhone(val) {
+                return REGEXPS.intPhone.test(val);
+            };
             module.exports.socialSecurityNumber = function _socialSecurityNumber(val) {
                 return REGEXPS.socialSecurityNumber.test(val);
             };
@@ -500,6 +504,7 @@
                 throw new TypeError("Invalid attempt to destructure non-iterable instance");
             }
             function _iterableToArrayLimit(arr, i) {
+                if (!(Symbol.iterator in Object(arr) || "[object Arguments]" === Object.prototype.toString.call(arr))) return;
                 var _arr = [];
                 var _n = true;
                 var _d = false;
