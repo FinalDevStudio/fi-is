@@ -1,5 +1,15 @@
 {
-  "extends": "eslint:recommended",
+  "plugins": [
+    "security",
+    "mocha",
+    "node"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:security/recommended",
+    "plugin:mocha/recommended",
+    "plugin:node/recommended"
+  ],
   "env": {
     "browser": false,
     "es6": true,
