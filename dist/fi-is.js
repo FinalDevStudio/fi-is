@@ -402,97 +402,69 @@
         }, {} ],
         7: [ function(require, module, exports) {
             "use strict";
-            var REGEXPS = {
-                domain: /\b((?=[a-z0-9-]{1,63}\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}\b/,
-                url: /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)(:\d+)?((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)$/,
-                email: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
-                creditCard: /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/,
-                alphaNumeric: /^[A-Za-z0-9]+$/,
-                timeString: /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/,
-                dateString: /^(1[0-2]|0?[1-9])\/(3[01]|[12][0-9]|0?[1-9])\/(?:[0-9]{2})?[0-9]{2}$/,
-                usZipCode: /^[0-9]{5}(?:-[0-9]{4})?$/,
-                caPostalCode: /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s?[0-9][A-Z][0-9]$/,
-                ukPostCode: /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/,
-                nanpPhone: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
-                eppPhone: /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/,
-                intPhone: /^\+[1-9][0-9]{0,4}[0-9]{2,14}?$/,
-                socialSecurityNumber: /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/,
-                affirmative: /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i,
-                hexadecimal: /^[0-9a-fA-F]+$/,
-                hexColor: /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,
-                ipv4: /^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$/,
-                ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
-                ip: /(^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$)/
+            module.exports.domain = function(val) {
+                return /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$/.test(val);
             };
-            module.exports.getRegexps = function getRegexps() {
-                return REGEXPS;
+            module.exports.url = function(val) {
+                return /^((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+|(?:www\.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)(:\d+)?((?:\/[+~%/.\w\-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[.!/\\\w]*))?)$/.test(val);
             };
-            module.exports.setRegexp = function _setRegexp(reg, key) {
-                for (var _i = 0, _Object$keys = Object.keys(REGEXPS); _i < _Object$keys.length; _i++) {
-                    var name = _Object$keys[_i];
-                    var hasNameProperty;
-                    if (Object.prototype.hasOwnProperty.call(REGEXPS, name) && key === name) REGEXPS[name] = reg;
-                }
+            module.exports.email = function(val) {
+                return /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(val);
             };
-            module.exports.domain = function _domain(val) {
-                return REGEXPS.domain.test(val);
+            module.exports.creditCard = function(val) {
+                return /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(val);
             };
-            module.exports.url = function _url(val) {
-                return REGEXPS.url.test(val);
+            module.exports.alphaNumeric = function(val) {
+                return /^[A-Za-z0-9]+$/.test(val);
             };
-            module.exports.email = function _email(val) {
-                return REGEXPS.email.test(val);
+            module.exports.alphanumeric = module.exports.alphaNumeric;
+            module.exports.timeString = function(val) {
+                return /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/.test(val);
             };
-            module.exports.creditCard = function _creditCard(val) {
-                return REGEXPS.creditCard.test(val);
+            module.exports.dateString = function(val) {
+                return /^(1[0-2]|0?[1-9])[/-](3[01]|[12][0-9]|0?[1-9])[/-](?:[0-9]{2})?[0-9]{2}$/.test(val);
             };
-            module.exports.alphanumeric = module.exports.alphaNumeric = function _alphaNumeric(val) {
-                return REGEXPS.alphaNumeric.test(val);
+            module.exports.base64 = function(val) {
+                return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(val);
             };
-            module.exports.timeString = function _timeString(val) {
-                return REGEXPS.timeString.test(val);
+            module.exports.usZipCode = function(val) {
+                return /^[0-9]{5}(?:-[0-9]{4})?$/.test(val);
             };
-            module.exports.dateString = function _dateString(val) {
-                return REGEXPS.dateString.test(val);
+            module.exports.caPostalCode = function(val) {
+                return /^(?!.*[DFIOQU])[A-VXY][0-9][A-Z]\s?[0-9][A-Z][0-9]$/.test(val);
             };
-            module.exports.usZipCode = function _usZipCode(val) {
-                return REGEXPS.usZipCode.test(val);
+            module.exports.ukPostCode = function(val) {
+                return /^[A-Z]{1,2}[0-9RCHNQ][0-9A-Z]?\s?[0-9][ABD-HJLNP-UW-Z]{2}$|^[A-Z]{2}-?[0-9]{4}$/.test(val);
             };
-            module.exports.caPostalCode = function _caPostalCode(val) {
-                return REGEXPS.caPostalCode.test(val);
+            module.exports.nanpPhone = function(val) {
+                return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(val);
             };
-            module.exports.ukPostCode = function _ukPostCode(val) {
-                return REGEXPS.ukPostCode.test(val);
+            module.exports.eppPhone = function(val) {
+                return /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/.test(val);
             };
-            module.exports.nanpPhone = function _nanpPhone(val) {
-                return REGEXPS.nanpPhone.test(val);
+            module.exports.intPhone = function(val) {
+                return /^\+[1-9][0-9]{0,4}[0-9]{2,14}?$/.test(val);
             };
-            module.exports.eppPhone = function _eppPhone(val) {
-                return REGEXPS.eppPhone.test(val);
+            module.exports.socialSecurityNumber = function(val) {
+                return /^(?!000|666)[0-8][0-9]{2}-(?!00)[0-9]{2}-(?!0000)[0-9]{4}$/.test(val);
             };
-            module.exports.intPhone = function _intPhone(val) {
-                return REGEXPS.intPhone.test(val);
+            module.exports.affirmative = function(val) {
+                return /^(?:1|t(?:rue)?|y(?:es)?|o\.?k\.?(?:ay)?)$/i.test(val);
             };
-            module.exports.socialSecurityNumber = function _socialSecurityNumber(val) {
-                return REGEXPS.socialSecurityNumber.test(val);
+            module.exports.hexadecimal = function(val) {
+                return /^[0-9a-fA-F]+$/.test(val);
             };
-            module.exports.affirmative = function _affirmative(val) {
-                return REGEXPS.affirmative.test(val);
+            module.exports.hexColor = function(val) {
+                return /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(val);
             };
-            module.exports.hexadecimal = function _hexadecimal(val) {
-                return REGEXPS.hexadecimal.test(val);
+            module.exports.ipv4 = function(val) {
+                return /^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$/.test(val);
             };
-            module.exports.hexColor = function _hexColor(val) {
-                return REGEXPS.hexColor.test(val);
+            module.exports.ipv6 = function(val) {
+                return /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/.test(val);
             };
-            module.exports.ip = function _ip(val) {
-                return REGEXPS.ip.test(val);
-            };
-            module.exports.ipv4 = function _ipv4(val) {
-                return REGEXPS.ipv4.test(val);
-            };
-            module.exports.ipv6 = function _ipv6(val) {
-                return REGEXPS.ipv6.test(val);
+            module.exports.ip = function(val) {
+                return module.exports.ipv4(val) || module.exports.ipv6(val);
             };
         }, {} ],
         8: [ function(require, module, exports) {
