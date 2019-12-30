@@ -1,4 +1,4 @@
-# fi-is [![Build Status](https://travis-ci.org/FinalDevStudio/fi-is.svg?branch=master)](https://travis-ci.org/FinalDevStudio/fi-is)
+# fi-is [![Build Status](https://travis-ci.org/dotstudio-io/fi-is.svg?branch=master)](https://travis-ci.org/dotstudio-io/fi-is)
 
 A small general purpose check library with arithmetic, array, environments, object, presence, regexp, string, time and type check functions. Available for Node.js and the browser.
 
@@ -6,7 +6,6 @@ A small general purpose check library with arithmetic, array, environments, obje
 - AMD, Node & browser ready
 
 Originally meant as a drop-in replacement for and forked from [is.js](https://github.com/arasatasaygin/is.js).
-
 
 ### Usage
 #### Node.js
