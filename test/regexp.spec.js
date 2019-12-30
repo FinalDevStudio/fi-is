@@ -1,3 +1,27 @@
+/**
+ * Generates a random string.
+ *
+ * @returns {String} The random string.
+ */
+function randomString () {
+  return [...new Array(2)].map(() => Math.random().toString(36).substring(2, 15)).join(' ');
+}
+
+/**
+ * Encodes a values as base64 using any available method.
+ *
+ * @param {Mixed} val The value to encode.
+ *
+ * @returns {String} The encoded value.
+ */
+function b64 (val) {
+  if (typeof Buffer === 'function') {
+    return Buffer.from(val).toString('base64');
+  }
+
+  return btoa(val);
+}
+
 describe('regexp checks', function () {
   describe('is.domain', function () {
     it('should return true if given value is domain', function () {
@@ -227,6 +251,7 @@ describe('regexp checks', function () {
     });
   });
 
+  // Time String
   describe('is.timeString', function () {
     it('should return true if given value is time string', function () {
       expect(is.timeString('13:45:30')).to.be.true;
@@ -271,6 +296,7 @@ describe('regexp checks', function () {
     });
   });
 
+  // Date String
   describe('is.dateString', function () {
     it('should return true if given value is date string', function () {
       expect(is.dateString('11/11/2011')).to.be.true;
@@ -315,6 +341,79 @@ describe('regexp checks', function () {
     });
   });
 
+  // Base64 String
+  describe('is.base64', function () {
+    it('should return true if given value is a base64 string', function () {
+      const base64 = b64(randomString());
+      expect(is.base64(base64)).to.be.true;
+    });
+
+    it('should return false if given value is not a base64 string', function () {
+      expect(is.base64('nope...')).to.be.false;
+      expect(is.base64(false)).to.be.false;
+      expect(is.base64(123)).to.be.false;
+      expect(is.base64('1')).to.be.false;
+    });
+  });
+
+  describe('is.not.base64', function () {
+    it('should return false if given value is a base64 string', function () {
+      const base64 = b64('a nice string');
+      expect(is.not.base64(base64)).to.be.false;
+    });
+
+    it('should return true if given value is not a base64 string', function () {
+      expect(is.not.base64('nope...')).to.be.true;
+      expect(is.not.base64(false)).to.be.true;
+      expect(is.not.base64(123)).to.be.true;
+      expect(is.not.base64('1')).to.be.true;
+    });
+  });
+
+  describe('is.all.base64', function () {
+    it('should return true if all given values are base64 strings', function () {
+      const strings = [...new Array(100)].map(() => {
+        return b64(randomString());
+      });
+
+      expect(is.all.base64(...strings)).to.be.true;
+      expect(is.all.base64(strings)).to.be.true;
+    });
+
+    it('should return false if any given value is not a base64 string', function () {
+      const strings = [...new Array(100)].map(() => randomString());
+
+      expect(is.any.base64(...strings)).to.be.false;
+      expect(is.any.base64(strings)).to.be.false;
+    });
+  });
+
+  describe('is.any.base64', function () {
+    it('should return true if any given value is a base64 string', function () {
+      const strings = [...new Array(100)].map(() => {
+        if (Math.random() >= 0.5) {
+          return b64(randomString());
+        }
+
+        return randomString();
+      });
+
+      // Ensure there's at least one base64 value
+      strings.push(b64(randomString()));
+
+      expect(is.any.base64(...strings)).to.be.true;
+      expect(is.any.base64(strings)).to.be.true;
+    });
+
+    it('should return false if all given values are not a base64 string', function () {
+      const strings = new Array(100).map(() => randomString());
+
+      expect(is.all.base64(...strings)).to.be.false;
+      expect(is.all.base64(strings)).to.be.false;
+    });
+  });
+
+  // USE Zip Code
   describe('is.usZipCode', function () {
     it('should return true if given value is US zip code', function () {
       expect(is.usZipCode('02201-1020')).to.be.true;
@@ -908,26 +1007,6 @@ describe('regexp checks', function () {
     it('should return false if all given values are not valid IPv6 address', function () {
       expect(is.any.ipv6('1.2.3.', '78FF:::::::L')).to.be.false;
       expect(is.any.ipv6(['1.2.3.', '78FF:::::::L'])).to.be.false;
-    });
-  });
-
-  describe('is.setRegexp', function () {
-    it('should allow to change a specific regexp definition', function () {
-      expect(is.email('test@example.com')).to.be.true;
-      is.setRegexp(/notemail/, 'email');
-      expect(is.email('test@example.com')).to.be.false;
-    });
-  });
-
-  describe('is.getRegexps', function () {
-    it('should return all the registered regular expressions', function () {
-      const regexps = is.getRegexps();
-
-      expect(regexps).to.be.an('object');
-
-      for (const key of Object.keys(regexps)) {
-        expect(regexps[key]).to.be.a('regexp');
-      }
     });
   });
 });
