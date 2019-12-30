@@ -173,7 +173,7 @@ describe('time checks', function () {
     });
 
     it('should return false if given date is not past', function () {
-      const date = new Date();
+      const date = new Date(Date.now() + 1000 * 60 * 60);
       expect(is.past(date)).to.be.false;
     });
   });
