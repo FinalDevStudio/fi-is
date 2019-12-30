@@ -1720,65 +1720,6 @@ is.space(1); // false
 ### lib/regexp.js
 
 
-#### REGEXPS()  *private method*
-
-REGEXPS definition.
-
-Steven Levithan, Jan Goyvaerts: Regular Expressions Cookbook.
-Scott Gonzalez: Email address validation.
-
-
-
-
-
-
-##### Returns
-
-
-- `Void`
-
-
-
-#### getRegexps() 
-
-Returns all the registered regular expressions.
-
-
-
-
-
-
-##### Returns
-
-
-- `Object`  The regular expressions object.
-
-
-
-#### setRegexp(reg, key) 
-
-Sets a custom regexp value for any existant regexp name.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| reg | `RegExp`  | The regexp to use. | &nbsp; |
-| key | `String`  | The regexp name to replace. | &nbsp; |
-
-
-
-
-##### Returns
-
-
-- `Void`
-
-
-
 #### domain(val) 
 
 Checks for a valid domain name.
@@ -1910,7 +1851,7 @@ is.creditCard(true); // false
 
 
 
-#### alphanumeric(val) 
+#### alphaNumeric(val) 
 
 Checks for an alphanumeric string.
 
@@ -1978,6 +1919,10 @@ is.timeString(true); // false
 
 Checks for a valid date string.
 
+Matches m/d/yy, m-d-yy, mm/dd/yyyy and mm/dd/yyyy, allowing any combination
+of one or two digits for the day and month, and two or four digits for the
+year.
+
 
 
 
@@ -2003,6 +1948,38 @@ is.dateString(true); // false
 
 
 - `Boolean`  Whether the value is a date string.
+
+
+
+#### base64(val) 
+
+Checks for a valid base64 string.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| val | `Mixed`  | The value to check. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.base64String('ZmktaXM='); // true
+is.base64String('1'); // false
+is.base64String(true); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the value is a base64 string.
 
 
 
@@ -2345,40 +2322,6 @@ is.hexColor(true); // false
 
 
 
-#### ip(val) 
-
-Checks for a valid IPv4 or IPv6 address.
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| val | `Mixed`  | The value to check. | &nbsp; |
-
-
-
-
-##### Examples
-
-```javascript
-is.ip('2001:db8::ff00:42:8329'); // true
-is.ip('127.0.0.1'); // true
-is.ip('1.0.287.99'); // false
-is.ip('2001::::42:8329'); // false
-is.ip(true); // false
-```
-
-
-##### Returns
-
-
-- `Boolean`  Whether the value is an IPv4 or IPv6 address.
-
-
-
 #### ipv4(val) 
 
 Checks for a valid IPv4 address.
@@ -2442,6 +2385,40 @@ is.ipv6(true); // false
 
 
 - `Boolean`  Whether the value is an IPv6 address.
+
+
+
+#### ip(val) 
+
+Checks for a valid IPv4 or IPv6 address.
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| val | `Mixed`  | The value to check. | &nbsp; |
+
+
+
+
+##### Examples
+
+```javascript
+is.ip('2001:db8::ff00:42:8329'); // true
+is.ip('127.0.0.1'); // true
+is.ip('1.0.287.99'); // false
+is.ip('2001::::42:8329'); // false
+is.ip(true); // false
+```
+
+
+##### Returns
+
+
+- `Boolean`  Whether the value is an IPv4 or IPv6 address.
 
 
 
