@@ -1,3 +1,7 @@
+---
+### No longer maintained. Please see [@fiquu/is](https://github.com/fiquu/is).
+---
+
 # fi-is [![Build Status](https://travis-ci.org/dotstudio-io/fi-is.svg?branch=master)](https://travis-ci.org/dotstudio-io/fi-is)
 
 A small general purpose check library with arithmetic, array, environments, object, presence, regexp, string, time and type check functions. Available for Node.js and the browser.
